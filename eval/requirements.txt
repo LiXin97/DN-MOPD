@@ -1,0 +1,27 @@
+# Evaluation requirements (Python 3.10-3.12, Linux). The pins are the versions behind the paper's numbers.
+#
+# Generation (one GPU per process). vLLM 0.18.0 brings its own torch (the paper: torch 2.10.0).
+vllm==0.18.0
+transformers==4.57.6
+
+# Grading and statistics (CPU).
+math-verify==0.9.0
+latex2sympy2_extended==1.11.0
+sympy==1.14.0
+antlr4-python3-runtime==4.9.3      # the runtime of the paper's math grading environment
+numpy
+pyarrow                            # AIME 2025 source is a parquet file (eval/data/prepare.py)
+datasets                           # imported by the official lcb_runner
+tqdm
+# Official IFEval / IFBench checkers (fetched by python -m eval.external.fetch) and their dependencies:
+nltk==3.10.2
+langdetect==1.0.9
+immutabledict==4.3.1
+absl-py==2.5.0
+emoji==2.15.0
+syllapy==0.7.2
+setuptools<81                      # syllapy imports pkg_resources
+regex
+
+# Tests.
+pytest

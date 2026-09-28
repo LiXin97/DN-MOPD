@@ -1,0 +1,38 @@
+{
+  "_comment": "Models proposed for release on the Hugging Face Hub (PROPOSAL, see hf/README.md). Paper-row names refer to hf/paper_results.json (a verbatim copy of the paper's tables). Nothing here is uploaded automatically.",
+  "hf_namespace": "XINLI1997",
+  "code_url": "https://github.com/LiXin97/DN-MOPD",
+  "project_url": "https://lixin.ai/DN-MOPD",
+  "base_models": {
+    "9B": "Qwen/Qwen3.5-9B",
+    "4B": "Qwen/Qwen3.5-4B",
+    "2B": "Qwen/Qwen3.5-2B"
+  },
+  "export_size_gb": {"9B": 18.84, "4B": 9.10, "2B": 4.45},
+  "models": [
+    {"name": "DN-MOPD-Qwen3.5-9B", "size": "9B", "kind": "student", "method": "DN-MOPD", "updates": 80, "seed": 42, "paper_row": "DN-MOPD (Ours)", "budget_row": "DN-MOPD", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-4B", "size": "4B", "kind": "student", "method": "DN-MOPD", "updates": 80, "seed": 42, "paper_row": "DN-MOPD (Ours)", "budget_row": "DN-MOPD", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-2B", "size": "2B", "kind": "student", "method": "DN-MOPD", "updates": 80, "seed": 42, "paper_row": "DN-MOPD (Ours)", "budget_row": "DN-MOPD", "priority": "core"},
+
+    {"name": "DN-MOPD-Qwen3.5-9B-baseline-label", "size": "9B", "kind": "student", "method": "Label", "updates": 80, "seed": 42, "paper_row": "Label-routed MOPD", "budget_row": "Label-routed", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-4B-baseline-label", "size": "4B", "kind": "student", "method": "Label", "updates": 80, "seed": 42, "paper_row": "Label-routed MOPD", "budget_row": "Label-routed", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-2B-baseline-label", "size": "2B", "kind": "student", "method": "Label", "updates": 80, "seed": 42, "paper_row": "Label-routed MOPD", "budget_row": "Label-routed", "priority": "core"},
+
+    {"name": "DN-MOPD-Qwen3.5-9B-teacher-math", "size": "9B", "kind": "teacher", "domain": "math", "updates": 250, "seed": 42, "paper_row": "Math expert", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-9B-teacher-code", "size": "9B", "kind": "teacher", "domain": "code", "updates": 200, "seed": 42, "paper_row": "Code expert", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-9B-teacher-if", "size": "9B", "kind": "teacher", "domain": "if", "updates": 400, "seed": 42, "paper_row": "IF expert", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-4B-teacher-math", "size": "4B", "kind": "teacher", "domain": "math", "updates": 320, "seed": 42, "paper_row": "Math expert", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-4B-teacher-code", "size": "4B", "kind": "teacher", "domain": "code", "updates": 300, "seed": 42, "paper_row": "Code expert", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-4B-teacher-if", "size": "4B", "kind": "teacher", "domain": "if", "updates": 400, "seed": 42, "paper_row": "IF expert", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-2B-teacher-math", "size": "2B", "kind": "teacher", "domain": "math", "updates": 400, "seed": 42, "paper_row": "Math expert", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-2B-teacher-code", "size": "2B", "kind": "teacher", "domain": "code", "updates": 400, "seed": 42, "paper_row": "Code expert", "priority": "core"},
+    {"name": "DN-MOPD-Qwen3.5-2B-teacher-if", "size": "2B", "kind": "teacher", "domain": "if", "updates": 400, "seed": 42, "paper_row": "IF expert", "priority": "core"},
+
+    {"name": "DN-MOPD-Qwen3.5-9B-160updates", "size": "9B", "kind": "student", "method": "DN-MOPD", "updates": 160, "seed": 42, "budget_row": "DN-MOPD", "priority": "optional"},
+    {"name": "DN-MOPD-Qwen3.5-4B-160updates", "size": "4B", "kind": "student", "method": "DN-MOPD", "updates": 160, "seed": 42, "budget_row": "DN-MOPD", "priority": "optional"},
+    {"name": "DN-MOPD-Qwen3.5-2B-160updates", "size": "2B", "kind": "student", "method": "DN-MOPD", "updates": 160, "seed": 42, "budget_row": "DN-MOPD", "priority": "optional"},
+    {"name": "DN-MOPD-Qwen3.5-9B-baseline-label-160updates", "size": "9B", "kind": "student", "method": "Label", "updates": 160, "seed": 42, "budget_row": "Label-routed", "priority": "optional"},
+    {"name": "DN-MOPD-Qwen3.5-4B-baseline-label-160updates", "size": "4B", "kind": "student", "method": "Label", "updates": 160, "seed": 42, "budget_row": "Label-routed", "priority": "optional"},
+    {"name": "DN-MOPD-Qwen3.5-2B-baseline-label-160updates", "size": "2B", "kind": "student", "method": "Label", "updates": 160, "seed": 42, "budget_row": "Label-routed", "priority": "optional"}
+  ]
+}

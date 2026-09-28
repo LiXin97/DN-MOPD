@@ -1,0 +1,52 @@
+# SPDX-License-Identifier: Apache-2.0
+# GRPO teachers: one specialist per domain, trained from the same base model as the student (paper App. A.1).
+# Values are the paper runs'; an "update" is one rollout step (checkpoint iteration), i.e. 128 prompts x 8 responses
+# = 1,024 responses, trained as 4 optimizer steps of 256 responses.
+recipe:
+  gpus: 8                          # actor (FSDP) + colocated SGLang rollout on all eight GPUs
+  sglang_mem_fraction_static: 0.60
+  rollout_batch_size: 128          # prompts per rollout
+  n_samples_per_prompt: 8          # GRPO group size
+  global_batch_size: 256           # responses per optimizer step -> 4 optimizer steps per rollout
+  micro_batch_size: 1
+  max_prompt_len: 2048
+  max_response_len: 8192
+  temperature: 1.0
+  rollout_seed: 42                 # data shuffle + SGLang sampling seed; --seed stays at the miles default 1234
+  advantage_estimator: grpo
+  kl_loss_coef: 0.0
+  entropy_coef: 0.0
+  optimizer: adam
+  lr: 1.0e-6
+  lr_decay_style: constant
+  lr_warmup_iters: 10
+  weight_decay: 0.1
+  adam_beta1: 0.9
+  adam_beta2: 0.98
+  clip_grad: 1.0
+  save_interval: 10
+  # dynamic sampling: drop prompt groups without reward variation, at most 8 generation batches per rollout
+  dynamic_sampling: true
+  over_sampling_batch_size: 128
+  dynamic_sampling_max_gen_batches: 8
+  # memory-only options (gradient checkpointing, chunked log-probs, loss recompute); they do not change the update
+  memory_args: [--gradient-checkpointing, --log-probs-chunk-size, "2048", --recompute-loss-function]
+  max_updates: 400
+
+# The checkpoint each paper row uses (runs were capped at 400 updates or a wall-clock budget; the last complete
+# checkpoint within the budget was used). train_teacher_grpo.sh trains to these counts by default; the learning rate is
+# constant after warm-up, so a run to N updates reproduces the first N updates of a longer run.
+updates_used:
+  9b: {math: 250, code: 200, ifeval: 400}
+  4b: {math: 320, code: 300, ifeval: 400}
+  2b: {math: 400, code: 400, ifeval: 400}
+
+# Short path test for recipes/qwen3.5/smoke_test.sh (not a paper setting).
+profiles:
+  smoke:
+    rollout_batch_size: 16
+    global_batch_size: 32
+    over_sampling_batch_size: 16
+    max_response_len: 1024
+    lr_warmup_iters: 1
+    save_interval: 2

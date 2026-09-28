@@ -1,0 +1,76 @@
+{
+  "description": "Released training prompt sets of DN-MOPD. Download them with data/download.py (from the pinned Hugging Face dataset revision below) or rebuild them from public sources with data/build/build_data.py; both check every file against the sha256 listed here.",
+  "hub": {
+    "repo_id": "XINLI1997/DN-MOPD-Data",
+    "repo_type": "dataset",
+    "revision": "b54e10ff5dd53f10b9c19793a0c0103625e87c53",
+    "url": "https://huggingface.co/datasets/XINLI1997/DN-MOPD-Data"
+  },
+  "row_schema": {
+    "prompt": "chat messages [{role, content}] (student, math, code) or a plain string (teacher IF; the trainer wraps it as one user message)",
+    "label": "math: reference answer; code: JSON string {inputs, outputs} of test cases; IF: JSON string list of constraints",
+    "domain": "math | code | ifeval",
+    "teacher": "teacher routing name (= domain)",
+    "metadata": "{domain, data_source, src_index}: domain selects the verifier; src_index is the row's position in its source pool"
+  },
+  "files": {
+    "student/train_3domain.jsonl": {
+      "sha256": "5317739721646bd5394775eaef0019e4fded5ac5b8d481e61a2ba8bd754ac08e",
+      "bytes": 45968876,
+      "rows": 2700,
+      "domains": {
+        "code": 900,
+        "ifeval": 900,
+        "math": 900
+      },
+      "data_sources": {
+        "DeepMath-103K": 900,
+        "apps": 156,
+        "codecontests": 370,
+        "codeforces": 92,
+        "synthetic-ifeval-v1": 900,
+        "taco": 282
+      },
+      "used_by": "every student run (Label, DN-MOPD, single-teacher OPD, uniform pool, dynamic router, annealed injection, SeqKD-SFT generation, controls)"
+    },
+    "teacher/math_train.jsonl": {
+      "sha256": "60ef3d6dee3b405a81ed51d8b646e403228bd6f49e3412a987f90783da4e331c",
+      "bytes": 3838298,
+      "rows": 8000,
+      "domains": {
+        "math": 8000
+      },
+      "data_sources": {
+        "DeepMath-103K": 8000
+      },
+      "used_by": "GRPO math teachers"
+    },
+    "teacher/code_train.jsonl": {
+      "sha256": "f52b5143f0ed1721e1bba3d997e432151794a09e03b60c045ecaa3c764d5c9e8",
+      "bytes": 917096848,
+      "rows": 8000,
+      "domains": {
+        "code": 8000
+      },
+      "data_sources": {
+        "apps": 1087,
+        "codecontests": 3069,
+        "codeforces": 853,
+        "taco": 2991
+      },
+      "used_by": "GRPO code teachers"
+    },
+    "teacher/if_train.jsonl": {
+      "sha256": "60b169a376ed9fffc445b1ffb8a7adfe81d7c9ffacc7b253324385b2367d96d8",
+      "bytes": 3722418,
+      "rows": 8000,
+      "domains": {
+        "ifeval": 8000
+      },
+      "data_sources": {
+        "synthetic-ifeval-v1": 8000
+      },
+      "used_by": "GRPO IF teachers"
+    }
+  }
+}

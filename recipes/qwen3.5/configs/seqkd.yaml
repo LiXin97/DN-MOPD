@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: Apache-2.0
+# SeqKD-SFT (paper App. A.2): each domain's teacher answers its own student prompts once (label routing), and the
+# student is fine-tuned on those answers. The teacher answers are generated at the 16,384-token evaluation length and
+# are not filtered for correctness.
+generation:
+  engine: vllm                     # one single-GPU vLLM process per domain
+  gpus: [0, 1, 2]                  # math, code, ifeval
+  temperature: 1.0
+  top_p: 1.0
+  n: 1
+  seed: 42                         # engine seed and request seed
+  max_tokens: 16384
+  max_model_len: 18432             # 2,048-token prompt bound + 16,384
+  max_num_seqs: 256
+  gpu_memory_utilization: 0.90
+  enforce_eager: true
+  chat_template_kwargs: {enable_thinking: false}   # rendered with the student's tokenizer, as in training
+
+sft:
+  gpus: 8                          # pure FSDP training (--debug-train-only), no inference engines
+  epochs: 4                        # updates = epochs * n_rows // global_batch_size = 4 * 2700 // 128 = 84
+  rollout_batch_size: 128
+  global_batch_size: 128
+  micro_batch_size: 1
+  max_prompt_len: 8192
+  max_response_len: 16384          # carries the 16,384-token teacher answers whole
+  rollout_seed: 42
+  loss_type: sft_loss              # per-token loss on the response tokens only
+  optimizer: adam
+  lr: 1.0e-5
+  lr_decay_style: cosine
+  min_lr: 1.0e-6
+  lr_warmup_iters: 5
+  weight_decay: 0.1
+  adam_beta1: 0.9
+  adam_beta2: 0.98
+  clip_grad: 1.0
+  save_interval: 42
+  # memory-only options (the 9B run needs them at 16k tokens); the paper used them at every size
+  memory_args: [--gradient-checkpointing, --log-probs-chunk-size, "4096"]
+
+profiles:
+  smoke:
+    epochs: 1
+    max_tokens: 512
+    max_model_len: 2560
+    rollout_batch_size: 16
+    global_batch_size: 16
+    max_response_len: 1024
+    lr_warmup_iters: 1
+    save_interval: 2

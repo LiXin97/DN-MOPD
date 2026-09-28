@@ -1,0 +1,89 @@
+{
+ "_comment": "Pinned official graders and data files fetched by eval/external/fetch.py into eval/third_party/ (or $DN_MOPD_THIRD_PARTY). Every file is checked against its sha256; the .py hashes are those of the grader sources used for the paper.",
+ "LiveCodeBench": {
+  "url": "https://github.com/LiveCodeBench/LiveCodeBench",
+  "commit": "28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24",
+  "license": "MIT",
+  "files": {
+   "lcb_runner/benchmarks/__init__.py": "0837c4a42b027fe479d12165affe91214b6b180c90245129d0ac0822c74dbfea",
+   "lcb_runner/benchmarks/code_execution.py": "b891e798b34b40c32fcfbaedf683c714937f5e10014864e5fd7f3b9c9f6b077f",
+   "lcb_runner/benchmarks/code_generation.py": "0bc93f5a650b55d6a1b54d3db852d80ae64891ece4ff085b2e6b469eb89f8846",
+   "lcb_runner/benchmarks/test_output_prediction.py": "2493f00ae1841d0997f5a35632c3d447a189c68641d636bdaa4e91d16bd30d05",
+   "lcb_runner/evaluation/__init__.py": "828043d1f71e4120ac51be23f90001fd850bf6ef186a420979d76828ec909057",
+   "lcb_runner/evaluation/compute_code_execution_metrics.py": "e63b6d29f12cc5206fd146b616312f305b8903b6459014d7bc6d51dfd6335980",
+   "lcb_runner/evaluation/compute_code_generation_metrics.py": "073f388cc78bf0eb0ad35eaeb8bb509c0a3664963e5305d2be13d6b6eb6f3d21",
+   "lcb_runner/evaluation/compute_scores.py": "b6272b78588f0cafc8abe3529a8aa7a6e9eed282eef5ea20da4e4187a4918531",
+   "lcb_runner/evaluation/compute_test_output_prediction_metrics.py": "ec415d3207d8fbc04e8280ef091437d3a22e895b362e5557929f003e543a4653",
+   "lcb_runner/evaluation/old_results_check.py": "ce0e22ab130888d8d286e499a7b4dbf3df453afd8b8df85183bd3a4ef455abb0",
+   "lcb_runner/evaluation/pass_k_utils.py": "6af3ee55d40f96fa06fa511bd5e43d94b19604750e82454b4b3c1f45c5199010",
+   "lcb_runner/evaluation/testing_util.py": "b7cb6a8a69807bb868150a61742e25d7bb5328bbe01d514471b6ec43c9fa9ed2",
+   "lcb_runner/evaluation/utils_execute.py": "fb86e4c0834ccedd3f057006410909aeb79d9970db54838a9bed79d7039624fa",
+   "lcb_runner/lm_styles.py": "57d645b09852d2030d389cf9a14ea818396b7b0510b3e2f3f22e3d3e6792b783",
+   "lcb_runner/prompts/__init__.py": "a43744d5d0cf8da78b7a3fab35e33e0967f03125bd607be2f24a09e3e5c1ff00",
+   "lcb_runner/prompts/code_execution.py": "5e4a1095ce393c3e298f25bcd2f2b6caa6cd5e2bf3e9b6dda91d689669ce830e",
+   "lcb_runner/prompts/code_generation.py": "7f360dc01016c277e10c70959f46efe27b37c1d2c4ef72b077f93f348b3fd826",
+   "lcb_runner/prompts/few_shot_examples/generation/func.json": "75b50ffef185c71aa702499b015da50b03d7732195332186c759dfa0304bf1aa",
+   "lcb_runner/prompts/few_shot_examples/generation/stdin.json": "28a3a50b79869aa9cc5cc2e3c611c8b39e1ab2d192f6b2b9ce0f6a4b014ee726",
+   "lcb_runner/prompts/self_repair.py": "4a677c7f54469a3ea920c95c6fe00aeb639693a25d8d79dc5864a9b043424cb0",
+   "lcb_runner/prompts/test_output_prediction.py": "3b0d2274a50f1f7bbd186c2945b0d4a8571bcf48469462b166fcfdce1273888e",
+   "lcb_runner/runner/base_runner.py": "5599a53f6064b6f5119492ef008da0aed7e3086fa01ecc713a99d01aae345f30",
+   "lcb_runner/runner/claude3_runner.py": "309b335298ee0e17eb1c7b9d1450739d0f40b1ab9d6da08943cad28dfaec9a18",
+   "lcb_runner/runner/claude_runner.py": "ef5c275b3f38ea052d78c07a137774f7250b0dfc5b587ab5f6fd031863f47241",
+   "lcb_runner/runner/cohere_runner.py": "6a1f32031c20eba62b8d2219ae00846600b43b790c7899fbfb72553998d7b02a",
+   "lcb_runner/runner/custom_evaluator.py": "f486a539f8ee67712022e8f1cc84623e5f674af09eee7ecfcf68b15ae5f7b829",
+   "lcb_runner/runner/deepseek_runner.py": "676c7a99fea094f9efb557bb50a8b12e57c2c69792078b4ce77ae1c47feb7090",
+   "lcb_runner/runner/fireworks_runner.py": "a1f1a313a022b2a501a1a75d7c1cd1314fe459b5a8bed0455126680d9bf0598f",
+   "lcb_runner/runner/gemini_runner.py": "10ff332b59029d4007dde7bd1ff1b6e90419da32abb98a4e99f4871ff3496ddb",
+   "lcb_runner/runner/grok_runner.py": "9b5a440f1c67f70c2830e7285ca43b8aa30e1cce23b0b2bb5ac97585adf5052e",
+   "lcb_runner/runner/main.py": "2d523fcea3a9f9a665a5602934859d67a0912de69571ab1b2d8097b44e7bc690",
+   "lcb_runner/runner/mistral_runner.py": "c641c785c257d06df8c5301f6f81324d9739e1299e10763e08f9e9e9e6f0ccff",
+   "lcb_runner/runner/oai_runner.py": "c7dc0b0dbd3ebf3c5bd20d0f79bc94d22b7335067a815bb00b40f20dcbafba34",
+   "lcb_runner/runner/parser.py": "e9641729a6030164e712b9de465dea03dae95c3fdf036aac87abbbfab9fd7f33",
+   "lcb_runner/runner/runner_utils.py": "c1ef006ebbb69c17f86bdacdab242c4b2659b7d2a1b5263b798272371c6c2fa6",
+   "lcb_runner/runner/scenario_router.py": "b3f05927fa58d83847b2ffaac34b9f722af5b47e8b930ba15830507dc76a6649",
+   "lcb_runner/runner/together_runner.py": "04026d4030a3d2d8461ada30676e4e89779d182b76f520d28aa432bb3fb0f3c7",
+   "lcb_runner/runner/vllm_runner.py": "6bd2147e707023bd516176f4b80862d99b3d76d69ea0154011e4928f0b191d49",
+   "lcb_runner/utils/extraction_utils.py": "1267d1724c6d4ea6d237b907dd6b53dfc6f1787a04b1616b85c3bc8377446879",
+   "lcb_runner/utils/multiprocess.py": "13ad73a5b547acb41fc47192d34e836fc83e45abec6dde66b7744142638026b8",
+   "lcb_runner/utils/path_utils.py": "48206191fef7c52e8e3d6343863642a89d265488b2e3475efce7e597f5ab08ca",
+   "lcb_runner/utils/scenarios.py": "3ff5d147fa6f56fde85e881a5ca359f502f983e8023f9a42cf87ff5043e263fc",
+   "LICENSE": "104099948b78ebc36f2e951b3a7973b956adfa7d39aaec0d1512f97a2686d15d"
+  }
+ },
+ "google-research": {
+  "url": "https://github.com/google-research/google-research",
+  "commit": "b24f2136e8ef405b900b5619760126304f190941",
+  "license": "Apache-2.0",
+  "files": {
+   "instruction_following_eval/evaluation_lib.py": "35decc06000718487f44d7deafa6d3f48a8ec0886281edf40162c0265b7d248c",
+   "instruction_following_eval/instructions.py": "60e086f5342a03ce8e18b64bbcccf86308f523c08aa826707a562150a52f3edf",
+   "instruction_following_eval/instructions_registry.py": "ec92d72c264f6d906978613085db262356174300370a3fffe6fefd5969ce9cfc",
+   "instruction_following_eval/instructions_util.py": "a73797261eee5bf447e279d82a2b700b1bdd3cb1193412dbab1270a85832bc6b",
+   "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  }
+ },
+ "IFBench": {
+  "url": "https://github.com/allenai/IFBench",
+  "commit": "1091c4c3de6c1f6ed12c012ed68f11ea450b0117",
+  "license": "Apache-2.0",
+  "files": {
+   "evaluation_lib.py": "33dba01a70d3ebca48341e9369f6ca9fc94d6e7da651a140fccece7ff3c34aaf",
+   "instructions.py": "bf01c592df2e34430a602311addda4b06dbd1e69b3c49aea70f8edfe36bc581d",
+   "instructions_registry.py": "4df83d050d29d8ccf8d476de1319d47d7b8379143e85d701c9c99d4816c19cd9",
+   "instructions_util.py": "b7d60e07bbb2c56e42ee1a4a1b2f7281ced6c7af3af2719d2dca322afd3c20b8",
+   "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  }
+ },
+ "nltk_data": {
+  "url": "https://github.com/nltk/nltk_data",
+  "commit": "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a",
+  "license": "per package (see the nltk_data repository)",
+  "files": {
+   "packages/tokenizers/punkt.zip": "51c3078994aeaf650bfc8e028be4fb42b4a0d177d41c012b6a983979653660ec",
+   "packages/tokenizers/punkt_tab.zip": "e57f64187974277726a3417ca6f181ec5403676c717672eef6a748a7b20e0106",
+   "packages/corpora/stopwords.zip": "48c0e52d8b52546e827f53761fb30300c0ab94f70660d28bd65ba0a86270946b",
+   "packages/taggers/averaged_perceptron_tagger.zip": "e1f13cf2532daadfd6f3bc481a49859f0b8ea6432ccdcd83e6a49a5f19008de9",
+   "packages/taggers/averaged_perceptron_tagger_eng.zip": "6025f530624335c67d6547d44757b357b4e79bae030a0383e9887a92c1718f0b"
+  }
+ }
+}

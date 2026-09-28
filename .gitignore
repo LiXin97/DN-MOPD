@@ -1,0 +1,83 @@
+# ---- Run outputs (paths are parameters; defaults live under the repository) ----
+outputs/
+checkpoints/
+/ckpt/
+/results/
+/runs/
+logs/
+*.log
+nohup.out
+
+# ---- Model weights and large artefacts (never commit) ----
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.gguf
+*.distcp
+*.parquet
+*.arrow
+
+# ---- Third-party checkouts fetched by the eval / install scripts ----
+third_party/
+
+# ---- Hugging Face upload staging ----
+hf/staging/
+.cache/
+
+# ---- Experiment trackers and profilers ----
+wandb/
+tensorboard/
+events.out.tfevents.*
+memray-*.bin
+*.nsys-rep
+*.qdrep
+
+# ---- Ray / SGLang / vLLM temporary files ----
+/tmp/
+ray_results/
+# core dumps only (a plain core.* would also hide source files such as mopd_hook/core.py)
+/core
+core.[0-9]*
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# ---- Environments ----
+.venv/
+.venv-*/
+venv/
+env.local
+.env
+.envrc
+.python-version
+
+# ---- Secrets ----
+*.pem
+*.key
+.netrc
+.huggingface/
+hf_token*
+
+# ---- Editors and OS ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db

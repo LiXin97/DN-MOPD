@@ -1,0 +1,40 @@
+{
+ "_comment": "Pinned public sources of the paper's evaluation questions, read by eval/data/prepare.py. Each downloaded file must match its sha256; each rebuilt question must match the released catalog (reproduce/data/catalog) and each rebuilt catalog the evaluation-time catalog hash (eval/protocol.py).",
+ "aime25": {
+  "host": "huggingface", "repo": "yentinglin/aime_2025", "revision": "6f71d77b0b89b9dabe07ab466c51df33f514df7f",
+  "file": "data/train-00000-of-00001-243207c6c994e1bd.parquet",
+  "sha256": "b74b507c1a4de7c9fafd2c83dfe2ef7b80579bcf0e0a754a1765db0f21c205fc"
+ },
+ "aime26": {
+  "host": "huggingface", "repo": "math-ai/aime26", "revision": "79037aebdb6580008fb960d17cb21fd3099083e3",
+  "file": "aime2026.jsonl",
+  "sha256": "52822957957a3f577d1e9706c36a66a8108a3f99b6aff424cfb72dff0094a9ee"
+ },
+ "lcb_v5": {
+  "host": "huggingface", "repo": "livecodebench/code_generation_lite", "revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+  "file": "test5.jsonl", "rows": 167,
+  "sha256": "7f77571c2a6df0c2a72a3277650309f67e01e0008e18117e624633df53f81214"
+ },
+ "lcb_v6": {
+  "host": "huggingface", "repo": "livecodebench/code_generation_lite", "revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+  "file": "test6.jsonl", "rows": 175,
+  "sha256": "bb4c364f71921c4495a6ad15abe1a927350b720009f4933e2e71f8af0f6fd1f5"
+ },
+ "ifeval": {
+  "host": "github", "repo": "google-research/google-research", "revision": "b24f2136e8ef405b900b5619760126304f190941",
+  "file": "instruction_following_eval/data/input_data.jsonl",
+  "sha256": "67ffeee0fcb87c317c5b08a2de85557b4a7e96ada6178aa645b4954fe4b53d49",
+  "provenance": "google/IFEval (canonical copy: google-research monorepo @ b24f2136, instruction_following_eval/data/input_data.jsonl)"
+ },
+ "ifbench": {
+  "host": "github", "repo": "allenai/IFBench", "revision": "1091c4c3de6c1f6ed12c012ed68f11ea450b0117",
+  "file": "data/IFBench_test.jsonl",
+  "sha256": "a2bf7b8e7ed11d39c65b4ec781da8b99663ed0121f97033d70fcecb61f8a9d85",
+  "provenance": "allenai/IFBench_test (canonical copy: github.com/allenai/IFBench @ 1091c4c3, data/IFBench_test.jsonl)"
+ },
+ "math500": {
+  "host": "huggingface", "repo": "HuggingFaceH4/MATH-500", "revision": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+  "file": "test.jsonl",
+  "sha256": "35dc41080a3680858b27fa7e0533d2d547825316fc5dafe5d316f4ccc5a06132"
+ }
+}

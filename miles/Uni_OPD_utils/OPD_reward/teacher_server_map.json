@@ -1,0 +1,8 @@
+{
+  "default": "Qwen3-4B-Math-Teacher",
+  "math": "Qwen3-4B-Math-Teacher",
+  "code": "Qwen3-4B-Code-Teacher",
+  "math-a3b": "Qwen3-30B-A3B-Instruct-2507",
+  "code-a3b": "Qwen3-30B-A3B-Instruct-2507",
+  "a3b": "Qwen3-30B-A3B-Instruct-2507"
+}

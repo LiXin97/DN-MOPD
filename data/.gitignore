@@ -1,0 +1,14 @@
+# The four prompt sets are not stored in git. Fetch them from the pinned Hugging Face dataset revision with
+#   python data/download.py
+# or rebuild them byte for byte from public sources with data/build/build_data.py (see README.md).
+/student/train_3domain.jsonl
+/teacher/math_train.jsonl
+/teacher/code_train.jsonl
+/teacher/if_train.jsonl
+# Staging area of download.py (removed after a successful download).
+/.download/
+# The build scripts are tracked (the root .gitignore ignores build/ directories); their download cache is not.
+!build/
+build/cache/
+*.tmp
+*.part

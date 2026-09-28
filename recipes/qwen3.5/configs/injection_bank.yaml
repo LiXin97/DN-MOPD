@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: Apache-2.0
+# Teacher-trajectory bank of annealed injection (one bank per size). For every student prompt, the prompt's own domain
+# teacher samples n answers; the bank keeps sample 0 when it finished (not truncated), is verified correct by the
+# rule-based verifier (strict: True or a score >= 1.0; no verdict is never kept) and its prompt token ids equal the
+# rollout's. The kept trajectory is re-scored by the same teacher (per-token log-probs, vLLM prompt_logprobs), and the
+# trailing end tokens are normalised to one <|im_end|>. Keyed by the rendered prompt (mopd_hook.hook.prompt_key).
+generation:
+  n: 4                             # answers per prompt (the bank keeps sample 0)
+  temperature: 1.0
+  top_p: 1.0
+  max_tokens: 8192                 # = the student response cap, so an injected trajectory never exceeds a rollout
+  max_model_len: 10256             # 2,048 + 8,192 + 16
+  max_num_seqs: 256
+  gpu_memory_utilization: 0.85
+  enforce_eager: true
+  enable_prefix_caching: false
+  seed: 42                         # engine and request seed = 42 + shard
+  shards: 8                        # prompts of a domain are split round-robin into this many shards (one GPU each)
+  chunk: 128                       # prompts per generate() call
+  chat_template_kwargs: {enable_thinking: false}
+scoring:
+  gpu_memory_utilization: 0.60
+  seed: 0
+  batch: 64
+verification:
+  batch: 64                        # concurrent verifications (code answers go to the code judge)
+
+profiles:
+  smoke:
+    n: 1
+    max_tokens: 512
+    max_model_len: 2576
+    shards: 1

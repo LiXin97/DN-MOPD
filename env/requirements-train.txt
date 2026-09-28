@@ -1,0 +1,76 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Training environment for DN-MOPD (teachers, students, SeqKD-SFT, merges, HF export).
+# Python 3.12, Linux x86_64, NVIDIA GPU with a CUDA 13.0-capable driver.
+#
+# These are the top-level packages of the environment that produced the paper's checkpoints, pinned to the exact
+# versions that were installed. Every pin resolves from public PyPI, except that the three PyTorch wheels should come
+# from the PyTorch CUDA 13.0 index (see env/install.md, step 2):
+#
+#   pip install --index-url https://download.pytorch.org/whl/cu130 \
+#       torch==2.11.0 torchvision==0.26.0 torchaudio==2.11.0
+#   pip install -r env/requirements-train.txt -c env/constraints-train.txt
+#
+# The pins below match the already installed "+cu130" wheels (a local version label is ignored when matching).
+# env/constraints-train.txt is the full frozen package list of the paper's environment and keeps every transitive
+# dependency at the version used in the paper.
+#
+# NOT installed from this file:
+#   * miles (this repository's fork, ./miles)       -> pip install -e ./miles --no-deps
+#   * dn_mopd (this repository's package, ./)       -> pip install -e .
+#   Do NOT "pip install miles": the unrelated PyPI project of that name is not the trainer.
+
+# ---- PyTorch (CUDA 13.0 build; install first from the PyTorch index) ----
+torch==2.11.0
+torchvision==0.26.0
+torchaudio==2.11.0
+triton==3.6.0
+
+# ---- Rollout engine and teacher servers ----
+# The paper installed SGLang v0.5.15.post1 in editable mode from git (tag v0.5.15.post1, commit 0b3bb0cbe3, no local
+# patches). The PyPI wheel below is built from the same release and declares the same core dependencies.
+sglang==0.5.15.post1
+sglang-kernel==0.4.4
+sglang-router==0.3.2
+flashinfer-python==0.6.12
+flashinfer-cubin==0.6.12
+# FlashAttention-4 is a pre-release on PyPI; the exact pin lets pip select it without --pre.
+flash-attn-4==4.0.0b15
+flash-linear-attention==0.5.2
+fla-core==0.5.2
+torch_memory_saver==0.0.9.post1
+xgrammar==0.2.1
+cuda-python==13.1.0
+
+# ---- Trainer (miles, FSDP backend; no Megatron-LM, TransformerEngine or apex) ----
+transformers==5.12.1
+tokenizers==0.22.2
+huggingface_hub==1.26.0
+safetensors==0.8.0
+accelerate==1.14.0
+ray[default]==2.56.1
+numpy==2.3.5
+ring-flash-attn==0.1.8
+datasets==5.0.1
+omegaconf==2.3.1
+pybase64==1.4.3
+blobfile==3.0.0
+httpx[http2]==0.28.1
+pillow==11.3.0
+PyYAML==6.0.1
+qwen-vl-utils==0.0.14
+pylatexenc==2.11
+mcp[cli]==2.0.0
+memray==1.19.3
+tensorboard==2.20.0
+wandb==0.26.1
+
+# ---- Rewards and graders used during training ----
+math-verify==0.9.0
+latex2sympy2_extended==1.11.0
+sympy==1.14.0
+fastapi==0.141.1
+uvicorn==0.46.0
+
+# ---- Tests ----
+pytest==8.4.2

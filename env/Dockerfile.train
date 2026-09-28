@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# DN-MOPD training environment: Python 3.12, torch 2.11.0 (CUDA 13.0), SGLang 0.5.15.post1, transformers 5.12.1.
+# A minimal starting point. It has not been built as part of the release checks.
+#
+#   docker build -f env/Dockerfile.train -t dn-mopd:train env/
+#   docker run --gpus all --ipc=host --shm-size=64g -it -v "$PWD":/workspace/DN-MOPD dn-mopd:train
+#
+# The repository is mounted at run time. The entrypoint installs its miles fork and the dn_mopd package in editable
+# mode (no dependencies are downloaded at that point), so edits on the host take effect without a rebuild.
+
+FROM nvidia/cuda:13.0.2-devel-ubuntu24.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONUNBUFFERED=1 \
+    VIRTUAL_ENV=/opt/venv \
+    PATH=/opt/venv/bin:$PATH
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3.12 python3.12-venv python3.12-dev build-essential git curl ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && python3.12 -m venv /opt/venv \
+    && pip install --upgrade pip
+
+COPY requirements-train.txt constraints-train.txt /opt/dn-mopd-env/
+
+# PyTorch from the CUDA 13.0 index first, then everything else from public PyPI (see env/install.md).
+RUN pip install --index-url https://download.pytorch.org/whl/cu130 \
+        torch==2.11.0 torchvision==0.26.0 torchaudio==2.11.0 \
+    && pip install --index-url https://pypi.org/simple \
+        -r /opt/dn-mopd-env/requirements-train.txt -c /opt/dn-mopd-env/constraints-train.txt
+
+# The CUDA 13 libraries bundled with the PyTorch wheels live in site-packages/nvidia/cu13/lib, which the loader does
+# not search by default (teacher SGLang servers need libnvrtc.so.13 from there).
+ENV LD_LIBRARY_PATH=/opt/venv/lib/python3.12/site-packages/nvidia/cu13/lib:${LD_LIBRARY_PATH}
+
+WORKDIR /workspace/DN-MOPD
+RUN printf '%s\n' '#!/bin/bash' 'set -e' \
+      'if [ -f ./pyproject.toml ] && [ -d ./miles ]; then' \
+      '  pip install --quiet --no-deps -e ./miles -e . ' \
+      'fi' \
+      'exec "$@"' > /usr/local/bin/dn-mopd-entry \
+    && chmod +x /usr/local/bin/dn-mopd-entry
+ENTRYPOINT ["/usr/local/bin/dn-mopd-entry"]
+CMD ["bash"]

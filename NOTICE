@@ -1,0 +1,103 @@
+DN-MOPD
+Copyright 2026 The DN-MOPD Authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+The released evaluation records in reproduce/ are licensed under CC BY 4.0. Third-party benchmark and dataset
+content keeps its original license (see data/DATA_LICENSES.md and reproduce/THIRD_PARTY.md).
+
+--------------------------------------------------------------------------------
+Upstream trainer
+--------------------------------------------------------------------------------
+
+This product includes software from Uni-OPD (https://github.com/WenjinHou/Uni-OPD, Apache-2.0), upstream commit
+08fcec0; its license file is kept as miles/LICENSE-Uni-OPD. Files modified by the DN-MOPD authors carry a "Modified
+by the DN-MOPD authors (2026)" line, and the complete set of changes against the upstream commit is provided in
+patches/.
+
+This product includes software from miles (https://github.com/radixark/miles, Apache-2.0), as distributed inside
+Uni-OPD. The miles license file (miles/LICENSE) states: "Copyright 2025 Zhipu AI". miles describes itself as a fork of
+slime (https://github.com/THUDM/slime).
+
+--------------------------------------------------------------------------------
+Third-party code inside miles/
+--------------------------------------------------------------------------------
+
+Some files of the trainer fork contain code that upstream took or adapted from other open-source projects. Each file
+keeps the attribution and license header it has upstream. The projects and files are:
+
+  - verl (https://github.com/volcengine/verl), Apache-2.0
+      miles/miles/utils/seqlen_balancing.py
+      miles/miles/rollout/rm_hub/math_dapo_utils.py (also adapted from lm-evaluation-harness, below)
+      miles/miles/backends/megatron_utils/model_provider.py (in part)
+      miles/miles/utils/ppo_utils.py (in part)
+    The NOTICE file of verl reads:
+      Copyright 2023-2024 Bytedance Ltd. and/or its affiliates
+
+  - Megatron-LM (https://github.com/NVIDIA/Megatron-LM), BSD-3-Clause, Copyright NVIDIA CORPORATION
+      miles/miles/backends/megatron_utils/model_provider.py (in part)
+      miles/miles/backends/megatron_utils/checkpoint.py (in part)
+      miles/miles/backends/fsdp_utils/lr_scheduler.py
+      miles/miles_plugins/mbridge/mimo.py
+
+  - OpenRLHF (https://github.com/OpenRLHF/OpenRLHF), Apache-2.0
+      miles/miles/ray/utils.py
+      miles/miles/utils/ppo_utils.py (in part)
+
+  - SGLang (https://github.com/sgl-project/sglang), Apache-2.0
+      miles/miles/utils/external_utils/command_utils.py (get_bool_env_var)
+
+  - Hugging Face Transformers (https://github.com/huggingface/transformers), Apache-2.0
+      miles/miles_plugins/models/qwen3_next.py (in part)
+
+  - Pai-Megatron-Patch (https://github.com/alibaba/Pai-Megatron-Patch), Apache-2.0
+      miles/tools/fp8_cast_bf16.py
+    The NOTICE file of Pai-Megatron-Patch reads:
+      pai-megatron-patch is an open source tool developed by Alibaba PAI Team
+      Copyright (c) 2022-2023, Alibaba Group Holding Limited.
+      Licensed under the Apache License, Version 2.0
+
+  - PRIME (https://github.com/PRIME-RL/PRIME), Apache-2.0
+      miles/Uni_OPD_utils/outcome_reward/PRIME_code/ (the code-execution verifier used for the code reward)
+
+  - TileLang (https://github.com/tile-ai/tilelang), MIT License, Copyright (c) Tile-AI
+      miles/miles_plugins/models/glm5/ops/tilelang_sparse_mla_fwd.py
+      miles/miles_plugins/models/glm5/ops/tilelang_sparse_mla_bwd.py
+      miles/miles_plugins/models/glm5/ops/tilelang_indexer_fwd.py
+      miles/miles_plugins/models/glm5/ops/tilelang_indexer_bwd.py
+
+  - EleutherAI lm-evaluation-harness (https://github.com/EleutherAI/lm-evaluation-harness), MIT License,
+    Copyright (c) 2020 EleutherAI
+      miles/miles/rollout/rm_hub/math_dapo_utils.py (in part)
+
+  - DeepScaleR (https://github.com/agentica-project/deepscaler, commit e6080cc), MIT License,
+    Copyright (c) 2025 agentica-project
+      miles/miles/rollout/rm_hub/math_utils.py
+
+Two further snippets are credited in-line where they are used: a typer issue comment
+(miles/miles/utils/typer_utils.py) and a Stack Overflow answer (miles/Uni_OPD_utils/outcome_reward/PRIME_code/
+testing_util.py).
+
+--------------------------------------------------------------------------------
+Evaluation code
+--------------------------------------------------------------------------------
+
+The official benchmark checkers are not vendored in this repository. `python -m eval.external.fetch` downloads them
+at pinned commits into eval/third_party/ (not tracked by git) and checks every file against the sha256 listed in
+eval/external/PINS.json:
+
+  - LiveCodeBench (https://github.com/LiveCodeBench/LiveCodeBench) @ 28fef95, MIT License,
+    Copyright (c) 2024 LiveCodeBench
+  - IFEval, from google-research (https://github.com/google-research/google-research) @ b24f2136, Apache-2.0,
+    Copyright The Google Research Authors
+  - IFBench (https://github.com/allenai/IFBench) @ 1091c4c3, Apache-2.0, Copyright 2025 Allen Institute for AI
+  - nltk_data (https://github.com/nltk/nltk_data) @ 550b662, the data packages the IF checkers load; each package
+    keeps its own license
+
+Two small pieces of eval/ are adapted from third-party code and keep its license:
+
+  - eval/graders/math_grader.py: last_boxed_only_string and remove_boxed are taken verbatim from the G-OPD
+    evaluation script (https://github.com/RUCBM/G-OPD, math_eval/eval_math.py), MIT License,
+    Copyright (c) 2026 RUCBM.
+  - eval/graders/lcb_runtime.py: check_correctness is a modified version of the function of the same name in
+    LiveCodeBench's lcb_runner (MIT License, Copyright (c) 2024 LiveCodeBench); it adds a memory limit and complete
+    timeout metadata, and calls the fetched official test runner unchanged.

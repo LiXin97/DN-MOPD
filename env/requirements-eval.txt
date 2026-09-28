@@ -1,0 +1,62 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Evaluation environment for DN-MOPD (vLLM generation + graders + aggregation).
+# Python 3.10, Linux x86_64, NVIDIA GPU with a CUDA 12.8-capable driver.
+#
+#   pip install -r env/requirements-eval.txt -c env/constraints-eval.txt
+#   python -m eval.external.fetch         # official checkers + nltk data at pinned commits (sha256-verified)
+#
+# Everything resolves from public PyPI. vllm 0.18.0 pulls the PyPI build of torch 2.10.0, which is the CUDA 12.8
+# build. env/constraints-eval.txt is the full frozen package list of the paper's generation environment.
+#
+# Graders. In the paper, generation ran in this environment; the math and LiveCodeBench grading ran with the same
+# math-verify 0.9.0 in the training environment, and the IFEval/IFBench checkers ran with the pure-Python packages
+# pinned below. Installing everything here lets one environment both generate and grade. For that, the ANTLR runtime
+# is the math-grading environment's 4.9.3 rather than the generation environment's 4.13.2: math-verify parses LaTeX
+# through it, and with 4.13.2 some answers grade differently from the paper's records.
+#
+# NOT installed from this file (fetched by `python -m eval.external.fetch`, pinned in eval/external/PINS.json):
+#   * LiveCodeBench runner (lcb_runner): github.com/LiveCodeBench/LiveCodeBench @ 28fef95
+#   * IFEval official checker: github.com/google-research/google-research, instruction_following_eval/ @ b24f2136
+#   * IFBench official checker: github.com/allenai/IFBench @ 1091c4c3
+
+# ---- Generation ----
+vllm==0.18.0
+torch==2.10.0
+torchvision==0.25.0
+torchaudio==2.10.0
+triton==3.6.0
+transformers==4.57.6
+tokenizers==0.22.2
+huggingface_hub==0.36.2
+safetensors==0.7.0
+flashinfer-python==0.6.6
+xgrammar==0.1.32
+compressed-tensors==0.13.0
+numpy==2.2.6
+datasets==4.8.4
+pyarrow==24.0.0
+PyYAML==6.0.3
+tqdm==4.67.3
+
+# ---- Math grader ----
+math-verify==0.9.0
+latex2sympy2_extended==1.11.0
+sympy==1.14.0
+antlr4-python3-runtime==4.9.3      # the paper's math-grading runtime (the generation env had 4.13.2)
+
+# ---- IFEval / IFBench official checkers (versions used in the paper) ----
+absl-py==2.5.0
+langdetect==1.0.9
+immutabledict==4.3.1
+nltk==3.10.2
+emoji==2.15.0
+syllapy==0.7.2
+regex==2026.2.28
+
+# ---- Aggregation and paired bootstrap ----
+pandas==2.3.3
+scipy==1.15.3
+
+# ---- Tests ----
+pytest==8.4.2

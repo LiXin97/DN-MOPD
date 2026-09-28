@@ -1,0 +1,12 @@
+{
+ "samples_per_question": 16,
+ "temperature": 1.0,
+ "top_p": 1.0,
+ "seed": 42,
+ "thinking": false,
+ "caps": [
+  8192,
+  16384
+ ],
+ "metric": "math_verify on the last boxed answer"
+}

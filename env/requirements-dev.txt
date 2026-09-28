@@ -1,0 +1,9 @@
+# Test tools for `make check` (CPU only). Install them into the environment that runs the tests:
+#   pip install -r env/requirements-dev.txt
+# tests/core and tests/trainer run in the training environment, tests/eval in the evaluation environment
+# (env/install.md, "Tests"). pytest 8.4.2 is the version pinned in both requirement files.
+pytest==8.4.2
+pluggy==1.6.0
+iniconfig==2.3.0
+# Optional: tests/trainer/test_scripts.py lints the recipe scripts with shellcheck when it is installed (skips otherwise).
+shellcheck-py==0.11.0.1

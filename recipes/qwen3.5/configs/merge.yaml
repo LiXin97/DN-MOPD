@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: Apache-2.0
+# Weight-space baselines (paper App. A.2), built from the three teachers' HF exports.
+#   avg : ParamMerge-Avg   theta = mean_k theta_k                        (float32 accumulation of w * theta_k, w = 1/3;
+#                                                                         saved in the first expert's dtype)
+#   ta  : ParamMerge-TA    theta = theta_0 + lambda * sum_k (theta_k - theta_0), lambda = 1
+#                                                                        (float32 accumulation; saved in the experts'
+#                                                                         common dtype; lambda = 1/3 would be avg)
+# The base checkpoint's multi-token-prediction head (keys under `mtp.`, absent from the trainer's exports) is excluded
+# from both merges; any other key or shape difference between the base and the teachers is refused.
+task_arithmetic_lambda: 1.0
+base_only_prefix: "mtp."
+teacher_order: [math, code, ifeval]
+shard_size_mb: 4800
+aux_files: [config.json, generation_config.json, tokenizer.json, tokenizer_config.json, vocab.json, merges.txt,
+            special_tokens_map.json, added_tokens.json, chat_template.jinja, preprocessor_config.json,
+            video_preprocessor_config.json]
+must_match: [config.json, tokenizer.json, tokenizer_config.json, chat_template.jinja]

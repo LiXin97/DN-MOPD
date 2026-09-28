@@ -1,0 +1,73 @@
+# SPDX-License-Identifier: Apache-2.0
+# Student methods of the paper and how each one is run. `route: legacy` uses the trainer's native per-sample teacher
+# dispatch (reward_manager: the label map is the router); `route: hook` uses Uni_OPD_utils.mopd_hook, which scores
+# every response with all three teachers and sets the target / multiplier from the fields under `hook`.
+# `paper` names the row; seeds and update counts that appear in the paper are listed for reference only (any seed and
+# update count can be run).
+methods:
+  label:
+    paper: "Label (MOPD with label routing); the paper's seed-42 Label row used this legacy route"
+    route: legacy
+    label_map: route              # {default, math, code, ifeval} -> the domain's teacher
+  label_hook:
+    paper: "Label through the hook (adv_norm absent); equal targets to `label`, asserted on every sample"
+    route: hook
+    hook: {mode: label}
+  dn_mopd:
+    paper: "DN-MOPD: w_d = clip(sigma_all / sigma_d, 0.25, 4) per rollout batch"
+    route: hook
+    hook: {mode: label, adv_norm: per_domain_scale}
+  single_math:
+    paper: "Single-teacher OPD, math teacher for every prompt"
+    route: legacy
+    label_map: {collapse_to: math}
+  single_code:
+    paper: "Single-teacher OPD, code teacher for every prompt"
+    route: legacy
+    label_map: {collapse_to: code}
+  single_if:
+    paper: "Single-teacher OPD, IF teacher for every prompt"
+    route: legacy
+    label_map: {collapse_to: ifeval}
+  uniform_pool:
+    paper: "Uniform pool: log of the arithmetic 1/3 mixture of the three teachers"
+    route: hook
+    hook: {mode: pool}
+  dynamic_router:
+    paper: "Dynamic router: per response, the teacher with the lowest mean sampled-token log-prob"
+    route: hook
+    hook: {mode: dynamic}
+  annealed_injection:
+    paper: "Annealed injection: one verified teacher trajectory per covered prompt group, constant advantage 1 annealed to 0 over the first 40 updates"
+    route: hook
+    hook: {mode: label, inject_adv_const: 1.0, inject_anneal_steps: 40}
+    needs_injection_bank: true
+  fixed_w:
+    paper: "Control: fixed weights (math 2, code 1, IF 0.25)"
+    route: hook
+    hook: {mode: label, adv_norm: fixed_domain_scale, adv_norm_fixed: {from_controls: fixed_weights.fix21q}}
+  fixed_math:
+    paper: "Control: fixed weights (math 2, code 1, IF 1)"
+    route: hook
+    hook: {mode: label, adv_norm: fixed_domain_scale, adv_norm_fixed: {from_controls: fixed_weights.fixmath}}
+  fixed_if:
+    paper: "Control: fixed weights (math 1, code 1, IF 0.25)"
+    route: hook
+    hook: {mode: label, adv_norm: fixed_domain_scale, adv_norm_fixed: {from_controls: fixed_weights.fixif}}
+  frozen_update0:
+    paper: "Control: DN-MOPD's own update-0 multipliers of the size, frozen for the whole run"
+    route: hook
+    hook: {mode: label, adv_norm: fixed_domain_scale, adv_norm_fixed: {from_controls: frozen_update0_multipliers.SIZE}}
+  observe:
+    paper: "Control: Label update (w_d = 1); the DN multipliers are computed and logged every batch, never applied"
+    route: hook
+    hook: {mode: label, adv_norm: observe_domain_scale}
+
+# Runs that appear in the paper (size x seed x updates), for reference.
+paper_runs:
+  seed42_80: [label, dn_mopd, single_math, single_code, single_if, uniform_pool, dynamic_router, annealed_injection,
+              observe, frozen_update0, fixed_w]
+  seed42_80_2b_4b_only: [fixed_math, fixed_if]
+  seeds_43_44_80: [dn_mopd, observe]
+  seed42_160: [label, dn_mopd, single_code]
+  seed42_160_9b_only: [single_if]

@@ -1,0 +1,61 @@
+cff-version: 1.2.0
+message: "If you use this code or the released models, please cite the paper below."
+title: "Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation"
+type: software
+license: Apache-2.0
+url: "https://lixin.ai/DN-MOPD"
+repository-code: "https://github.com/LiXin97/DN-MOPD"
+keywords:
+  - on-policy distillation
+  - multi-teacher distillation
+  - knowledge distillation
+  - large language models
+  - reinforcement learning
+authors:
+  - given-names: Xin
+    family-names: Li
+  - given-names: Hao
+    family-names: Jiang
+  - given-names: Xin
+    family-names: Gao
+  - given-names: Annan
+    family-names: Wang
+  - given-names: Yuchen
+    family-names: Xie
+  - given-names: Jinghao
+    family-names: Guo
+  - given-names: Xingwei
+    family-names: Qu
+  - given-names: Yichi
+    family-names: Zhang
+  - given-names: Chau
+    family-names: Yuen
+preferred-citation:
+  type: article
+  title: "Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation"
+  year: 2026
+  url: "https://lixin.ai/DN-MOPD"
+  authors:
+    - given-names: Xin
+      family-names: Li
+    - given-names: Hao
+      family-names: Jiang
+    - given-names: Xin
+      family-names: Gao
+    - given-names: Annan
+      family-names: Wang
+    - given-names: Yuchen
+      family-names: Xie
+    - given-names: Jinghao
+      family-names: Guo
+    - given-names: Xingwei
+      family-names: Qu
+    - given-names: Yichi
+      family-names: Zhang
+    - given-names: Chau
+      family-names: Yuen
+  # TODO: add the arXiv identifier once available, e.g.
+  # identifiers:
+  #   - type: other
+  #     value: "arXiv:XXXX.XXXXX"
+  #     description: "arXiv preprint"

@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: Apache-2.0
+# Base models of the Qwen3.5 construction. Every recipe takes a SIZE key from this table.
+# The recipes look for a local copy at $MODEL_ROOT/<dir>; set BASE_MODEL to point at another directory.
+sizes:
+  2b: {hf_id: Qwen/Qwen3.5-2B, dir: Qwen3.5-2B}
+  4b: {hf_id: Qwen/Qwen3.5-4B, dir: Qwen3.5-4B}
+  9b: {hf_id: Qwen/Qwen3.5-9B, dir: Qwen3.5-9B}
+
+# The three domains, their training-data files (relative to $DATA_ROOT) and their teacher names. A teacher name is the
+# key of the teacher server list; the prompt's "teacher" field (= its domain) is routed through the label map below.
+domains:
+  math:   {teacher_data: teacher/math_train.jsonl,   teacher_name: math_teacher}
+  code:   {teacher_data: teacher/code_train.jsonl,   teacher_name: code_teacher}
+  ifeval: {teacher_data: teacher/if_train.jsonl,     teacher_name: ifeval_teacher}
+
+# Student prompt pool (900 prompts per domain, 2,700 in total), relative to $DATA_ROOT.
+student_data: student/train_3domain.jsonl
+
+# Label routing: domain label -> teacher. A prompt without a label goes to "default" (the code teacher, as in the
+# paper runs; every released prompt carries a label).
+label_map:
+  default: code_teacher
+  math: math_teacher
+  code: code_teacher
+  ifeval: ifeval_teacher

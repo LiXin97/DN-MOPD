@@ -1,0 +1,3005 @@
+diff --git a/miles/LICENSE-Uni-OPD b/miles/LICENSE-Uni-OPD
+new file mode 100644
+index 0000000..d645695
+--- /dev/null
++++ b/miles/LICENSE-Uni-OPD
+@@ -0,0 +1,202 @@
++
++                                 Apache License
++                           Version 2.0, January 2004
++                        http://www.apache.org/licenses/
++
++   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
++
++   1. Definitions.
++
++      "License" shall mean the terms and conditions for use, reproduction,
++      and distribution as defined by Sections 1 through 9 of this document.
++
++      "Licensor" shall mean the copyright owner or entity authorized by
++      the copyright owner that is granting the License.
++
++      "Legal Entity" shall mean the union of the acting entity and all
++      other entities that control, are controlled by, or are under common
++      control with that entity. For the purposes of this definition,
++      "control" means (i) the power, direct or indirect, to cause the
++      direction or management of such entity, whether by contract or
++      otherwise, or (ii) ownership of fifty percent (50%) or more of the
++      outstanding shares, or (iii) beneficial ownership of such entity.
++
++      "You" (or "Your") shall mean an individual or Legal Entity
++      exercising permissions granted by this License.
++
++      "Source" form shall mean the preferred form for making modifications,
++      including but not limited to software source code, documentation
++      source, and configuration files.
++
++      "Object" form shall mean any form resulting from mechanical
++      transformation or translation of a Source form, including but
++      not limited to compiled object code, generated documentation,
++      and conversions to other media types.
++
++      "Work" shall mean the work of authorship, whether in Source or
++      Object form, made available under the License, as indicated by a
++      copyright notice that is included in or attached to the work
++      (an example is provided in the Appendix below).
++
++      "Derivative Works" shall mean any work, whether in Source or Object
++      form, that is based on (or derived from) the Work and for which the
++      editorial revisions, annotations, elaborations, or other modifications
++      represent, as a whole, an original work of authorship. For the purposes
++      of this License, Derivative Works shall not include works that remain
++      separable from, or merely link (or bind by name) to the interfaces of,
++      the Work and Derivative Works thereof.
++
++      "Contribution" shall mean any work of authorship, including
++      the original version of the Work and any modifications or additions
++      to that Work or Derivative Works thereof, that is intentionally
++      submitted to Licensor for inclusion in the Work by the copyright owner
++      or by an individual or Legal Entity authorized to submit on behalf of
++      the copyright owner. For the purposes of this definition, "submitted"
++      means any form of electronic, verbal, or written communication sent
++      to the Licensor or its representatives, including but not limited to
++      communication on electronic mailing lists, source code control systems,
++      and issue tracking systems that are managed by, or on behalf of, the
++      Licensor for the purpose of discussing and improving the Work, but
++      excluding communication that is conspicuously marked or otherwise
++      designated in writing by the copyright owner as "Not a Contribution."
++
++      "Contributor" shall mean Licensor and any individual or Legal Entity
++      on behalf of whom a Contribution has been received by Licensor and
++      subsequently incorporated within the Work.
++
++   2. Grant of Copyright License. Subject to the terms and conditions of
++      this License, each Contributor hereby grants to You a perpetual,
++      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
++      copyright license to reproduce, prepare Derivative Works of,
++      publicly display, publicly perform, sublicense, and distribute the
++      Work and such Derivative Works in Source or Object form.
++
++   3. Grant of Patent License. Subject to the terms and conditions of
++      this License, each Contributor hereby grants to You a perpetual,
++      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
++      (except as stated in this section) patent license to make, have made,
++      use, offer to sell, sell, import, and otherwise transfer the Work,
++      where such license applies only to those patent claims licensable
++      by such Contributor that are necessarily infringed by their
++      Contribution(s) alone or by combination of their Contribution(s)
++      with the Work to which such Contribution(s) was submitted. If You
++      institute patent litigation against any entity (including a
++      cross-claim or counterclaim in a lawsuit) alleging that the Work
++      or a Contribution incorporated within the Work constitutes direct
++      or contributory patent infringement, then any patent licenses
++      granted to You under this License for that Work shall terminate
++      as of the date such litigation is filed.
++
++   4. Redistribution. You may reproduce and distribute copies of the
++      Work or Derivative Works thereof in any medium, with or without
++      modifications, and in Source or Object form, provided that You
++      meet the following conditions:
++
++      (a) You must give any other recipients of the Work or
++          Derivative Works a copy of this License; and
++
++      (b) You must cause any modified files to carry prominent notices
++          stating that You changed the files; and
++
++      (c) You must retain, in the Source form of any Derivative Works
++          that You distribute, all copyright, patent, trademark, and
++          attribution notices from the Source form of the Work,
++          excluding those notices that do not pertain to any part of
++          the Derivative Works; and
++
++      (d) If the Work includes a "NOTICE" text file as part of its
++          distribution, then any Derivative Works that You distribute must
++          include a readable copy of the attribution notices contained
++          within such NOTICE file, excluding those notices that do not
++          pertain to any part of the Derivative Works, in at least one
++          of the following places: within a NOTICE text file distributed
++          as part of the Derivative Works; within the Source form or
++          documentation, if provided along with the Derivative Works; or,
++          within a display generated by the Derivative Works, if and
++          wherever such third-party notices normally appear. The contents
++          of the NOTICE file are for informational purposes only and
++          do not modify the License. You may add Your own attribution
++          notices within Derivative Works that You distribute, alongside
++          or as an addendum to the NOTICE text from the Work, provided
++          that such additional attribution notices cannot be construed
++          as modifying the License.
++
++      You may add Your own copyright statement to Your modifications and
++      may provide additional or different license terms and conditions
++      for use, reproduction, or distribution of Your modifications, or
++      for any such Derivative Works as a whole, provided Your use,
++      reproduction, and distribution of the Work otherwise complies with
++      the conditions stated in this License.
++
++   5. Submission of Contributions. Unless You explicitly state otherwise,
++      any Contribution intentionally submitted for inclusion in the Work
++      by You to the Licensor shall be under the terms and conditions of
++      this License, without any additional terms or conditions.
++      Notwithstanding the above, nothing herein shall supersede or modify
++      the terms of any separate license agreement you may have executed
++      with Licensor regarding such Contributions.
++
++   6. Trademarks. This License does not grant permission to use the trade
++      names, trademarks, service marks, or product names of the Licensor,
++      except as required for reasonable and customary use in describing the
++      origin of the Work and reproducing the content of the NOTICE file.
++
++   7. Disclaimer of Warranty. Unless required by applicable law or
++      agreed to in writing, Licensor provides the Work (and each
++      Contributor provides its Contributions) on an "AS IS" BASIS,
++      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++      implied, including, without limitation, any warranties or conditions
++      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
++      PARTICULAR PURPOSE. You are solely responsible for determining the
++      appropriateness of using or redistributing the Work and assume any
++      risks associated with Your exercise of permissions under this License.
++
++   8. Limitation of Liability. In no event and under no legal theory,
++      whether in tort (including negligence), contract, or otherwise,
++      unless required by applicable law (such as deliberate and grossly
++      negligent acts) or agreed to in writing, shall any Contributor be
++      liable to You for damages, including any direct, indirect, special,
++      incidental, or consequential damages of any character arising as a
++      result of this License or out of the use or inability to use the
++      Work (including but not limited to damages for loss of goodwill,
++      work stoppage, computer failure or malfunction, or any and all
++      other commercial damages or losses), even if such Contributor
++      has been advised of the possibility of such damages.
++
++   9. Accepting Warranty or Additional Liability. While redistributing
++      the Work or Derivative Works thereof, You may choose to offer,
++      and charge a fee for, acceptance of support, warranty, indemnity,
++      or other liability obligations and/or rights consistent with this
++      License. However, in accepting such obligations, You may act only
++      on Your own behalf and on Your sole responsibility, not on behalf
++      of any other Contributor, and only if You agree to indemnify,
++      defend, and hold each Contributor harmless for any liability
++      incurred by, or claims asserted against, such Contributor by reason
++      of your accepting any such warranty or additional liability.
++
++   END OF TERMS AND CONDITIONS
++
++   APPENDIX: How to apply the Apache License to your work.
++
++      To apply the Apache License to your work, attach the following
++      boilerplate notice, with the fields enclosed by brackets "[]"
++      replaced with your own identifying information. (Don't include
++      the brackets!)  The text should be enclosed in the appropriate
++      comment syntax for the file format. We also recommend that a
++      file or class name and description of purpose be included on the
++      same "printed page" as the copyright notice for easier
++      identification within third-party archives.
++
++   Copyright [yyyy] [name of copyright owner]
++
++   Licensed under the Apache License, Version 2.0 (the "License");
++   you may not use this file except in compliance with the License.
++   You may obtain a copy of the License at
++
++       http://www.apache.org/licenses/LICENSE-2.0
++
++   Unless required by applicable law or agreed to in writing, software
++   distributed under the License is distributed on an "AS IS" BASIS,
++   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   See the License for the specific language governing permissions and
++   limitations under the License.
+diff --git a/miles/Uni_OPD_utils/OPD_reward/bounded_math_grade.py b/miles/Uni_OPD_utils/OPD_reward/bounded_math_grade.py
+new file mode 100644
+index 0000000..b872f79
+--- /dev/null
++++ b/miles/Uni_OPD_utils/OPD_reward/bounded_math_grade.py
+@@ -0,0 +1,112 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Bounded math grading for the rule-based correctness label.
++
++`grade_answer_verl` can end in `sympy.simplify` with no time limit, and it used to run synchronously inside the
++rollout event loop: one pathological boxed answer (for example `\\boxed{99999999!}` against a non-integer reference)
++freezes every pending generate/score coroutine. The grader itself is unchanged; it runs in killable child processes
++(math_grader_worker.py) with a per-request time limit. A timed-out answer is scored False (`grader_timeout` in the
++metadata) exactly as a grader exception is. On the on-policy-distillation path the correctness label is logged (and
++read by the injection trigger); it never enters the distillation loss.
++
++Plain `subprocess` workers are driven from a small thread pool: the rollout manager's event loop cannot spawn asyncio
++subprocesses inside a Ray actor, while threads that wait on a pipe release the GIL, so the loop keeps running even when
++a worker hangs in C code.
++
++Environment: MATH_GRADER_TIMEOUT (seconds per answer, default 20), MATH_GRADER_WORKERS (default 8).
++"""
++import asyncio
++import json
++import logging
++import os
++import queue
++import select
++import subprocess
++import sys
++import time
++from concurrent.futures import ThreadPoolExecutor
++from pathlib import Path
++
++logger = logging.getLogger(__name__)
++TIMEOUT = float(os.environ.get("MATH_GRADER_TIMEOUT", "20"))
++WORKERS = int(os.environ.get("MATH_GRADER_WORKERS", "8"))
++START_TIMEOUT = 180.0
++READY = b"MATH_GRADER_READY"
++_WORKER_FILE = Path(__file__).with_name("math_grader_worker.py")
++_POOL = {"workers": None, "executor": None, "timeouts": 0, "graded": 0}
++
++
++class GraderTimeout(Exception):
++    pass
++
++
++class _Worker:
++    def __init__(self):
++        self.proc = None
++
++    def _read_line(self, limit):
++        deadline, buf = time.monotonic() + limit, b""
++        while not buf.endswith(b"\n"):
++            remaining = deadline - time.monotonic()
++            if remaining <= 0 or not select.select([self.proc.stdout], [], [], remaining)[0]:
++                raise GraderTimeout()
++            chunk = os.read(self.proc.stdout.fileno(), 4096)
++            if not chunk:
++                raise RuntimeError("math grader worker exited")
++            buf += chunk
++        return buf
++
++    def _start(self):
++        self.proc = subprocess.Popen([sys.executable, "-u", str(_WORKER_FILE)], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
++                                     stderr=subprocess.DEVNULL, bufsize=0, env=dict(os.environ, CUDA_VISIBLE_DEVICES=""))
++        if self._read_line(START_TIMEOUT).strip() != READY:
++            raise RuntimeError("math grader worker did not start")
++
++    def kill(self):
++        if self.proc is not None:
++            try:
++                self.proc.kill(); self.proc.wait(timeout=10)
++            except Exception:
++                pass
++        self.proc = None
++
++    def grade(self, response, label):
++        if self.proc is None or self.proc.poll() is not None:
++            self._start()
++        self.proc.stdin.write((json.dumps([response, label]) + "\n").encode())
++        return bool(json.loads(self._read_line(TIMEOUT)))
++
++
++def _pool():
++    if _POOL["workers"] is None:
++        q = queue.Queue()
++        for _ in range(WORKERS):
++            q.put(_Worker())
++        _POOL.update(workers=q, executor=ThreadPoolExecutor(max_workers=WORKERS, thread_name_prefix="math_grader"))
++    return _POOL["workers"], _POOL["executor"]
++
++
++def _grade_sync(response, label):
++    workers, _ = _pool()
++    worker = workers.get()
++    try:
++        verdict = worker.grade(response, label)
++        _POOL["graded"] += 1
++        return verdict, {}
++    except GraderTimeout:
++        worker.kill()
++        _POOL["timeouts"] += 1
++        logger.warning(f"[math_grader] no verdict within {TIMEOUT:.0f}s; scored False, worker replaced "
++                       f"(timeouts so far {_POOL['timeouts']}; answer tail {response[-80:]!r})")
++        return False, {"grader_timeout": True}
++    except Exception as e:                               # broken pipe, worker crash, start failure
++        worker.kill()
++        logger.warning(f"[math_grader] worker failure {type(e).__name__}: {e}; scored False")
++        return False, {"grader_error": type(e).__name__}
++    finally:
++        workers.put(worker)
++
++
++async def grade_math_bounded(response, label):
++    """(correct, metadata). Never blocks the event loop; never raises for a slow or crashed grader."""
++    _, executor = _pool()
++    return await asyncio.get_running_loop().run_in_executor(executor, _grade_sync, response, label)
+diff --git a/miles/Uni_OPD_utils/OPD_reward/get_reward.py b/miles/Uni_OPD_utils/OPD_reward/get_reward.py
+index d863323..bec5e4d 100644
+--- a/miles/Uni_OPD_utils/OPD_reward/get_reward.py
++++ b/miles/Uni_OPD_utils/OPD_reward/get_reward.py
+@@ -1,15 +1,19 @@
++# Modified by the DN-MOPD authors (2026): fixed the package imports (exps.OPD.* -> Uni_OPD_utils.*) and added
++# the all-teacher scorer (_score_one_teacher / _get_reward_fanout) used by Uni_OPD_utils.mopd_hook.
+ import asyncio
++import functools
+ import logging
+ import os
+ import random
+ import time
+ from argparse import Namespace
++from collections.abc import Callable
+ 
+ import aiohttp
+ 
+-from exps.OPD.utils.reward.reward_manager import RMSystemManager
+-from exps.OPD.utils.reward.rule_base_reward import get_rule_based_reward  # noqa
+-from exps.OPD.utils.reward.session_manager import RewardSessionManager
++from Uni_OPD_utils.OPD_reward.reward_manager import RMSystemManager
++from Uni_OPD_utils.OPD_reward.rule_base_reward import get_rule_based_reward  # noqa
++from Uni_OPD_utils.OPD_reward.session_manager import RewardSessionManager
+ from miles.utils.types import Sample
+ 
+ logger = logging.getLogger(__name__)
+@@ -102,3 +106,180 @@ async def get_reward(args: Namespace, sample: Sample, **kwargs) -> dict[str]:
+         "reward_time": time.time() - start_time,
+         "meta_info": {"input_token_logprobs": []},
+     }
++
++
++# ---------------------------------------------------------------------------
++# All-teacher scoring (used by Uni_OPD_utils.mopd_hook: every registered teacher
++# scores the sampled tokens of every response; the legacy fields still come from
++# the teacher selected by the sample's domain label).
++# ---------------------------------------------------------------------------
++
++
++async def _score_one_teacher(
++    session_manager: RewardSessionManager,
++    teacher_name: str,
++    get_url: Callable[[], str],
++    payload: dict,
++) -> dict:
++    """Prefill-score one sample with one teacher (same retry semantics as the legacy path).
++
++    The in-flight semaphore (OPD_RM_MAX_INFLIGHT) is held for each POST, so K concurrent
++    coroutines each take one slot and the global limit still applies.
++
++    Returns:
++        {"teacher_name": str, "res": dict | None, "url": str | None,
++         "failed": bool, "reward_time": float}
++    """
++    t0 = time.time()
++    last_exception = None
++    url: str | None = None
++
++    for attempt in range(1, _MAX_RETRIES + 1):
++        try:
++            # get_url inside the try: a broken URL pool fails this teacher only, never the whole sample
++            url = get_url()
++            async with session_manager.inflight_sem:
++                session = await session_manager.get_session()
++                async with session.post(url, json=payload) as resp:
++                    resp.raise_for_status()
++                    res = await resp.json()
++
++            # a response without meta_info.input_token_logprobs is unusable
++            if res.get("meta_info", {}).get("input_token_logprobs") is None:
++                raise RuntimeError("missing meta_info.input_token_logprobs in teacher response")
++
++            return {
++                "teacher_name": teacher_name,
++                "res": res,
++                "url": url,
++                "failed": False,
++                "reward_time": time.time() - t0,
++            }
++
++        except (aiohttp.ClientError, asyncio.TimeoutError, RuntimeError) as e:
++            last_exception = e
++            logger.warning(
++                f"[fanout] Attempt {attempt}/{_MAX_RETRIES} failed for teacher={teacher_name}, "
++                f"url={url}: {type(e).__name__}: {e}"
++            )
++            is_bad_fd = isinstance(e, aiohttp.ClientOSError) and e.errno == 9
++            is_session_closed = isinstance(e, RuntimeError) and "Session is closed" in str(e)
++            is_fd_reuse = isinstance(e, RuntimeError) and "File descriptor" in str(e) and "used by transport" in str(e)
++            if is_bad_fd or is_session_closed or is_fd_reuse:
++                await session_manager.reset_session()
++            if attempt < _MAX_RETRIES:
++                await asyncio.sleep(_RETRY_DELAY * attempt + random.uniform(0, 0.2))
++        except Exception as e:
++            last_exception = e
++            logger.warning(
++                f"[fanout] Unexpected error on attempt {attempt}/{_MAX_RETRIES} for "
++                f"teacher={teacher_name}, url={url}: {type(e).__name__}: {e}"
++            )
++            if attempt < _MAX_RETRIES:
++                await asyncio.sleep(_RETRY_DELAY * attempt + random.uniform(0, 0.2))
++
++    logger.error(
++        f"[fanout] All {_MAX_RETRIES} attempts failed for teacher={teacher_name}. "
++        f"last error: {type(last_exception).__name__}: {last_exception}. "
++        f"Marking this teacher as failed for the sample."
++    )
++    return {
++        "teacher_name": teacher_name,
++        "res": None,
++        "url": url,
++        "failed": True,
++        "reward_time": time.time() - t0,
++    }
++
++
++async def _get_reward_fanout(
++    args: Namespace,
++    sample: Sample,
++    rm_manager: RMSystemManager,
++    session_manager: RewardSessionManager,
++    start_time: float,
++    response_correct,
++    rule_based_metadata,
++) -> dict:
++    """Score one sample with EVERY registered teacher, concurrently.
++
++    Backward compatible with the legacy reward dict: meta_info / teacher_url / REWARD_FAILED_KEY come from the
++    teacher that the sample's label routes to (sample.teacher_model_name through the server map); only a failure of
++    that teacher marks the whole sample REWARD_FAILED. Adds
++        reward["per_teacher"]    = {teacher_name: {input_token_logprobs | None, reward_time, url, failed}}
++        reward["routed_teacher"] = the routed teacher's registered name.
++    """
++    # An alias that the server map cannot resolve fails the routed teacher (the sample is REWARD_FAILED) while the
++    # other registered teachers are still scored; the exception never escapes into the rollout step.
++    try:
++        routed_name: str | None = rm_manager.resolve_real_name(sample.teacher_model_name)
++    except KeyError as e:
++        logger.error(
++            f"[fanout] cannot resolve routed teacher for teacher_model_name={sample.teacher_model_name!r}: {e}. "
++            f"Marking the sample as REWARD_FAILED (the other registered teachers are still scored)."
++        )
++        routed_name = None
++    teacher_names: list[str] = rm_manager.teacher_names()
++
++    def _failed_result(name: str) -> dict:
++        return {"teacher_name": name, "res": None, "url": None, "failed": True, "reward_time": 0.0}
++
++    results: list[dict] = []
++    task_names: list[str] = []
++    tasks = []
++    for name in teacher_names:
++        # the payload is built per teacher (token compatibility depends on each teacher's hf_path)
++        try:
++            payload = rm_manager.build_payload_for_teacher(sample, name)
++        except Exception as e:
++            logger.error(
++                f"[fanout] build_payload failed for teacher={name}: {type(e).__name__}: {e}. "
++                f"Marking this teacher as failed for the sample."
++            )
++            results.append(_failed_result(name))
++            continue
++        get_url = functools.partial(rm_manager.get_next_url_for_teacher, name)
++        task_names.append(name)
++        tasks.append(_score_one_teacher(session_manager, name, get_url, payload))
++
++    raw_results = await asyncio.gather(*tasks, return_exceptions=True)
++    for name, raw in zip(task_names, raw_results, strict=True):
++        if isinstance(raw, BaseException):
++            logger.error(
++                f"[fanout] scoring task raised unexpectedly for teacher={name}: "
++                f"{type(raw).__name__}: {raw}. Marking this teacher as failed for the sample."
++            )
++            raw = _failed_result(name)
++        results.append(raw)
++
++    per_teacher: dict[str, dict] = {}
++    routed_result: dict | None = None
++    for r in results:
++        meta = r["res"].get("meta_info", {}) if not r["failed"] else {}
++        itl = meta.get("input_token_logprobs") if not r["failed"] else None
++        per_teacher[r["teacher_name"]] = {
++            "input_token_logprobs": itl,
++            "reward_time": r["reward_time"],
++            "url": r["url"],
++            "failed": bool(r["failed"] or itl is None),
++        }
++        if r["teacher_name"] == routed_name:
++            routed_result = r
++
++    # the legacy fields come from the routed teacher; only its failure marks the whole sample REWARD_FAILED
++    if routed_result is None or routed_result["failed"]:
++        reward: dict = {
++            REWARD_FAILED_KEY: True,
++            "meta_info": {"input_token_logprobs": []},
++        }
++    else:
++        reward = routed_result["res"]
++    if routed_result is not None and not routed_result["failed"] and routed_result["url"] is not None:
++        reward["teacher_url"] = routed_result["url"]
++
++    reward["reward_time"] = time.time() - start_time
++    reward["response_correct"] = response_correct
++    reward["rule_based_metadata"] = rule_based_metadata
++    reward["per_teacher"] = per_teacher
++    reward["routed_teacher"] = routed_name
++    return reward
+diff --git a/miles/Uni_OPD_utils/OPD_reward/grpo_rule_reward.py b/miles/Uni_OPD_utils/OPD_reward/grpo_rule_reward.py
+new file mode 100644
+index 0000000..e71a4c7
+--- /dev/null
++++ b/miles/Uni_OPD_utils/OPD_reward/grpo_rule_reward.py
+@@ -0,0 +1,176 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Rule-based scalar reward for GRPO teacher training (no teacher servers involved).
++
++`OPD_reward.get_reward.get_reward` constructs `RMSystemManager(args)`, which expects live teacher servers. Teacher
++training is plain outcome RL from the same base model the student starts from, so it needs a reward that touches
++nothing but the verifier. miles' contract for `--custom-rm-path` (`miles/rollout/rm_hub/__init__.py`) is a scalar;
++this returns 1.0 / 0.0.
++
++Domain dispatch is `sample.metadata["domain"]` (falling back to the teacher label):
++    math (and anything unrecognised) -> grade_answer_verl, in a forked child with a time limit
++    code / code-a3b                   -> the PRIME code-judge service (rule_base_reward.get_rule_based_reward)
++    ifeval                            -> the vendored closed-taxonomy constraint checkers (ifeval_checkers.py)
++
++Use: --custom-rm-path Uni_OPD_utils.OPD_reward.grpo_rule_reward.grpo_rule_reward
++Environment: GRPO_MATH_TIMEOUT_S (seconds per math answer, default 15), GRPO_MATH_WORKERS (default 4).
++"""
++
++from __future__ import annotations
++
++import asyncio
++import importlib.util
++import json
++import logging
++import os
++from argparse import Namespace
++
++from Uni_OPD_utils.OPD_reward.rule_base_reward import get_rule_based_reward
++from miles.utils.types import Sample
++
++logger = logging.getLogger(__name__)
++
++_ifeval_score = None
++
++
++def _get_ifeval_score():
++    """Load ifeval_checkers.py (beside this file) by path."""
++    global _ifeval_score
++    if _ifeval_score is None:
++        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ifeval_checkers.py")
++        spec = importlib.util.spec_from_file_location("grpo_ifeval_checkers", path)
++        if spec is None or spec.loader is None:
++            raise ImportError(f"cannot load ifeval checkers from {path}")
++        mod = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(mod)
++        _ifeval_score = mod.score
++    return _ifeval_score
++
++
++def _domain(sample: Sample) -> str:
++    meta = getattr(sample, "metadata", None) or {}
++    dom = meta.get("domain")
++    if isinstance(dom, str) and dom:
++        return dom.lower()
++    return (getattr(sample, "teacher_model_name", None) or "").lower()
++
++
++# ---------------------------------------------------------------------------------------------
++# Math verifier time limit. grade_answer_verl has no timeout (sympy can hang on adversarial LaTeX). SIGALRM cannot be
++# used in the reward's worker thread, so the grade runs in a forked child whose MAIN thread arms the alarm. A timeout
++# scores 0.0 (unverifiable = not correct) and is counted; the pool is rebuilt if a child dies.
++_MATH_TIMEOUT_S = float(os.environ.get("GRPO_MATH_TIMEOUT_S", "15"))
++_MATH_WORKERS = int(os.environ.get("GRPO_MATH_WORKERS", "4"))
++_math_pool = None
++_math_timeouts = 0
++_math_mech_failures = 0
++_grade_fn = None
++
++
++class _MathTimeout(Exception):
++    pass
++
++
++def _load_grade_answer_verl():
++    """Load grade_answer_verl by file path: importing miles.rollout.rm_hub executes its __init__, which pulls in ray;
++    math_utils itself needs only re, sympy and pylatexenc."""
++    global _grade_fn
++    if _grade_fn is None:
++        path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
++                            "miles", "rollout", "rm_hub", "math_utils.py")
++        spec = importlib.util.spec_from_file_location("_grpo_math_utils", path)
++        if spec is None or spec.loader is None:
++            raise ImportError(f"cannot load math_utils from {path}")
++        mod = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(mod)
++        _grade_fn = mod.grade_answer_verl
++    return _grade_fn
++
++
++def _grade_math_in_child(response, label):
++    """Runs in a forked child's main thread, so SIGALRM works. Returns True/False for a verdict and None for a timeout.
++    Anything that prevents the verifier from running is raised, never converted into False."""
++    import signal as _signal
++
++    def _on_alarm(signum, frame):  # noqa: ARG001
++        raise _MathTimeout
++
++    grade = _load_grade_answer_verl()          # raises on a broken environment -> parent falls back
++    old = _signal.signal(_signal.SIGALRM, _on_alarm)
++    _signal.setitimer(_signal.ITIMER_REAL, _MATH_TIMEOUT_S)
++    try:
++        return bool(grade(response, label))
++    except _MathTimeout:
++        return None
++    except Exception:                          # the verifier itself rejecting odd input is a wrong answer
++        return False
++    finally:
++        _signal.setitimer(_signal.ITIMER_REAL, 0)
++        _signal.signal(_signal.SIGALRM, old)
++
++
++def _grade_math_guarded(response: str, label) -> float:
++    """0.0/1.0. A verifier timeout is a legitimate 0.0 and is counted. A mechanism failure (broken pool, fork refused)
++    must never become a silent 0.0 for every sample, so it falls back to grading in-process, loudly."""
++    global _math_pool, _math_timeouts, _math_mech_failures
++    import concurrent.futures as _cf
++    import multiprocessing as _mp
++    for attempt in (1, 2):
++        try:
++            if _math_pool is None:
++                _math_pool = _cf.ProcessPoolExecutor(max_workers=_MATH_WORKERS,
++                                                     mp_context=_mp.get_context("fork"))
++            fut = _math_pool.submit(_grade_math_in_child, response or "", label)
++            ok = fut.result(timeout=_MATH_TIMEOUT_S + 20)
++            if ok is None:
++                _math_timeouts += 1
++                if _math_timeouts <= 5 or _math_timeouts % 50 == 0:
++                    logger.warning("[grpo_rm] math verifier timed out after %.0fs (count=%d); scored 0.0",
++                                   _MATH_TIMEOUT_S, _math_timeouts)
++                return 0.0
++            return 1.0 if ok else 0.0
++        except Exception as exc:                      # broken pool / child killed: rebuild once, then fall back
++            _math_mech_failures += 1
++            logger.error("[grpo_rm] math grading subprocess failed (%s: %s); attempt %d/2, mech_failures=%d",
++                         type(exc).__name__, str(exc)[:160], attempt, _math_mech_failures)
++            try:
++                if _math_pool is not None:
++                    _math_pool.shutdown(wait=False, cancel_futures=True)
++            except Exception:
++                pass
++            _math_pool = None
++    logger.error("[grpo_rm] math grading subprocess unusable twice — falling back to IN-PROCESS grading "
++                 "(unbounded: a sympy hang here stalls the rollout). mech_failures=%d", _math_mech_failures)
++    try:
++        return 1.0 if _load_grade_answer_verl()(response or "", label) else 0.0
++    except Exception as exc:
++        logger.error("[grpo_rm] in-process math grading also failed (%s); scoring 0.0", type(exc).__name__)
++        return 0.0
++
++
++async def grpo_rule_reward(args: Namespace, sample: Sample, **kwargs) -> float:
++    dom = _domain(sample)
++    if dom == "ifeval":
++        # A malformed label is a data defect, not a wrong answer: raise rather than pay 0 reward for every sample.
++        constraints = sample.label
++        if isinstance(constraints, str):
++            constraints = json.loads(constraints)
++        try:
++            ok, _ = _get_ifeval_score()(sample.response or "", constraints)
++        except (KeyError, ValueError):
++            raise
++        except Exception as exc:  # a checker crashing on odd output is a wrong answer
++            logger.warning("[grpo_rm] ifeval checker raised %s: %s", type(exc).__name__, exc)
++            ok = False
++        return 1.0 if ok else 0.0
++
++    if dom not in ("code", "code-a3b"):
++        # math and anything unrecognised: the guarded math verifier (identical verifier, bounded time)
++        return await asyncio.to_thread(_grade_math_guarded, sample.response or "", sample.label)
++
++    correct, _meta = await get_rule_based_reward(args, sample)
++    # the code judge can return a float score; binarise it (>= 1.0 is correct). None (judge error) scores 0.0.
++    if correct is None:
++        return 0.0
++    if isinstance(correct, bool):
++        return 1.0 if correct else 0.0
++    return 1.0 if float(correct) >= 1.0 else 0.0
+diff --git a/miles/Uni_OPD_utils/OPD_reward/ifeval_checkers.py b/miles/Uni_OPD_utils/OPD_reward/ifeval_checkers.py
+new file mode 100644
+index 0000000..474adde
+--- /dev/null
++++ b/miles/Uni_OPD_utils/OPD_reward/ifeval_checkers.py
+@@ -0,0 +1,226 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Instruction-following (IF) verifier: a closed taxonomy of constraint checkers with no third-party imports.
++
++This is the reward of the IF GRPO teacher and the correctness label of IF prompts on the student side. Every checker
++is a pure function of the response string, so a reward is reproducible without the model or any network access.
++
++A sample's label is a JSON list of constraint specs:
++    [{"type": "bullet_count", "n": 3}, {"type": "must_exclude", "values": ["however"]}]
++`score(response, constraints)` returns (all_satisfied, per_constraint_detail). The reward is strict: every
++constraint must hold (binary, like the math and code verifiers).
++
++Self-test: `python ifeval_checkers.py` (positive and negative cases per constraint type).
++"""
++from __future__ import annotations
++
++import json
++import re
++import string
++
++# ----------------------------------------------------------------- text primitives
++
++
++def _words(text: str) -> list[str]:
++    return re.findall(r"[A-Za-z0-9']+", text)
++
++
++def _sentences(text: str) -> list[str]:
++    parts = re.split(r"(?<=[.!?])\s+", text.strip())
++    return [p for p in parts if p.strip()]
++
++
++def _paragraphs(text: str) -> list[str]:
++    parts = re.split(r"\n\s*\n", text.strip())
++    return [p for p in parts if p.strip()]
++
++
++def _bullets(text: str) -> list[str]:
++    return [ln for ln in text.splitlines() if re.match(r"\s*[-*•]\s+\S", ln)]
++
++
++def _numbered(text: str) -> list[str]:
++    return [ln for ln in text.splitlines() if re.match(r"\s*\d+[.)]\s+\S", ln)]
++
++
++def _highlights(text: str) -> list[str]:
++    return re.findall(r"\*\*(.+?)\*\*", text, flags=re.S)
++
++
++def _placeholders(text: str) -> list[str]:
++    return re.findall(r"\[[^\[\]\n]{1,60}\]", text)
++
++
++# ----------------------------------------------------------------- checkers
++# Each takes (response, spec) -> bool. Keep them total: never raise on odd input.
++
++def _c_word_count_min(r, s):   return len(_words(r)) >= int(s["n"])
++def _c_word_count_max(r, s):   return len(_words(r)) <= int(s["n"])
++def _c_sentence_count(r, s):   return len(_sentences(r)) == int(s["n"])
++def _c_bullet_count(r, s):     return len(_bullets(r)) == int(s["n"])
++def _c_numbered_count(r, s):   return len(_numbered(r)) == int(s["n"])
++def _c_paragraph_count(r, s):  return len(_paragraphs(r)) == int(s["n"])
++def _c_highlight_count(r, s):  return len(_highlights(r)) >= int(s["n"])
++def _c_placeholder_count(r, s):return len(_placeholders(r)) >= int(s["n"])
++
++
++def _c_must_include(r, s):
++    low = r.lower()
++    return all(str(v).lower() in low for v in s["values"])
++
++
++def _c_must_exclude(r, s):
++    low = r.lower()
++    return all(str(v).lower() not in low for v in s["values"])
++
++
++def _c_forbidden_chars(r, s):
++    low = r.lower()
++    return all(str(ch).lower() not in low for ch in s["values"])
++
++
++def _c_all_caps(r, s):
++    letters = [ch for ch in r if ch.isalpha()]
++    return bool(letters) and all(ch.isupper() for ch in letters)
++
++
++def _c_all_lowercase(r, s):
++    letters = [ch for ch in r if ch.isalpha()]
++    return bool(letters) and all(ch.islower() for ch in letters)
++
++
++def _c_starts_with(r, s):      return r.strip().startswith(str(s["value"]))
++def _c_ends_with(r, s):        return r.strip().endswith(str(s["value"]))
++def _c_no_commas(r, s):        return "," not in r
++
++
++def _c_valid_json(r, s):
++    t = r.strip()
++    if t.startswith("```"):                       # tolerate a fenced block
++        t = re.sub(r"^```[a-zA-Z]*\s*|\s*```$", "", t)
++    try:
++        json.loads(t)
++        return True
++    except Exception:
++        return False
++
++
++def _c_wrapped_in(r, s):
++    t = r.strip()
++    o, c = str(s["open"]), str(s["close"])
++    return t.startswith(o) and t.endswith(c) and len(t) >= len(o) + len(c)
++
++
++def _c_repeat_first(r, s):
++    """Response must open by repeating the given text verbatim (case-insensitive)."""
++    return r.strip().lower().startswith(str(s["value"]).strip().lower())
++
++
++CHECKERS = {
++    "word_count_min": _c_word_count_min,
++    "word_count_max": _c_word_count_max,
++    "sentence_count": _c_sentence_count,
++    "bullet_count": _c_bullet_count,
++    "numbered_count": _c_numbered_count,
++    "paragraph_count": _c_paragraph_count,
++    "highlight_count": _c_highlight_count,
++    "placeholder_count": _c_placeholder_count,
++    "must_include": _c_must_include,
++    "must_exclude": _c_must_exclude,
++    "forbidden_chars": _c_forbidden_chars,
++    "all_caps": _c_all_caps,
++    "all_lowercase": _c_all_lowercase,
++    "starts_with": _c_starts_with,
++    "ends_with": _c_ends_with,
++    "no_commas": _c_no_commas,
++    "valid_json": _c_valid_json,
++    "wrapped_in": _c_wrapped_in,
++    "repeat_first": _c_repeat_first,
++}
++
++
++def score(response: str, constraints) -> tuple[bool, dict]:
++    """(all_satisfied, detail). Unknown constraint types are a HARD ERROR, never a silent pass —
++    a typo in the data must not manufacture reward."""
++    if isinstance(constraints, str):
++        constraints = json.loads(constraints)
++    if not constraints:
++        raise ValueError("empty constraint list: an IF sample with no constraint is unscoreable")
++    detail, ok_all = {}, True
++    for i, spec in enumerate(constraints):
++        t = spec["type"]
++        if t not in CHECKERS:
++            raise KeyError(f"unknown IF constraint type {t!r}; taxonomy is closed by design")
++        try:
++            ok = bool(CHECKERS[t](response or "", spec))
++        except Exception:
++            ok = False                     # a malformed response fails, it does not crash training
++        detail[f"{i}:{t}"] = ok
++        ok_all = ok_all and ok
++    return ok_all, {"satisfied": sum(detail.values()), "total": len(detail), "per_constraint": detail}
++
++
++def instruction_text(spec: dict) -> str:
++    """Human-readable rendering of one constraint, for building the prompt."""
++    t = spec["type"]
++    return {
++        "word_count_min": lambda: f"Use at least {spec['n']} words.",
++        "word_count_max": lambda: f"Use at most {spec['n']} words.",
++        "sentence_count": lambda: f"Answer in exactly {spec['n']} sentences.",
++        "bullet_count": lambda: f"Answer as exactly {spec['n']} bullet points, each starting with '- '.",
++        "numbered_count": lambda: f"Answer as exactly {spec['n']} numbered items, like '1. '.",
++        "paragraph_count": lambda: f"Answer in exactly {spec['n']} paragraphs separated by a blank line.",
++        "highlight_count": lambda: f"Highlight at least {spec['n']} sections using **double asterisks**.",
++        "placeholder_count": lambda: f"Include at least {spec['n']} placeholders in square brackets, like [name].",
++        "must_include": lambda: "Your answer must contain " + ", ".join(f"the word \"{v}\"" for v in spec["values"]) + ".",
++        "must_exclude": lambda: "Your answer must not contain " + ", ".join(f"the word \"{v}\"" for v in spec["values"]) + ".",
++        "forbidden_chars": lambda: "Do not use the letter " + " or ".join(f"'{c}'" for c in spec["values"]) + " anywhere.",
++        "all_caps": lambda: "Write your entire answer in capital letters.",
++        "all_lowercase": lambda: "Write your entire answer in lowercase letters only.",
++        "starts_with": lambda: f"Begin your answer with \"{spec['value']}\".",
++        "ends_with": lambda: f"End your answer with \"{spec['value']}\".",
++        "no_commas": lambda: "Do not use any commas.",
++        "valid_json": lambda: "Reply with valid JSON and nothing else.",
++        "wrapped_in": lambda: f"Wrap your entire answer in {spec['open']} and {spec['close']}.",
++        "repeat_first": lambda: f"Begin by repeating this exactly: \"{spec['value']}\"",
++    }[t]()
++
++
++# ----------------------------------------------------------------- self-test
++if __name__ == "__main__":
++    cases = [
++        ({"type": "word_count_min", "n": 3}, "one two three", "one two"),
++        ({"type": "word_count_max", "n": 3}, "one two", "one two three four"),
++        ({"type": "sentence_count", "n": 2}, "A cat sat. A dog ran.", "A cat sat."),
++        ({"type": "bullet_count", "n": 2}, "- a\n- b", "- a"),
++        ({"type": "numbered_count", "n": 2}, "1. a\n2. b", "1. a"),
++        ({"type": "paragraph_count", "n": 2}, "para one\n\npara two", "para one"),
++        ({"type": "highlight_count", "n": 1}, "see **this**", "see this"),
++        ({"type": "placeholder_count", "n": 1}, "dear [name]", "dear friend"),
++        ({"type": "must_include", "values": ["banana"]}, "a Banana here", "an apple here"),
++        ({"type": "must_exclude", "values": ["however"]}, "so then", "However, no"),
++        ({"type": "forbidden_chars", "values": ["e"]}, "a tall hill", "a tree"),
++        ({"type": "all_caps"}, "HELLO THERE", "Hello There"),
++        ({"type": "all_lowercase"}, "hello there", "Hello there"),
++        ({"type": "starts_with", "value": "Answer:"}, "Answer: yes", "yes"),
++        ({"type": "ends_with", "value": "END"}, "all done END", "all done"),
++        ({"type": "no_commas"}, "a b c", "a, b"),
++        ({"type": "valid_json"}, '{"a": 1}', "{a: 1}"),
++        ({"type": "wrapped_in", "open": "<<", "close": ">>"}, "<<hi>>", "hi"),
++        ({"type": "repeat_first", "value": "Explain X"}, "explain x, then...", "then..."),
++    ]
++    assert len(cases) == len(CHECKERS), f"self-test covers {len(cases)} of {len(CHECKERS)} checkers"
++    for spec, good, bad in cases:
++        ok_g, _ = score(good, [spec])
++        ok_b, _ = score(bad, [spec])
++        assert ok_g, f"{spec['type']}: positive case failed on {good!r}"
++        assert not ok_b, f"{spec['type']}: negative case passed on {bad!r}"
++        instruction_text(spec)                      # must render for every type
++    ok, d = score("- a\n- b", [{"type": "bullet_count", "n": 2}, {"type": "no_commas"}])
++    assert ok and d["satisfied"] == 2
++    ok, d = score("- a, x\n- b", [{"type": "bullet_count", "n": 2}, {"type": "no_commas"}])
++    assert not ok and d["satisfied"] == 1, "strict conjunction must fail if any constraint fails"
++    try:
++        score("x", [{"type": "no_such_check"}]); raise SystemExit("unknown type must raise")
++    except KeyError:
++        pass
++    print(f"IFEVAL_CHECKERS_SELFTEST: PASS ({len(CHECKERS)} checkers, positive+negative each)")
+diff --git a/miles/Uni_OPD_utils/OPD_reward/math_grader_worker.py b/miles/Uni_OPD_utils/OPD_reward/math_grader_worker.py
+new file mode 100644
+index 0000000..5c116d2
+--- /dev/null
++++ b/miles/Uni_OPD_utils/OPD_reward/math_grader_worker.py
+@@ -0,0 +1,36 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Child process of the bounded math grader: one JSON request per line on stdin ([response, label]), one JSON result
++per line on stdout. It runs the unchanged grader (miles.rollout.rm_hub.math_utils.grade_answer_verl); the parent kills
++it when a request exceeds the time limit (sympy.simplify has no limit of its own)."""
++import importlib.util
++import json
++import sys
++from pathlib import Path
++
++
++def load_grader():
++    """The grader file of this tree, loaded by path: importing the `miles.rollout` package would pull torch and sglang
++    into every worker; math_utils.py itself needs only re, sympy and pylatexenc."""
++    path = Path(__file__).resolve().parents[2] / "miles/rollout/rm_hub/math_utils.py"
++    spec = importlib.util.spec_from_file_location("bounded_math_utils", path)
++    module = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(module)
++    return module.grade_answer_verl
++
++
++def main():
++    grade_answer_verl = load_grader()
++    out = sys.stdout
++    sys.stdout = sys.stderr                 # nothing but results may reach the pipe
++    print("MATH_GRADER_READY", file=out, flush=True)
++    for line in sys.stdin:
++        response, label = json.loads(line)
++        try:
++            result = bool(grade_answer_verl(response, label))
++        except Exception:                   # the in-process grader's exceptions are scored False too
++            result = False
++        print(json.dumps(result), file=out, flush=True)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/miles/Uni_OPD_utils/OPD_reward/post_process_rewards.py b/miles/Uni_OPD_utils/OPD_reward/post_process_rewards.py
+index 4c0aecc..c1ccee6 100644
+--- a/miles/Uni_OPD_utils/OPD_reward/post_process_rewards.py
++++ b/miles/Uni_OPD_utils/OPD_reward/post_process_rewards.py
+@@ -1,8 +1,10 @@
++# Modified by the DN-MOPD authors (2026): fixed the package import (exps.OPD.* -> Uni_OPD_utils.*) and parse the
++# all-teacher scores (reward["per_teacher"]) into sample.per_teacher_log_probs for Uni_OPD_utils.mopd_hook.
+ import logging
+ 
+ import torch
+ 
+-from exps.OPD.utils.reward.get_reward import REWARD_FAILED_KEY
++from Uni_OPD_utils.OPD_reward.get_reward import REWARD_FAILED_KEY
+ from miles.utils.types import Sample
+ 
+ logger = logging.getLogger(__name__)
+@@ -11,6 +13,72 @@ logger = logging.getLogger(__name__)
+ TEACHER_LOGP_FAILED_SENTINEL = -100.0
+ 
+ 
++def _echoed_token_ids_match(input_token_logprobs: list, tokens: list[int], response_length: int) -> bool:
++    """True when the token ids the teacher echoes for the response tail equal sample.tokens' tail.
++
++    If token compatibility (maybe_convert_tokens_for_teacher_compat) removed a token inside the response, the
++    [-response_length:] slice would be shifted and the teacher log-probs misaligned with the student's tokens;
++    such a teacher is treated as failed for the sample.
++    """
++    tail = input_token_logprobs[-response_length:]
++    echoed = [item[1] for item in tail]
++    return echoed == list(tokens[-response_length:])
++
++
++def _parse_response_log_probs(input_token_logprobs: list, response_length: int) -> torch.Tensor:
++    """input_token_logprobs -> response log-probs, with the legacy slicing: drop the first position (no log-prob),
++    then keep the last response_length. A shorter result is head-padded with the sentinel so that it stays
++    position-aligned with the rollout log-probs."""
++    t_log_probs = torch.tensor(
++        [item[0] for item in input_token_logprobs[1:]],
++        dtype=torch.float32,
++    )
++    t_log_probs = t_log_probs[-response_length:]
++    if t_log_probs.numel() < response_length:
++        pad = torch.full((response_length - t_log_probs.numel(),), TEACHER_LOGP_FAILED_SENTINEL, dtype=torch.float32)
++        t_log_probs = torch.cat([pad, t_log_probs])
++    return t_log_probs
++
++
++def _maybe_set_per_teacher_log_probs(sample: Sample, reward: dict, response_length: int) -> None:
++    """When reward["per_teacher"] exists (all-teacher scoring), parse it into
++    sample.per_teacher_log_probs = {teacher_name: Tensor[response_length]}; a failed teacher gets a row of
++    TEACHER_LOGP_FAILED_SENTINEL. The legacy fields (teacher_log_probs, ...) are not touched."""
++    per_teacher = reward.get("per_teacher") if isinstance(reward, dict) else None
++    if per_teacher is None:
++        return
++
++    sentinel_row = torch.full((response_length,), TEACHER_LOGP_FAILED_SENTINEL, dtype=torch.float32)
++    per_teacher_log_probs: dict[str, torch.Tensor] = {}
++    for teacher_name, info in per_teacher.items():
++        input_token_logprobs = None if info.get("failed", False) else info.get("input_token_logprobs")
++        if input_token_logprobs is None:
++            per_teacher_log_probs[teacher_name] = sentinel_row.clone()
++            continue
++        try:
++            if not _echoed_token_ids_match(input_token_logprobs, sample.tokens, response_length):
++                logger.warning(
++                    f"[post_process_rewards] per_teacher[{teacher_name}] echoed token ids do not match "
++                    f"sample tokens tail (token-compat removal inside response region?), "
++                    f"filling with sentinel {TEACHER_LOGP_FAILED_SENTINEL}."
++                )
++                info["failed"] = True
++                per_teacher_log_probs[teacher_name] = sentinel_row.clone()
++            else:
++                per_teacher_log_probs[teacher_name] = _parse_response_log_probs(input_token_logprobs, response_length)
++        except Exception as e:
++            logger.warning(
++                f"[post_process_rewards] per_teacher[{teacher_name}] logprob parse error: {e}, "
++                f"filling with sentinel {TEACHER_LOGP_FAILED_SENTINEL}."
++            )
++            per_teacher_log_probs[teacher_name] = sentinel_row.clone()
++        finally:
++            # drop the raw payload after parsing (K copies would otherwise travel into the ray object store)
++            info["input_token_logprobs"] = None
++
++    sample.per_teacher_log_probs = per_teacher_log_probs
++
++
+ # 设置在 --custom-reward-post-process-path 当中
+ # 用于 miles/ray/rollout.py 的 _post_process_rewards 方法中，调用 custom_reward_post_process_func
+ def post_process_rewards(args, samples: list[Sample], **kwargs) -> tuple[list[float], list[float]]:
+@@ -31,6 +99,10 @@ def post_process_rewards(args, samples: list[Sample], **kwargs) -> tuple[list[fl
+     for i, (reward, sample) in enumerate(zip(rewards, samples, strict=False)):
+         response_length: int = sample.response_length
+ 
++        # all-teacher scoring: parse every teacher's scores (a failure of the routed teacher is not a failure of
++        # the others)
++        _maybe_set_per_teacher_log_probs(sample, reward, response_length)
++
+         response_correct: bool = reward.get("response_correct", None)
+         # 失败样本处理
+         if reward.get(REWARD_FAILED_KEY, False):
+diff --git a/miles/Uni_OPD_utils/OPD_reward/reward_manager.py b/miles/Uni_OPD_utils/OPD_reward/reward_manager.py
+index ccd4502..365eaf4 100644
+--- a/miles/Uni_OPD_utils/OPD_reward/reward_manager.py
++++ b/miles/Uni_OPD_utils/OPD_reward/reward_manager.py
+@@ -1,14 +1,19 @@
++# Modified by the DN-MOPD authors (2026): fixed the package imports (exps.OPD.* -> Uni_OPD_utils.*); the teacher
++# server list/map paths can be set with OPD_TEACHER_SERVER_LIST / OPD_TEACHER_SERVER_MAP; added the per-teacher
++# interface (teacher_names, resolve_real_name, get_next_url_for_teacher, build_payload_for_teacher) used by the
++# all-teacher scorer.
+ import copy
+ import json
+ import logging
++import os
+ import threading
+ from argparse import Namespace
+ from pathlib import Path
+ 
+ from PIL import Image
+ 
+-from exps.OPD.utils.reward.teacher import TeacherState
+-from exps.OPD.utils.reward.utils import maybe_convert_tokens_for_teacher_compat
++from Uni_OPD_utils.OPD_reward.teacher import TeacherState
++from Uni_OPD_utils.OPD_reward.utils import maybe_convert_tokens_for_teacher_compat
+ from miles.utils.misc import SingletonMeta
+ from miles.utils.processing_utils import encode_image_for_rollout_engine
+ from miles.utils.types import Sample
+@@ -16,6 +21,7 @@ from miles.utils.types import Sample
+ logger = logging.getLogger(__name__)
+ 
+ _REWARD_DIR = Path(__file__).parent
++# The paths can be overridden with OPD_TEACHER_SERVER_LIST / OPD_TEACHER_SERVER_MAP (the recipes write both per run).
+ _SERVER_LIST_PATH = _REWARD_DIR / "teacher_server_list.json"
+ _SERVER_MAP_PATH = _REWARD_DIR / "teacher_server_map.json"
+ 
+@@ -46,8 +52,10 @@ class RMSystemManager(metaclass=SingletonMeta):
+             "logprob_start_len": 0,  # The start location in the prompt for logprobs
+         }
+ 
+-        server_list: dict = json.loads(_SERVER_LIST_PATH.read_text(encoding="utf-8"))
+-        self._server_map: dict = json.loads(_SERVER_MAP_PATH.read_text(encoding="utf-8"))
++        server_list_path = Path(os.environ.get("OPD_TEACHER_SERVER_LIST", str(_SERVER_LIST_PATH)))
++        server_map_path = Path(os.environ.get("OPD_TEACHER_SERVER_MAP", str(_SERVER_MAP_PATH)))
++        server_list: dict = json.loads(server_list_path.read_text(encoding="utf-8"))
++        self._server_map: dict = json.loads(server_map_path.read_text(encoding="utf-8"))
+ 
+         # 预注册所有 teacher（不加载权重，只记录元信息）
+         for model_name, info in server_list.items():
+@@ -85,15 +93,34 @@ class RMSystemManager(metaclass=SingletonMeta):
+         state = self._resolve_state(sample.teacher_model_name)
+         return state.get_next_url()
+ 
++    # ---------- per-teacher interface of the all-teacher scorer ----------
++    def teacher_names(self) -> list[str]:
++        """Registered teacher names (the keys of the server list)."""
++        return list(self._teacher_states.keys())
++
++    def resolve_real_name(self, teacher_model_name: str | None) -> str:
++        """Alias (the dataset's teacher label) -> registered teacher name."""
++        return self._resolve_state(teacher_model_name).model_name
++
++    def get_next_url_for_teacher(self, teacher_name: str) -> str:
++        """Next URL of a registered teacher, by its registered name (no alias resolution)."""
++        return self._teacher_states[teacher_name].get_next_url()
++
++    def build_payload_for_teacher(self, sample: Sample, teacher_name: str) -> dict:
++        """Scoring payload for one registered teacher (built per teacher: token compatibility depends on each
++        teacher's hf_path)."""
++        return self._build_payload_for_state(sample, self._teacher_states[teacher_name])
++
+     def build_payload(self, sample: Sample) -> dict:
+         """根据 sample.teacher_model_name 选择对应的 teacher，构建请求 payload。
+ 
+         * 多模态：processor 重新编码，提取 input_ids + image_data。
+         * 纯文本：直接使用 sample.tokens。
+         """
+-        teacher_name: str = sample.teacher_model_name
+-        state = self._resolve_state(teacher_name)
++        state = self._resolve_state(sample.teacher_model_name)
++        return self._build_payload_for_state(sample, state)
+ 
++    def _build_payload_for_state(self, sample: Sample, state: TeacherState) -> dict:
+         # 触发 lazy 初始化（如尚未加载 tokenizer/processor）
+         processor = state.processor  # property 内部会 ensure_initialized
+ 
+diff --git a/miles/Uni_OPD_utils/OPD_reward/rule_base_reward.py b/miles/Uni_OPD_utils/OPD_reward/rule_base_reward.py
+index 470ae5f..dc1e891 100644
+--- a/miles/Uni_OPD_utils/OPD_reward/rule_base_reward.py
++++ b/miles/Uni_OPD_utils/OPD_reward/rule_base_reward.py
+@@ -1,27 +1,44 @@
++# Modified by the DN-MOPD authors (2026): fixed the package imports; the verifier is selected by
++# sample.metadata["domain"] (falling back to the teacher label); IF responses are graded by the vendored
++# constraint checkers; math grading runs in killable worker processes with a time limit (bounded_math_grade.py);
++# a code-judge error or a verifier exception yields None ("no verdict") instead of a wrong-answer verdict; the
++# code-judge client is created lazily.
+ import asyncio
++import importlib.util
++import json
+ import logging
++import os
+ from argparse import Namespace
+ 
+ # from exps.RL.utils.reward.PRIME_code import compute_score as compute_score_code
+-from exps.RL.utils.reward.PRIME_code_server.server import CodeJudgeClient, CodeJudgeResponse
++from Uni_OPD_utils.outcome_reward.PRIME_code_server.server import CodeJudgeClient, CodeJudgeResponse
+ 
+-# from miles.rollout.rm_hub.math_utils import grade_answer_verl as compute_score_math
+-from Math.generate.verify_deepmath.reward_func import reward_func as compute_score_math
+ from miles.utils.types import Sample
++from Uni_OPD_utils.OPD_reward.bounded_math_grade import grade_math_bounded
+ 
+ logger = logging.getLogger(__name__)
+ 
+ # 这里获取全局唯一实例，避免重复创建连接和服务器列表
+-_code_judge_client: CodeJudgeClient = CodeJudgeClient()
++# created lazily: math-only runs must not require the code-judge service at import time
++_code_judge_client: CodeJudgeClient | None = None
+ 
+ 
+-def _compute_score_code(completion: str, test_cases) -> tuple[float | bool, list | dict | None]:
++def _get_code_judge_client() -> CodeJudgeClient:
++    global _code_judge_client
++    if _code_judge_client is None:
++        _code_judge_client = CodeJudgeClient()
++    return _code_judge_client
++
++
++def _compute_score_code(completion: str, test_cases) -> tuple[float | bool | None, list | dict | None]:
+     """通过远程 CodeJudgeClient 服务评测代码正确性，接口兼容原 compute_score。
+     注意：此函数内部使用 requests.post（同步阻塞），必须通过 asyncio.to_thread 调用。
+     """
+-    resp: CodeJudgeResponse = _code_judge_client.judge(completion, test_cases)
++    resp: CodeJudgeResponse = _get_code_judge_client().judge(completion, test_cases)
+     if resp.error:
+         logger.warning(f"[CodeJudge] judge returned error: {resp.error}")
++        # an error is not a verdict: None means "unknown" (GRPO scores it 0.0; the injection trigger refuses it)
++        return None, resp.metadata
+     return resp.success, resp.metadata
+ 
+ 
+@@ -30,18 +47,53 @@ def _compute_score_code(completion: str, test_cases) -> tuple[float | bool, list
+ # 导致 abort wait 等异步操作 hang 住。
+ 
+ 
+-async def get_rule_based_reward(args: Namespace, sample: Sample) -> tuple[bool, dict[str]]:
++_ifeval_score = None
++
++
++def _get_ifeval_score():
++    """The vendored instruction-following constraint checkers (ifeval_checkers.py beside this file)."""
++    global _ifeval_score
++    if _ifeval_score is None:
++        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ifeval_checkers.py")
++        spec = importlib.util.spec_from_file_location("uni_opd_ifeval_checkers", path)
++        if spec is None or spec.loader is None:
++            raise ImportError(f"cannot load the vendored ifeval checkers from {path}")
++        mod = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(mod)
++        _ifeval_score = mod.score
++    return _ifeval_score
++
++
++def _verifier_domain(sample: Sample) -> str:
++    """Domain that selects the correctness verifier: sample.metadata["domain"] (the dataset's true domain), falling
++    back to the teacher-routing label sample.teacher_model_name when the metadata carries no domain."""
++    meta = getattr(sample, "metadata", None) or {}
++    dom = meta.get("domain")
++    if isinstance(dom, str) and dom:
++        return dom.lower()
++    return (sample.teacher_model_name or "").lower()
++
++
++async def get_rule_based_reward(args: Namespace, sample: Sample) -> tuple[bool | float | None, dict[str]]:
++    verifier_domain = _verifier_domain(sample)
+     try:
+-        if sample.teacher_model_name.lower() in ("vlm-puzzle", "vlm-math", "vlm-chart"):
++        if verifier_domain in ("vlm-puzzle", "vlm-math", "vlm-chart"):
+             from exps.RL.utils.reward.OpenMMReasoner.get_reward import get_reward as get_reward_openmm
+ 
+             grade_result: dict = await get_reward_openmm(args, sample)
+             response_correct = grade_result["acc_score"] == 1.0
+             grade_result = (response_correct, grade_result)
+-        elif sample.teacher_model_name.lower() in ("code", "code-a3b"):
++        elif verifier_domain in ("code", "code-a3b"):
+             grade_result = await asyncio.to_thread(_compute_score_code, sample.response, sample.label)
+-        else:  # Default math 格式的数学验证（纯 CPU 计算，毫秒级，不需要线程池）
+-            grade_result = compute_score_math(sample.response, sample.label)
++        elif verifier_domain == "ifeval":
++            # strict: every constraint of the prompt must hold
++            constraints = sample.label
++            if isinstance(constraints, str):
++                constraints = json.loads(constraints)
++            ok, detail = _get_ifeval_score()(sample.response or "", constraints)
++            grade_result = (bool(ok), detail if isinstance(detail, dict) else {})
++        else:  # Default math: grade_answer_verl in a killable worker with a time limit (bounded_math_grade.py)
++            grade_result = await grade_math_bounded(sample.response, sample.label)
+ 
+         if isinstance(grade_result, tuple):
+             response_correct, metadata = grade_result
+@@ -54,6 +106,7 @@ async def get_rule_based_reward(args: Namespace, sample: Sample) -> tuple[bool,
+ 
+     except Exception as e:
+         logger.warning(f"[get_reward] grade_answer_verl raised an exception: {type(e).__name__}: {e}")
+-        response_correct, metadata = False, {}
++        # a verifier exception is not a verdict
++        response_correct, metadata = None, {}
+ 
+     return response_correct, metadata
+diff --git a/miles/Uni_OPD_utils/anchor_group_filter.py b/miles/Uni_OPD_utils/anchor_group_filter.py
+new file mode 100644
+index 0000000..99c3809
+--- /dev/null
++++ b/miles/Uni_OPD_utils/anchor_group_filter.py
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Dynamic-sampling filter for the GRPO teachers: drop zero-reward-variance groups, with a bounded number of
++generation batches.
++
++miles implements the drop itself (`miles.rollout.filter_hub.dynamic_sampling_filters.check_reward_nonzero_std`) and
++`generate_rollout` keeps over-sampling until `rollout_batch_size` groups survive. That loop has no bound, so a model
++whose groups are almost all zero-variance keeps generating indefinitely. This wrapper adds the bound: up to
++`DYNAMIC_SAMPLING_MAX_GEN_BATCHES` (default 8) generation batches' worth of groups are filtered on reward variance
++exactly as the miles filter does; past that budget the rollout accepts whatever arrives, so a step always completes.
++Accepting a zero-variance group does not corrupt the update: with rewards_normalization and grpo_std_normalization
++on (the defaults) its advantage is reward - group_mean = 0 for every member, so it contributes no gradient.
++
++The filter is called as `fn(args, group)` without a rollout id, so a rollout boundary is inferred from `kept`
++reaching `rollout_batch_size` (the loop's own exit condition); the counters reset there.
++
++Use: --dynamic-sampling-filter-path Uni_OPD_utils.anchor_group_filter.check_reward_nonzero_std_bounded
++"""
++
++import os
++
++import torch
++
++from miles.rollout.filter_hub.base_types import DynamicFilterOutput
++
++__all__ = ["check_reward_nonzero_std_bounded", "reset_state", "get_state"]
++
++_state = {"seen": 0, "kept": 0, "dropped": 0, "released": 0}
++
++
++def reset_state():
++    for k in _state:
++        _state[k] = 0
++
++
++def get_state():
++    return dict(_state)
++
++
++def _flatten(samples):
++    for s in samples:
++        if isinstance(s, list):
++            yield from s
++        else:
++            yield s
++
++
++def check_reward_nonzero_std_bounded(args, samples, **kwargs):
++    target = int(getattr(args, "rollout_batch_size", 0) or 0)
++    budget = target * int(os.environ.get("DYNAMIC_SAMPLING_MAX_GEN_BATCHES", "8"))
++
++    if target and _state["kept"] >= target:      # the previous rollout finished: this group starts a new one
++        reset_state()
++    _state["seen"] += 1
++
++    if budget and _state["seen"] > budget:       # at most N generation batches: stop filtering, finish the step
++        _state["kept"] += 1
++        _state["released"] += 1
++        return DynamicFilterOutput(keep=True, reason=None)
++
++    rewards = [s.get_reward_value(args) for s in _flatten(samples)]
++    keep = bool(torch.tensor(rewards, dtype=torch.float64).std() > 1e-8)
++    if keep:
++        _state["kept"] += 1
++    else:
++        _state["dropped"] += 1
++    return DynamicFilterOutput(keep=keep, reason=None if keep else f"zero_std_{round(rewards[0], 1)}")
+diff --git a/miles/Uni_OPD_utils/margin_calibration/margin_shift.py b/miles/Uni_OPD_utils/margin_calibration/margin_shift.py
+index 34a86e8..eb1a536 100644
+--- a/miles/Uni_OPD_utils/margin_calibration/margin_shift.py
++++ b/miles/Uni_OPD_utils/margin_calibration/margin_shift.py
+@@ -1,10 +1,12 @@
++# Modified by the DN-MOPD authors (2026): fixed the package imports (miles.miles.* -> miles.*); loss.py imports
++# this module unconditionally.
+ import logging
+ from argparse import Namespace
+ 
+ import torch
+ import torch.distributed as dist
+-from miles.miles.backends.training_utils.parallel import ParallelState
+-from miles.miles.utils.types import RolloutBatch
++from miles.backends.training_utils.parallel import ParallelState
++from miles.utils.types import RolloutBatch
+ 
+ logger = logging.getLogger(__name__)
+ 
+diff --git a/miles/Uni_OPD_utils/mopd_hook/__init__.py b/miles/Uni_OPD_utils/mopd_hook/__init__.py
+new file mode 100644
+index 0000000..f034156
+--- /dev/null
++++ b/miles/Uni_OPD_utils/mopd_hook/__init__.py
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Multi-teacher on-policy distillation hook (label / uniform pool / dynamic router, DN-MOPD, annealed injection)."""
+diff --git a/miles/Uni_OPD_utils/mopd_hook/core.py b/miles/Uni_OPD_utils/mopd_hook/core.py
+new file mode 100644
+index 0000000..38391a6
+--- /dev/null
++++ b/miles/Uni_OPD_utils/mopd_hook/core.py
+@@ -0,0 +1,126 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Pure functions of the multi-teacher OPD hook (no I/O, no trainer imports; CPU-testable).
++
++Teacher rules. Every function below works on the per-teacher sampled-token log-probabilities of ONE student response.
++Only the target handed to the unchanged on_policy_distillation surrogate is produced here; everything is
++stop-gradient data. There is no top-k, union support, floor or renormalisation on this path. A missing, misaligned,
++sentinel or non-finite teacher score raises: nothing falls back to the label, to uniform weights or to any teacher.
++
++    label    the teacher named by the prompt's domain label (Label / MOPD with label routing)
++    pool     log of the arithmetic mixture of all teachers with weights 1/K (uniform pool)
++    dynamic  the teacher with the lowest mean sampled-token log-prob on this response (dynamic router)
++
++DN-MOPD multipliers (`dn_multipliers`). From (domain, token log-ratio) pairs of one rollout batch, where the log-ratio
++is (label-teacher log-prob - cached rollout log-prob) on the valid response tokens:
++    sigma_d   = population std of the domain's tokens,  sigma_all = population std of all tokens of the batch
++    w_d       = clip(sigma_all / sigma_d, 0.25, 4)      (w_d = 1 when either std is 0 or has < 2 observations)
++"""
++from __future__ import annotations
++
++import math
++
++import torch
++
++MODES = ("label", "pool", "dynamic")
++SENTINEL = -100.0  # == post_process_rewards.TEACHER_LOGP_FAILED_SENTINEL (duplicated so this file imports nothing heavy)
++DN_CLIP_LOWER, DN_CLIP_UPPER = 0.25, 4.0
++
++
++class ScoreError(RuntimeError):
++    """A teacher score is unusable. The batch must not train."""
++
++
++def validated_rows(per_teacher, names, length):
++    """{name: float32 tensor[length]} for exactly `names`; raises on anything that is not a complete real score."""
++    if not isinstance(per_teacher, dict) or set(per_teacher) != set(names):
++        raise ScoreError(f"teacher set {sorted(per_teacher or {})} != registered {sorted(names)}")
++    rows = {}
++    for name in sorted(names):
++        row = torch.as_tensor(per_teacher[name], dtype=torch.float32)
++        if tuple(row.shape) != (int(length),) or length <= 0:
++            raise ScoreError(f"{name}: score shape {tuple(row.shape)} != response length {length}")
++        if not bool(torch.isfinite(row).all()) or bool((row == SENTINEL).any()):
++            raise ScoreError(f"{name}: failed/non-finite sampled-token score")
++        rows[name] = row
++    return rows
++
++
++def response_mask(loss_mask, length):
++    """Boolean mask of the response tokens that carry loss (all tokens when loss_mask is None)."""
++    if loss_mask is None:
++        return torch.ones(int(length), dtype=torch.bool)
++    mask = torch.as_tensor(loss_mask).to(torch.bool)
++    if tuple(mask.shape) != (int(length),):
++        raise ScoreError(f"response mask shape {tuple(mask.shape)} != response length {length}")
++    if not bool(mask.any()):
++        raise ScoreError("empty response mask")
++    return mask
++
++
++def mean_scores(rows, mask):
++    """s_k = mean over response-mask tokens of teacher k's sampled-token log-prob, float32 accumulation."""
++    return {name: float(row[mask].to(torch.float32).mean().item()) for name, row in rows.items()}
++
++
++def argmin_name(scores):
++    """Minimum-likelihood teacher; exact ties go to the lexicographically first teacher name."""
++    if not scores or any(not math.isfinite(v) for v in scores.values()):
++        raise ScoreError("non-finite selection score")
++    return min(sorted(scores), key=lambda name: (scores[name], name))
++
++
++def pool_logp(rows):
++    """log q_pool(y_t|h) = logsumexp_k log p_Tk(y_t|h) - log K: the arithmetic mixture with fixed weights 1/K."""
++    stacked = torch.stack([rows[name] for name in sorted(rows)], dim=0).to(torch.float32)
++    return torch.logsumexp(stacked, dim=0) - math.log(stacked.shape[0])
++
++
++def mixture_logp(rows, weights):
++    """General fixed-weight arithmetic mixture (one-hot weights reduce to one teacher; uniform weights to pool_logp)."""
++    names = sorted(rows)
++    w = torch.tensor([float(weights[n]) for n in names], dtype=torch.float32)
++    if bool((w < 0).any()) or abs(float(w.sum()) - 1.0) > 1e-6:
++        raise ScoreError("mixture weights must be a distribution")
++    stacked = torch.stack([rows[n] for n in names], dim=0).to(torch.float32)
++    logw = torch.where(w > 0, torch.log(w), torch.full_like(w, -float("inf")))
++    return torch.logsumexp(stacked + logw[:, None], dim=0)
++
++
++def teacher_log_probs(mode, rows, scores, *, label_teacher=None):
++    """(teacher_log_probs float32[length], applied teacher name or 'pool')."""
++    if mode == "pool":
++        return pool_logp(rows), "pool"
++    if mode == "dynamic":
++        name = argmin_name(scores)
++    elif mode == "label":
++        name = label_teacher
++    else:
++        raise ValueError(f"unknown mode {mode!r}")
++    if name not in rows:
++        raise ScoreError(f"{mode}: applied teacher {name!r} is not a registered scored teacher")
++    return rows[name].clone(), name
++
++
++def dn_multipliers(pairs, lower=DN_CLIP_LOWER, upper=DN_CLIP_UPPER):
++    """DN-MOPD multipliers of one rollout batch.
++
++    pairs: iterable of (domain, 1-D float tensor of token log-ratios), one pair per response.
++    Returns ({domain: w_d}, {"global_std": sigma_all, "by_domain": {domain: {std, raw_factor, factor, clipped,
++    tokens}}}). Population std (unbiased=False); sigma_all pools the tokens of every domain; a degenerate std (zero or
++    fewer than two tokens) gives w_d = 1.
++    """
++    pairs = list(pairs)
++    by = {}
++    for d, v in pairs:
++        by.setdefault(d, []).append(v)
++    allv = torch.cat([v for _, v in pairs]) if pairs else torch.zeros(0)
++    g = float(allv.std(unbiased=False)) if allv.numel() > 1 else 0.0
++    out, info = {}, {}
++    for d in sorted(by):
++        t = torch.cat(by[d])
++        sd = float(t.std(unbiased=False)) if t.numel() > 1 else 0.0
++        raw = (g / sd) if (sd > 0.0 and g > 0.0) else 1.0
++        f = min(upper, max(lower, raw))
++        out[d] = f
++        info[d] = {"std": sd, "raw_factor": raw, "factor": f, "clipped": f != raw, "tokens": int(t.numel())}
++    return out, {"global_std": g, "by_domain": info}
+diff --git a/miles/Uni_OPD_utils/mopd_hook/hook.py b/miles/Uni_OPD_utils/mopd_hook/hook.py
+new file mode 100644
+index 0000000..b35e25c
+--- /dev/null
++++ b/miles/Uni_OPD_utils/mopd_hook/hook.py
+@@ -0,0 +1,468 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Multi-teacher OPD hook: label / uniform pool / dynamic router targets, DN-MOPD and its controls, and annealed
++teacher-trajectory injection, on the unchanged sampled-token reverse-KL (on_policy_distillation) loss of miles.
++
++Wiring (the recipes set all of this; see recipes/qwen3.5/train_student.sh):
++    MOPD_HOOK_CONFIG=<run config JSON>          (exported before `ray start`, so the rollout workers inherit it)
++    --advantage-estimator on_policy_distillation
++    --custom-rm-path                  Uni_OPD_utils.mopd_hook.hook.get_reward
++    --custom-reward-post-process-path Uni_OPD_utils.mopd_hook.hook.post_process_rewards
++
++Every registered teacher scores the sampled tokens of every response (OPD_reward.get_reward._get_reward_fanout). The
++legacy reward fields (and hence sample.teacher_log_probs) still come from the label-routed teacher; this hook then
++replaces sample.teacher_log_probs by the configured target and, for DN-MOPD / injection, attaches per-sample values
++that the rollout manager carries into the training batch and the loss applies (miles/backends/training_utils/loss.py):
++    dn_adv_scale      the domain multiplier w_d (DN-MOPD, fixed weights, frozen update-0 multipliers, observe = 1.0)
++    inject_adv_const  the constant advantage c(t) of an injected teacher trajectory (0.0 = not injected)
++
++Run config (JSON):
++    mode                "label" | "pool" | "dynamic"
++    n_samples           responses per prompt (must equal --n-samples-per-prompt)
++    teachers            registered teacher names (the keys of the teacher server list)
++    label_map           {"default": T, <domain label>: T, ...}; OPD_TEACHER_SERVER_MAP, when set, takes precedence
++    audit_dir           optional directory for the per-batch audit files (samples_<first>_<last>_<ns>.json)
++    extra_score_rounds  repair rounds for a teacher whose five scoring attempts all failed (default 3)
++    adv_norm            optional, label mode only:
++                          "per_domain_scale"      DN-MOPD: w_d = clip(sigma_all / sigma_d, 0.25, 4) per batch
++                          "fixed_domain_scale"    w_d = adv_norm_fixed[d] (the DN statistic is still recorded)
++                          "observe_domain_scale"  w_d = 1 (Label update; the DN statistic is recorded, never applied)
++    adv_norm_fixed      {"math": w, "code": w, "ifeval": w}, each in [0.25, 4] (fixed_domain_scale only)
++    inject_bank_path    optional, label mode only: annealed injection. In every prompt group whose prompt the bank
++                        holds, the lowest-index verifier-wrong sample (else the lowest-index sample) is replaced by the
++                        bank's verified-correct label-teacher trajectory, whose advantage is the constant
++                        c(t) = inject_adv_const * max(0, 1 - t / inject_anneal_steps) on every token at update t.
++    inject_bank_sha256  optional integrity check of the bank file
++    inject_adv_const    c0 in (0, 2]
++    inject_anneal_steps A >= 1 (no injection from t = A on)
++
++Each batch prints one "MOPD_HOOK_PANEL {json}" line (routing shares, DN statistics, injection counts).
++"""
++from __future__ import annotations
++
++import asyncio
++import functools
++import hashlib
++import json
++import logging
++import os
++import time
++from collections import Counter
++from pathlib import Path
++
++import torch
++
++from Uni_OPD_utils.mopd_hook import core
++
++logger = logging.getLogger(__name__)
++PANEL_PREFIX = "MOPD_HOOK_PANEL"
++CONFIG_ENV = "MOPD_HOOK_CONFIG"
++ADV_NORM_MODES = ("per_domain_scale", "fixed_domain_scale", "observe_domain_scale")
++DOMAINS = ("math", "code", "ifeval")
++IDENTITY = {
++    "label": "Label-routed MOPD (sampled-token reverse KL against the domain-label teacher)",
++    "pool": "Uniform-pool MOPD (sampled-token reverse KL against the arithmetic 1/K mixture of the teachers)",
++    "dynamic": "Dynamic-router MOPD (sampled-token reverse KL against the per-response minimum-likelihood teacher)",
++}
++_STATE = None
++
++
++def sha256(path):
++    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
++
++
++def prompt_key(prompt):
++    """Key of a prompt in the injection bank: sha256 of the rendered prompt (as JSON, sorted keys, compact)."""
++    payload = json.dumps(prompt, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
++    return hashlib.sha256(payload.encode()).hexdigest()
++
++
++def atomic_json(path, value):
++    path = Path(path)
++    path.parent.mkdir(parents=True, exist_ok=True)
++    tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
++    with tmp.open("w") as f:
++        json.dump(value, f, sort_keys=True, ensure_ascii=False, allow_nan=False)
++        f.write("\n")
++        f.flush()
++        os.fsync(f.fileno())
++    os.replace(tmp, path)
++
++
++def strict_verdict(sample, what):
++    """True for a verified-correct response (True, or a numeric score >= 1.0), False for a wrong one; raises when the
++    verifier gave no verdict (None), because a choice that reads correctness must not guess."""
++    rc = getattr(sample, "response_correct", None)
++    if rc is None or not isinstance(rc, (bool, int, float)):
++        raise RuntimeError(f"{what}: sample {sample.index} has no verified reward (response_correct={rc!r})"
++                           "; the verifier or code judge failed")
++    return (rc is True) or (isinstance(rc, (int, float)) and not isinstance(rc, bool) and float(rc) >= 1.0)
++
++
++class MopdHook:
++    def __init__(self, config_path, server_map_path=None):
++        self.config_path = Path(config_path)
++        self.cfg = cfg = json.loads(self.config_path.read_text())
++        self.mode = cfg.get("mode")
++        if self.mode not in core.MODES:
++            raise ValueError(f"unknown hook mode {self.mode!r}; expected one of {core.MODES}")
++        self.n = cfg.get("n_samples")
++        if isinstance(self.n, bool) or not isinstance(self.n, int) or self.n < 1:
++            raise ValueError(f"n_samples must be a positive integer, got {self.n!r}")
++        names = cfg.get("teachers")
++        if not isinstance(names, list) or not names or len(set(names)) != len(names):
++            raise ValueError(f"teachers must be a non-empty list of distinct names, got {names!r}")
++        self.names = sorted(names)
++        if self.mode in ("pool", "dynamic") and len(self.names) < 2:
++            raise ValueError(f"{self.mode} needs at least two teachers")
++        map_path = server_map_path or os.environ.get("OPD_TEACHER_SERVER_MAP")
++        self.label_map = json.loads(Path(map_path).read_text()) if map_path else dict(cfg.get("label_map") or {})
++        if not set(self.label_map.values()) <= set(self.names) or "default" not in self.label_map:
++            raise ValueError("the teacher label map names an unregistered teacher or lacks a 'default' key")
++        self.audit_dir = Path(cfg["audit_dir"]) if cfg.get("audit_dir") else None
++        if self.audit_dir is not None:
++            self.audit_dir.mkdir(parents=True, exist_ok=True)
++        self.extra_rounds = int(cfg.get("extra_score_rounds", 3))
++        self.last_applied = {}
++        self.restored = False
++
++        # ---- annealed teacher-trajectory injection (label mode only; off without a bank)
++        self.inject, self.inject_stats = None, Counter()
++        self.inject_const, self.inject_anneal, self._anneal_step, self._step_const = None, None, None, None
++        bank_path = cfg.get("inject_bank_path")
++        inject_keys = ("inject_bank_sha256", "inject_adv_const", "inject_anneal_steps")
++        if bank_path:
++            if self.mode != "label":
++                raise ValueError(f"{self.mode}: teacher-trajectory injection is defined for the label mode only")
++            want = cfg.get("inject_bank_sha256")
++            if want and sha256(bank_path) != want:
++                raise ValueError("injection bank hash mismatch")
++            c = cfg.get("inject_adv_const")
++            if isinstance(c, bool) or not isinstance(c, (int, float)) or not 0.0 < float(c) <= 2.0:
++                raise ValueError(f"inject_adv_const {c!r} is outside (0, 2]")
++            an = cfg.get("inject_anneal_steps")
++            if isinstance(an, bool) or not isinstance(an, int) or not 1 <= an <= 100000:
++                raise ValueError(f"inject_anneal_steps {an!r} is not a positive step count")
++            bank = torch.load(bank_path, map_location="cpu", weights_only=False)
++            entries = bank["entries"]
++            if not all(isinstance(e, dict) and {"prompt_ids", "domain", "response_ids", "teacher_logp"} <= set(e)
++                       for e in entries.values()):
++                raise ValueError("injection bank entries need prompt_ids, domain, response_ids and teacher_logp")
++            self.inject, self.inject_const, self.inject_anneal = entries, float(c), an
++            print(f"MOPD_HOOK_INJECT_BANK entries={len(entries)} const={self.inject_const} "
++                  f"anneal_steps={self.inject_anneal}", flush=True)
++        elif any(k in cfg for k in inject_keys):
++            raise ValueError("injection fields without an injection bank")
++
++        # ---- DN-MOPD and its controls (label mode only)
++        self.adv_norm = cfg.get("adv_norm")
++        if self.adv_norm is not None and self.adv_norm not in ADV_NORM_MODES:
++            raise ValueError(f"unknown adv_norm {self.adv_norm!r}; expected one of {ADV_NORM_MODES}")
++        self.adv_norm_fixed = None
++        if self.adv_norm == "fixed_domain_scale":
++            fx = cfg.get("adv_norm_fixed")
++            if (not isinstance(fx, dict) or sorted(fx) != sorted(DOMAINS)
++                    or any(isinstance(v, bool) or not isinstance(v, (int, float))
++                           or not core.DN_CLIP_LOWER <= float(v) <= core.DN_CLIP_UPPER for v in fx.values())):
++                raise ValueError(f"fixed_domain_scale needs adv_norm_fixed = {{math, code, ifeval}} in "
++                                 f"[{core.DN_CLIP_LOWER}, {core.DN_CLIP_UPPER}]: {fx!r}")
++            self.adv_norm_fixed = {k: float(v) for k, v in fx.items()}
++        elif "adv_norm_fixed" in cfg:
++            raise ValueError("adv_norm_fixed belongs to adv_norm = fixed_domain_scale only")
++        if self.adv_norm is not None:
++            if self.mode != "label":
++                raise ValueError("adv_norm is defined for the label mode only")
++            if self.inject is not None:
++                raise ValueError("adv_norm and teacher-trajectory injection are separate methods")
++        self._dnorm_last = None
++
++    # ------------------------------------------------------------------ helpers
++    def _restore(self, first_index):
++        """After a resume, rebuild the (prompt, slot) -> last routed teacher memory from this run's audit files. Rows
++        at or after the resumed batch belong to steps being redone and are ignored; later files win."""
++        files = sorted(self.audit_dir.glob("samples_*.json"), key=lambda f: int(f.stem.rsplit("_", 1)[1]))
++        latest = {}
++        for f in files:
++            value = json.loads(f.read_text())
++            if value["mode"] != self.mode:
++                raise ValueError(f"audit directory holds another mode's rows: {f}")
++            for r in value["rows"]:
++                if r["index"] < first_index:
++                    latest[r["index"]] = r
++        for index in sorted(latest):
++            r = latest[index]
++            self.last_applied[(r["prompt_sha256"], r["slot"])] = r["applied"] if self.mode != "pool" else r["current_argmin"]
++        print(f"MOPD_HOOK_RESTORED files={len(files)} rows_before_index_{first_index}={len(latest)}", flush=True)
++
++    def label_teacher(self, alias):
++        key = alias if alias not in (None, "", "default") else "default"
++        return self.label_map.get(key, key)
++
++    def _select_injections(self, samples, batch_size):
++        """{sample index: 0} of the samples to replace this step. Anneal: t = lowest index // batch_size,
++        c(t) = const * max(0, 1 - t / A); from c(t) = 0 on nothing is injected and no verdict is read. Otherwise, in
++        every group whose prompt the bank holds, the first of [verifier-wrong samples by index] + [the remaining
++        samples by index] is replaced; a missing verdict anywhere in the group refuses the batch."""
++        lo = min(s.index for s in samples)
++        if lo % batch_size:
++            raise ValueError(f"batch starts at sample {lo}, not a multiple of {batch_size}")
++        t = lo // batch_size
++        self._anneal_step = t
++        self._step_const = self.inject_const * max(0.0, 1.0 - t / self.inject_anneal)
++        if self._step_const <= 0.0:
++            self.inject_stats["anneal_off"] += 1
++            return {}
++        groups = {}
++        for s in samples:
++            groups.setdefault(s.group_index, []).append(s)
++        chosen = {}
++        for gi in sorted(groups):
++            grp = sorted(groups[gi], key=lambda s: s.index)
++            wrong = [s for s in grp if not strict_verdict(s, "injection")]
++            entry = self.inject.get(prompt_key(grp[0].prompt))
++            if entry is None:
++                dom = (grp[0].metadata or {}).get("domain") or "unknown"
++                self.inject_stats[f"groups_not_covered_{dom}"] += 1
++                continue
++            dom = entry["domain"]
++            self.inject_stats[f"dense_into_wrong_group_{dom}" if wrong else f"dense_into_all_correct_group_{dom}"] += 1
++            wrong_ids = {s.index for s in wrong}
++            order = wrong + [s for s in grp if s.index not in wrong_ids]
++            chosen[order[0].index] = 0
++        return chosen
++
++    def _inject(self, sample, entry, key, length):
++        """Replace the sample's response by the bank trajectory; returns (teacher row, mask, length) or None when the
++        prompt tokens do not match the bank entry."""
++        from miles.utils.types import Sample as _Sample
++
++        plen = len(sample.tokens) - length
++        if plen <= 0 or list(sample.tokens[:plen]) != entry["prompt_ids"].tolist():
++            self.inject_stats["prompt_token_mismatch"] += 1
++            return None
++        if entry["domain"] != (sample.metadata or {}).get("domain"):
++            raise ValueError(f"injection bank domain {entry['domain']} differs from the prompt's domain")
++        rids = entry["response_ids"].tolist()
++        tlp = entry["teacher_logp"].to(torch.float32).clone()
++        if tlp.shape[0] != len(rids) or not bool(torch.isfinite(tlp).all()) or bool((tlp > 0).any()):
++            raise core.ScoreError("injection bank row unusable")
++        sample.tokens = list(sample.tokens[:plen]) + rids
++        sample.response_length = length = len(rids)
++        sample.loss_mask = [1] * length
++        # diagnostic only (no --use-rollout-logprobs, no TIS): the PPO ratio and the advantage use the actor-recomputed
++        # pre-update log-probs of these tokens
++        sample.rollout_log_probs = tlp.tolist()
++        sample.response = f"[injected teacher trajectory {key[:12]}]"
++        sample.status = _Sample.Status.COMPLETED
++        sample.response_correct = True
++        self.inject_stats["injected"] += 1
++        return tlp, torch.ones(length, dtype=torch.bool), length
++
++    # ------------------------------------------------------------------ the batch
++    def apply(self, args, samples):
++        if getattr(args, "advantage_estimator", None) != "on_policy_distillation":
++            raise ValueError("the MOPD hook belongs to the on_policy_distillation estimator only")
++        if args.n_samples_per_prompt != self.n:
++            raise ValueError(f"--n-samples-per-prompt {args.n_samples_per_prompt} != the config's n_samples {self.n}")
++        if not self.restored:
++            if self.audit_dir is not None:
++                self._restore(min(s.index for s in samples))
++            self.restored = True
++        rows_out, new_lists = [], []
++        # the samples to replace are chosen BEFORE any per-sample work
++        inject_ids = {}
++        if self.inject is not None:
++            inject_ids = self._select_injections(samples, int(args.rollout_batch_size) * self.n)
++        dnorm_pairs = [] if self.adv_norm is not None else None
++        for sample in samples:
++            if getattr(sample, "mopd_hook_applied", False):
++                raise RuntimeError("MOPD hook applied twice to one sample")
++            if sample.index is None or sample.group_index is None or sample.index // self.n != sample.group_index:
++                raise ValueError("response-slot indexing no longer matches the data source")
++            length = int(sample.response_length)
++            rows = core.validated_rows(getattr(sample, "per_teacher_log_probs", None), self.names, length)
++            mask = core.response_mask(sample.loss_mask, length)
++            scores = core.mean_scores(rows, mask)
++            current = core.argmin_name(scores)
++            key, slot = prompt_key(sample.prompt), sample.index % self.n
++            label = self.label_teacher(getattr(sample, "teacher_model_name", None))
++            new, applied = core.teacher_log_probs(self.mode, rows, scores, label_teacher=label)
++            if self.mode == "label":
++                # the hook's label target must be exactly the legacy routed teacher's scores
++                legacy = torch.as_tensor(sample.teacher_log_probs, dtype=torch.float32)
++                if not torch.equal(new, legacy):
++                    raise RuntimeError("label-mode hook differs from the legacy routed teacher_log_probs")
++            if tuple(new.shape) != (length,) or not bool(torch.isfinite(new).all()) or bool((new == core.SENTINEL).any()):
++                raise core.ScoreError("invalid replacement teacher_log_probs (would be silently masked or mis-shaped)")
++            injected, original_length = False, length
++            if sample.index in inject_ids:
++                out = self._inject(sample, self.inject[key], key, length)
++                if out is not None:
++                    new, mask, length = out
++                    injected = True
++            seen = self.last_applied.get((key, slot))
++            tracked = applied if self.mode != "pool" else current
++            self.last_applied[(key, slot)] = tracked
++            sample.teacher_log_probs = new
++            sample.mopd_hook_applied = True
++            if self.inject is not None:     # 0.0 = this sample's advantage is unchanged
++                sample.inject_adv_const = self._step_const if injected else 0.0
++            if dnorm_pairs is not None:     # rollout-side log-ratio for the per-domain statistic
++                rlp = getattr(sample, "rollout_log_probs", None)
++                if rlp is None:
++                    raise RuntimeError(f"adv_norm: sample {sample.index} carries no rollout_log_probs")
++                srow = torch.as_tensor(rlp, dtype=torch.float32)
++                if tuple(srow.shape) != (length,) or not bool(torch.isfinite(srow).all()):
++                    raise RuntimeError(f"adv_norm: sample {sample.index} rollout_log_probs unusable")
++                dnorm_pairs.append(((sample.metadata or {}).get("domain") or "unknown",
++                                    (new.to(torch.float32) - srow)[mask]))
++            status = getattr(sample, "status", None)
++            row = {
++                "prompt_sha256": key, "slot": slot, "index": sample.index, "group_index": sample.group_index,
++                "applied": applied, "current_argmin": current, "label_teacher": label,
++                "teacher_mean_logp": scores, "response_length": length,
++                "truncated": bool(getattr(status, "name", str(status)) == "TRUNCATED"),
++                "domain": (sample.metadata or {}).get("domain"),
++                "rollout_delta_mean": _rollout_delta_mean(sample, new, mask),
++                "repeat": seen is not None, "switched": bool(seen is not None and seen != tracked),
++            }
++            if self.inject is not None:
++                row.update(injected=injected, original_response_length=original_length,
++                           anneal_step=self._anneal_step, adv_const=self._step_const if injected else None)
++            rows_out.append(row)
++            new_lists.append(new)
++        if dnorm_pairs is not None:
++            factors, self._dnorm_last = core.dn_multipliers(dnorm_pairs)
++            applied = {}                    # the multiplier actually applied, per domain
++            for d, f in factors.items():
++                if self.adv_norm == "fixed_domain_scale":
++                    if d not in self.adv_norm_fixed:
++                        raise RuntimeError(f"adv_norm fixed_domain_scale: no multiplier registered for domain {d!r}")
++                    applied[d] = self.adv_norm_fixed[d]
++                elif self.adv_norm == "observe_domain_scale":
++                    applied[d] = 1.0
++                else:
++                    applied[d] = f
++            for sample, row in zip(samples, rows_out):
++                d = row["domain"] or "unknown"
++                sample.dn_adv_scale = applied[d]
++                row["dnorm_factor"] = applied[d]
++                row["dnorm_measured_factor"] = factors[d]
++            self._dnorm_last["mode"] = self.adv_norm
++            self._dnorm_last["applied"] = applied
++        return new_lists, rows_out
++
++    def finish(self, rows):
++        if not rows:
++            raise ValueError("empty audited batch")
++        lo, hi = min(r["index"] for r in rows), max(r["index"] for r in rows)
++        if self.audit_dir is not None:
++            atomic_json(self.audit_dir / f"samples_{lo:08d}_{hi:08d}_{time.time_ns()}.json", {
++                "mode": self.mode, "identity": IDENTITY[self.mode], "config_sha256": sha256(self.config_path),
++                "rows": rows,
++            })
++        n = len(rows)
++        routed = [r["applied"] if self.mode != "pool" else r["current_argmin"] for r in rows]
++        by_domain = {}
++        for r, name in zip(rows, routed):
++            by_domain.setdefault(r["domain"] or "unknown", Counter())[name] += 1
++        repeats = [r for r in rows if r["repeat"]]
++        panel = {
++            "mode": self.mode, "n": n, "iteration_first_index": lo,
++            "share": {k: v / n for k, v in sorted(Counter(routed).items())},
++            "share_by_domain": {d: {k: v / sum(c.values()) for k, v in sorted(c.items())} for d, c in sorted(by_domain.items())},
++            "label_agreement": sum(name == r["label_teacher"] for r, name in zip(rows, routed)) / n,
++            "shadow_argmin_disagreement": sum(r["applied"] != r["current_argmin"] for r in rows) / n if self.mode != "pool" else None,
++            "repeat_prompts": len(repeats), "repeat_switch_rate": (sum(r["switched"] for r in repeats) / len(repeats)) if repeats else None,
++            "mean_response_length": sum(r["response_length"] for r in rows) / n,
++            "truncation_rate": sum(r["truncated"] for r in rows) / n,
++            "routed_field": "applied teacher" if self.mode != "pool" else "shadow argmin (pool trains on the mixture)",
++            "rollout_delta_by_domain": _delta_by_domain(rows),
++            "inject": ({"injected_share": sum(bool(r.get("injected")) for r in rows) / n,
++                        "injected_by_domain": {d: sum(bool(r.get("injected")) for r in rows if (r["domain"] or "unknown") == d)
++                                               for d in sorted({r["domain"] or "unknown" for r in rows})},
++                        "counts": dict(self.inject_stats), "anneal_step": self._anneal_step,
++                        "step_const": self._step_const} if self.inject is not None else None),
++            **({"dnorm": self._dnorm_last} if self.adv_norm is not None else {}),
++        }
++        print(f"{PANEL_PREFIX} {json.dumps(panel, sort_keys=True)}", flush=True)
++        self.inject_stats = Counter()
++        return panel
++
++
++def _rollout_delta_mean(sample, teacher_row, mask):
++    """Mean over response-mask tokens of (applied teacher logp - the rollout engine's student logp), or None."""
++    rlp = getattr(sample, "rollout_log_probs", None)
++    if rlp is None:
++        return None
++    row = torch.as_tensor(rlp, dtype=torch.float32)
++    if tuple(row.shape) != tuple(teacher_row.shape) or not bool(torch.isfinite(row).all()):
++        return None
++    return float((teacher_row.to(torch.float32) - row)[mask].mean().item())
++
++
++def _delta_by_domain(rows):
++    """{domain: {n, mean_delta}} from the per-sample rollout-side diagnostic."""
++    by = {}
++    for r in rows:
++        d = r.get("rollout_delta_mean")
++        if d is None:
++            continue
++        by.setdefault(r["domain"] or "unknown", []).append(d)
++    return {k: {"n": len(v), "mean_delta": sum(v) / len(v)} for k, v in sorted(by.items())}
++
++
++def _state():
++    global _STATE
++    if _STATE is None:
++        path = os.environ.get(CONFIG_ENV)
++        if not path:
++            raise RuntimeError(f"{CONFIG_ENV} is not set: refusing to train without a hook config")
++        _STATE = MopdHook(path)
++        print(f"MOPD_HOOK_STATE mode={_STATE.mode} identity={IDENTITY[_STATE.mode]!r} teachers={_STATE.names} "
++              f"adv_norm={_STATE.adv_norm} inject={'on' if _STATE.inject is not None else 'off'}", flush=True)
++    return _STATE
++
++
++async def get_reward(args, sample, **kwargs):
++    """All teachers score the sampled tokens of this response, with extra repair rounds for a teacher whose five
++    attempts all failed. The legacy fields still come from the label-routed teacher."""
++    from Uni_OPD_utils.OPD_reward import get_reward as base
++
++    state = _state()
++    start = time.time()
++    rm_manager = base.RMSystemManager(args)
++    session_manager = base.RewardSessionManager()
++    response_correct, rule_based_metadata = await base.get_rule_based_reward(args, sample)
++    reward = await base._get_reward_fanout(
++        args=args, sample=sample, rm_manager=rm_manager, session_manager=session_manager, start_time=start,
++        response_correct=response_correct, rule_based_metadata=rule_based_metadata)
++    for extra in range(state.extra_rounds):
++        failed = [name for name, info in reward["per_teacher"].items() if info["failed"]]
++        if not failed:
++            break
++        logger.warning(f"[mopd_hook] repair round {extra + 1}/{state.extra_rounds} for teachers {failed}")
++        await asyncio.sleep(5.0 * (extra + 1))
++        for name in failed:
++            payload = rm_manager.build_payload_for_teacher(sample, name)
++            result = await base._score_one_teacher(
++                session_manager, name, functools.partial(rm_manager.get_next_url_for_teacher, name), payload)
++            itl = result["res"].get("meta_info", {}).get("input_token_logprobs") if not result["failed"] else None
++            reward["per_teacher"][name] = {
++                "input_token_logprobs": itl, "reward_time": result["reward_time"],
++                "url": result["url"], "failed": bool(result["failed"] or itl is None)}
++            if name == reward.get("routed_teacher") and itl is not None:
++                reward.pop(base.REWARD_FAILED_KEY, None)
++                reward["meta_info"] = result["res"]["meta_info"]
++                reward["teacher_url"] = result["url"]
++    reward["reward_time"] = time.time() - start
++    return reward
++
++
++def post_process_rewards(args, samples, **kwargs):
++    from Uni_OPD_utils.OPD_reward import post_process_rewards as base
++
++    base.post_process_rewards(args, samples, **kwargs)  # legacy routed fields + sample.per_teacher_log_probs
++    state = _state()
++    new_lists, rows = state.apply(args, samples)
++    state.finish(rows)
++    return new_lists, new_lists
+diff --git a/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/available_endpoints.json b/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/available_endpoints.json
+index 5748a94..109da49 100644
+--- a/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/available_endpoints.json
++++ b/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/available_endpoints.json
+@@ -1 +1 @@
+-["<Your IP>:<Your port>"]
++["127.0.0.1:17580"]
+diff --git a/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/judge_app.py b/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/judge_app.py
+new file mode 100644
+index 0000000..bf3d6b6
+--- /dev/null
++++ b/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/judge_app.py
+@@ -0,0 +1,184 @@
++# SPDX-License-Identifier: Apache-2.0
++"""HTTP code judge for the PRIME code verifier (the server half of PRIME_code_server; server.py holds the client).
++
++Routes (must match server.py JUDGE_ROUTER / HEALTH_ROUTER):
++    POST /judge   {"completion": str, "test_cases": dict | str, "continuous": bool}
++                  -> {"success": bool | float, "metadata": ..., "error": str | None}
++    GET  /health  -> {"status": "ok"}
++
++Launch (see recipes/qwen3.5/start_code_judge.sh):
++    PYTHONPATH=<repo>/miles python -m uvicorn Uni_OPD_utils.outcome_reward.PRIME_code_server.judge_app:app \
++        --host 127.0.0.1 --port 17580 --workers 6
++
++Execution model. Each /judge request runs PRIME's compute_score in a ProcessPoolExecutor built on the 'spawn' context
++(clean single-threaded workers), and the worker forces the 'fork' start method before judging. Newer uvicorn starts
++its --workers with 'spawn', a spawn-started process inherits start_method='spawn', and PRIME's check_correctness
++(written for fork) would then spawn its helper processes, each re-importing PRIME_code against a ~6 s join timeout:
++correct solutions were graded false at random. Forcing 'fork' in the judging process removes that nondeterminism.
++check_correctness bounds each call at about 6-7 s for the whole test suite of a problem (inherited PRIME semantics).
++A wedged worker is killed after CODE_JUDGE_TIMEOUT seconds (default 30) and the pool is rebuilt after
++CODE_JUDGE_REBUILD_AFTER consecutive timeouts (default 3); a timed-out judgment returns success 0.0 with an error.
++Pool size: CODE_JUDGE_POOL (default 16) per uvicorn worker process. Cap BLAS threads (OPENBLAS_NUM_THREADS=1, ...)
++in the launcher.
++
++SECURITY: compute_score exec()s model-generated code with only reliability_guard() (os.system/os.remove/... nulled
++out in the child process). That is NOT a sandbox. Run this service as a low-privilege user with ulimits (the launcher
++sets them), bound to localhost, and never point it at untrusted third-party completions.
++"""
++
++import json
++import logging
++import multiprocessing
++import os
++import threading
++from concurrent.futures import ProcessPoolExecutor
++from concurrent.futures import TimeoutError as FutureTimeoutError
++from concurrent.futures.process import BrokenProcessPool
++from typing import Any
++
++from fastapi import FastAPI
++from pydantic import BaseModel
++
++logger = logging.getLogger("code_judge_forksafe")
++
++app = FastAPI(title="PRIME code judge (fork-safe)", docs_url=None, redoc_url=None)
++
++_POOL_SIZE = int(os.environ.get("CODE_JUDGE_POOL", "16"))
++# Per-judgment wall clock. check_correctness bounds itself at ~6-7 s; anything past this is a WEDGED worker, and a
++# wedged worker must be killed.
++_JUDGE_TIMEOUT = float(os.environ.get("CODE_JUDGE_TIMEOUT", "30"))
++_pool_lock = threading.Lock()
++_pool: ProcessPoolExecutor | None = None
++
++
++def _judge_in_child(completion: str, test_cases, continuous: bool):
++    # Runs in a spawn worker: single-threaded, so check_correctness may fork safely. A spawn-started process inherits
++    # start_method='spawn' (multiprocessing.spawn.prepare -> set_start_method(force=True)), so PRIME's
++    # check_correctness -- written for fork -- would spawn its Manager server and its _temp_run child, each
++    # re-importing PRIME_code against a 6 s join timeout; force 'fork' here.
++    import multiprocessing as _mp
++
++    if _mp.get_start_method(allow_none=True) != "fork":
++        _mp.set_start_method("fork", force=True)
++    from Uni_OPD_utils.outcome_reward.PRIME_code import compute_score
++
++    return compute_score(completion, test_cases, continuous)
++
++
++_REBUILD_AFTER = int(os.environ.get("CODE_JUDGE_REBUILD_AFTER", "3"))
++_timeout_lock = threading.Lock()
++_consecutive_timeouts = 0
++
++
++def _kill_processes(pool) -> int:
++    """Kill a pool's worker processes. `shutdown(wait=False)` does NOT: it drops the executor and
++    leaves its workers running, so rebuilding on every timeout would leak workers."""
++    n = 0
++    for proc in list(getattr(pool, "_processes", {}).values()):
++        try:
++            if proc.is_alive():
++                proc.kill()
++                n += 1
++        except Exception:  # noqa: BLE001
++            pass
++    return n
++
++
++def _kill_pool_children() -> int:
++    """Kill every worker of the current pool.
++
++    `fut.result(timeout=...)` gives up on the FUTURE but leaves the worker running: a submission that
++    wedges a worker (an unterminated program that check_correctness fails to bound) removes that worker
++    from the pool permanently. Capacity then decays to zero, and because the handler returns
++    {"success": 0.0} on timeout, a starved judge is indistinguishable from a model that cannot code.
++    Killing the workers (and letting the pool be rebuilt) bounds the damage to the in-flight batch.
++    """
++    global _pool
++    killed = 0
++    with _pool_lock:
++        if _pool is None:
++            return 0
++        for proc in list(getattr(_pool, "_processes", {}).values()):
++            try:
++                if proc.is_alive():
++                    proc.kill()
++                    killed += 1
++            except Exception:  # noqa: BLE001
++                pass
++    return killed
++
++
++def _get_pool(rebuild: bool = False) -> ProcessPoolExecutor:
++    global _pool
++    with _pool_lock:
++        if rebuild and _pool is not None:
++            old, _pool = _pool, None
++            killed = _kill_processes(old)          # kill BEFORE shutdown, or the workers linger
++            old.shutdown(wait=False, cancel_futures=True)
++            logger.error("judge pool rebuilt; killed %d worker(s)", killed)
++        if _pool is None:
++            _pool = ProcessPoolExecutor(
++                max_workers=_POOL_SIZE, mp_context=multiprocessing.get_context("spawn")
++            )
++        return _pool
++
++
++class JudgeRequest(BaseModel):
++    completion: str
++    test_cases: dict | str
++    continuous: bool = False
++
++
++def _jsonable(obj: Any) -> Any:
++    try:
++        json.dumps(obj)
++        return obj
++    except (TypeError, ValueError):
++        try:
++            return json.loads(json.dumps(obj, default=str))
++        except Exception:  # noqa: BLE001
++            return str(obj)
++
++
++@app.get("/health")
++def health() -> dict:
++    return {"status": "ok"}
++
++
++@app.post("/judge")
++def judge(req: JudgeRequest) -> dict:
++    global _consecutive_timeouts
++    for attempt in (0, 1):
++        try:
++            fut = _get_pool(rebuild=attempt > 0).submit(
++                _judge_in_child, req.completion, req.test_cases, req.continuous
++            )
++            # check_correctness bounds itself at ~6-7 s; the wall clock only guards a wedged worker.
++            success, metadata = fut.result(timeout=_JUDGE_TIMEOUT)
++            with _timeout_lock:
++                _consecutive_timeouts = 0          # a success clears the streak
++            return {"success": success, "metadata": _jsonable(metadata), "error": None}
++        except FutureTimeoutError:
++            # A wedged worker never returns, so capacity decays and every later judgment is silently
++            # graded WRONG. But rebuilding on EVERY timeout is worse than the disease: it discards
++            # healthy in-flight judgments and (before _kill_processes) leaked workers. Rebuild only
++            # after _REBUILD_AFTER consecutive timeouts; isolated ones just fail.
++            with _timeout_lock:
++                _consecutive_timeouts += 1
++                n_consec = _consecutive_timeouts
++                due = n_consec >= _REBUILD_AFTER
++                if due:
++                    _consecutive_timeouts = 0
++            if due:
++                _get_pool(rebuild=True)
++            logger.error("judge timed out after %.0fs (consecutive=%d, rebuilt=%s)",
++                         _JUDGE_TIMEOUT, n_consec, due)
++            return {"success": 0.0, "metadata": None,
++                    "error": f"TimeoutError: judgment exceeded {_JUDGE_TIMEOUT:.0f}s"}
++        except BrokenProcessPool:
++            logger.exception("judge pool broke (attempt %d)", attempt)
++            continue
++        except Exception as e:  # noqa: BLE001
++            logger.exception("judge call failed")
++            return {"success": 0.0, "metadata": None, "error": f"{type(e).__name__}: {e}"}
++    return {"success": 0.0, "metadata": None, "error": "BrokenProcessPool: pool broke twice"}
+diff --git a/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/server.py b/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/server.py
+index 02dcbd9..3c47058 100644
+--- a/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/server.py
++++ b/miles/Uni_OPD_utils/outcome_reward/PRIME_code_server/server.py
+@@ -1,4 +1,7 @@
++# Modified by the DN-MOPD authors (2026): the endpoint list path is CODE_JUDGE_ENDPOINTS or the file next to this
++# module, instead of a path relative to the working directory.
+ import json
++import os
+ import random
+ import threading
+ import time
+@@ -9,7 +12,12 @@ from typing import Any
+ import requests
+ 
+ # 服务器列表配置文件路径（后续可替换）
+-CODE_JUDGE_SERVER_LIST = "available_endpoints.json"
++# The endpoint list is read from CODE_JUDGE_ENDPOINTS when set, else from available_endpoints.json next to this
++# module (the upstream value was a path relative to the importing process's working directory).
++CODE_JUDGE_SERVER_LIST = os.environ.get(
++    "CODE_JUDGE_ENDPOINTS",
++    os.path.join(os.path.dirname(os.path.abspath(__file__)), "available_endpoints.json"),
++)
+ JUDGE_ROUTER = "/judge"
+ HEALTH_ROUTER = "/health"
+ 
+diff --git a/miles/Uni_OPD_utils/seqkd/__init__.py b/miles/Uni_OPD_utils/seqkd/__init__.py
+new file mode 100644
+index 0000000..9e66113
+--- /dev/null
++++ b/miles/Uni_OPD_utils/seqkd/__init__.py
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: Apache-2.0
++"""Sequence-level KD (SeqKD) supervised fine-tuning on teacher answers."""
+diff --git a/miles/Uni_OPD_utils/seqkd/sft_rollout.py b/miles/Uni_OPD_utils/seqkd/sft_rollout.py
+new file mode 100644
+index 0000000..b53162d
+--- /dev/null
++++ b/miles/Uni_OPD_utils/seqkd/sft_rollout.py
+@@ -0,0 +1,119 @@
++# SPDX-License-Identifier: Apache-2.0
++"""SeqKD SFT data "rollout" for miles: supervised fine-tuning of the student on frozen teacher answers.
++
++The SFT row runs through the same miles FSDP trainer as the OPD students (--debug-train-only: no inference engines);
++this function only tokenizes and masks. The stock miles.rollout.sft_rollout applies the chat template without
++`enable_thinking=False`, so its prompt would lack the empty `<think>\\n\\n</think>\\n\\n` block that every OPD rollout
++(--apply-chat-template-kwargs '{"enable_thinking": false}') and every evaluation uses. This module rebuilds that
++layout exactly:
++
++    tokens    = apply_chat_template(user_msgs, add_generation_prompt=True, enable_thinking=False)   # loss 0
++              + tokenize(teacher_response)                                                         # loss 1
++              + [<|im_end|>]  iff finish_reason == "stop"                                          # loss 1
++
++i.e. loss on response tokens only, and the end token is learned only for teacher answers that terminated (a teacher
++answer truncated at max_tokens trains without a terminal <|im_end|>). A response longer than
++--rollout-max-response-len is cut to that length and trains without the end token.
++
++Use:
++    --rollout-function-path Uni_OPD_utils.seqkd.sft_rollout.generate_rollout
++    --loss-type sft_loss --calculate-per-token-loss --disable-compute-advantages-and-returns --debug-train-only
++    --prompt-data <seqkd targets .jsonl> --input-key messages
++
++Input row contract (one JSON object per line):
++    messages : [{role: user, ...}(, ...), {role: assistant, content: <teacher text>}]
++    metadata : {finish_reason: "stop" | "length", ...}   (optional; default "stop")
++"""
++
++import logging
++
++from miles.utils.processing_utils import load_tokenizer
++
++__all__ = ["generate_rollout", "build_sft_tokens"]
++
++logger = logging.getLogger(__name__)
++
++TOKENIZER = None
++EOS_ID = None
++SAMPLE_PRINTED = False
++
++
++def _get_tokenizer(args):
++    global TOKENIZER, EOS_ID
++    if TOKENIZER is None:
++        TOKENIZER = load_tokenizer(
++            args.hf_checkpoint, chat_template_path=args.chat_template_path, trust_remote_code=True
++        )
++        eos_id = TOKENIZER.convert_tokens_to_ids("<|im_end|>")
++        if eos_id is None or eos_id < 0:
++            eos_id = TOKENIZER.eos_token_id
++        EOS_ID = eos_id
++        logger.info(
++            "sft_rollout: terminal token id=%s (%r)",
++            EOS_ID,
++            TOKENIZER.convert_ids_to_tokens(EOS_ID),
++        )
++    return TOKENIZER
++
++
++def build_sft_tokens(tokenizer, eos_id, messages, finish_reason, max_resp):
++    """(prompt_ids, response_ids) for one SFT row; the loss mask is 1 on every response id."""
++    prompt_ids = tokenizer.apply_chat_template(
++        messages[:-1], add_generation_prompt=True, tokenize=True, enable_thinking=False
++    )
++    # transformers 5.x returns a BatchEncoding here, not a list of ids
++    if hasattr(prompt_ids, "keys"):
++        prompt_ids = list(prompt_ids["input_ids"])
++    response_text = messages[-1]["content"]
++    # teacher text carries no special tokens (vLLM detokenizes without them)
++    response_ids = tokenizer(response_text, add_special_tokens=False)["input_ids"]
++    if max_resp and len(response_ids) >= max_resp:
++        response_ids = response_ids[:max_resp]
++        finish_reason = "length"  # no room / no right to a terminal token
++    if finish_reason == "stop":
++        response_ids = response_ids + [eos_id]
++    return list(prompt_ids), list(response_ids)
++
++
++def generate_rollout(args, rollout_id, data_buffer, evaluation=False):
++    """miles rollout entrypoint (data-only SFT). Mirrors miles.rollout.sft_rollout.
++
++    Returns the list of sample groups pulled from the data buffer, with tokens / response_length / loss_mask / reward
++    filled in.
++    """
++    assert not evaluation, "sft_rollout is train-only"
++    assert args.rollout_global_dataset
++
++    global SAMPLE_PRINTED
++    tokenizer = _get_tokenizer(args)
++    max_resp = int(getattr(args, "rollout_max_response_len", 0) or 0)
++
++    groups = data_buffer.get_samples(args.rollout_batch_size)
++
++    for i, group in enumerate(groups):
++        (sample,) = group  # n_samples_per_prompt must be 1 for SFT
++        messages = sample.prompt
++        assert isinstance(messages, list) and messages and messages[-1].get("role") == "assistant", (
++            f"sft_rollout expects a messages list ending in an assistant turn; got "
++            f"{type(messages)} (input-key must be 'messages', WITHOUT --apply-chat-template)"
++        )
++        finish_reason = (sample.metadata or {}).get("finish_reason", "stop")
++        prompt_ids, response_ids = build_sft_tokens(tokenizer, EOS_ID, messages, finish_reason, max_resp)
++
++        sample.tokens = prompt_ids + response_ids
++        sample.response_length = len(response_ids)
++        sample.reward = 0
++        sample.loss_mask = [1] * len(response_ids)
++
++        if i == 0 and not SAMPLE_PRINTED:
++            logger.info(
++                "sft_rollout example: prompt_len=%d response_len=%d finish=%s prompt_tail=%r response_head=%r",
++                len(prompt_ids),
++                len(response_ids),
++                finish_reason,
++                tokenizer.decode(prompt_ids[-12:]),
++                tokenizer.decode(response_ids[:12]),
++            )
++            SAMPLE_PRINTED = True
++
++    return groups
+diff --git a/miles/miles/backends/fsdp_utils/actor.py b/miles/miles/backends/fsdp_utils/actor.py
+index 4aea374..e1799ee 100644
+--- a/miles/miles/backends/fsdp_utils/actor.py
++++ b/miles/miles/backends/fsdp_utils/actor.py
+@@ -1,3 +1,6 @@
++# Modified by the DN-MOPD authors (2026): optional ring_flash_attn import (context parallelism only);
++# teacher_log_probs is passed to the loss micro-batches (the on-policy-distillation loss reads it);
++# _no_split_modules may be a set under transformers 5.
+ import logging
+ import os
+ import random
+@@ -6,7 +9,13 @@ from argparse import Namespace
+ import ray
+ import torch
+ import torch.distributed as dist
+-from ring_flash_attn import update_ring_flash_attn_params
++
++# ring_flash_attn (which requires flash-attn) is needed only for context parallelism; the FSDP backend runs with
++# context_parallel_size == 1 here, so a Megatron-free / flash-attn-free environment must still import this module.
++try:
++    from ring_flash_attn import update_ring_flash_attn_params
++except ImportError:
++    update_ring_flash_attn_params = None
+ from tqdm import tqdm
+ from transformers import AutoConfig
+ 
+@@ -456,6 +465,7 @@ class FSDPTrainRayActor(TrainRayActor):
+                             "returns",
+                             "ref_log_probs",
+                             "rollout_log_probs",
++                            "teacher_log_probs",
+                         ],
+                         self.parallel_state,
+                         self.args.data_pad_size_multiplier,
+@@ -622,6 +632,9 @@ class FSDPTrainRayActor(TrainRayActor):
+                 cu_seqlens = batch["cu_seqlens"]
+                 if not cu_seqlens.is_cuda:
+                     cu_seqlens = cu_seqlens.cuda()
++                assert update_ring_flash_attn_params is not None, (
++                    "ring_flash_attn (and flash-attn) must be installed for context parallelism."
++                )
+                 update_ring_flash_attn_params(cu_seqlens, self.cp_group)
+ 
+             input_ids = torch.chunk(input_ids, self.parallel_state.cp_size, dim=1)[self.parallel_state.cp_rank]
+@@ -671,7 +684,13 @@ def apply_fsdp2(model, mesh=None, cpu_offload=False, args=None):
+ 
+     offload_policy = CPUOffloadPolicy() if cpu_offload else None
+ 
+-    layer_cls_to_wrap = model._no_split_modules
++    # transformers 5.x returns `_no_split_modules` as a set on the instance (a list on the class) and the assert below
++    # subscripts it; normalise to a sorted list so the wrap order is deterministic across processes.
++    layer_cls_to_wrap = (
++        sorted(model._no_split_modules)
++        if isinstance(model._no_split_modules, (set, frozenset))
++        else list(model._no_split_modules)
++    )
+     assert len(layer_cls_to_wrap) > 0 and layer_cls_to_wrap[0] is not None
+ 
+     modules = [
+diff --git a/miles/miles/backends/fsdp_utils/checkpoint.py b/miles/miles/backends/fsdp_utils/checkpoint.py
+index 6daf7f9..68eb712 100644
+--- a/miles/miles/backends/fsdp_utils/checkpoint.py
++++ b/miles/miles/backends/fsdp_utils/checkpoint.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): the optimizer state is loaded with allow_partial_load=True (Qwen3.5's
++# vision tower never receives a gradient in text-only training, so its Adam state is never saved).
+ from __future__ import annotations
+ 
+ import json
+@@ -125,7 +127,18 @@ def load(actor: Any) -> dict[str, Any] | None:
+         optimizer_state = OptimizerState(actor.model, actor.optimizer)
+         optim_state_dict = {"optim_state": optimizer_state}
+         try:
+-            dcp.load(state_dict=optim_state_dict, checkpoint_id=str(optimizer_dir))
++            # Qwen3.5 checkpoints are the multimodal wrapper: the vision tower never receives a gradient in text-only
++            # training, so Adam never creates state for it and the saved optimizer has no such keys, while a fresh
++            # optimizer's DCP state_dict has state for every parameter; a strict load fails on resume. A partial load
++            # restores every saved key (all text parameters); absent keys keep their fresh zero state, which is what
++            # those never-updated parameters had. Model weights are still loaded strictly.
++            from torch.distributed.checkpoint.default_planner import DefaultLoadPlanner
++
++            dcp.load(
++                state_dict=optim_state_dict,
++                checkpoint_id=str(optimizer_dir),
++                planner=DefaultLoadPlanner(allow_partial_load=True),
++            )
+             logger.info(f"[FSDP] Loaded optimizer from {optimizer_dir}")
+         except Exception as e:
+             logger.warning(f"[FSDP] Failed to load optimizer from {optimizer_dir}: {e}")
+diff --git a/miles/miles/backends/fsdp_utils/parallel.py b/miles/miles/backends/fsdp_utils/parallel.py
+index d87aa2b..2d21555 100644
+--- a/miles/miles/backends/fsdp_utils/parallel.py
++++ b/miles/miles/backends/fsdp_utils/parallel.py
+@@ -1,8 +1,14 @@
++# Modified by the DN-MOPD authors (2026): optional ring_flash_attn import (needed only when cp_size > 1).
+ import logging
+ from argparse import Namespace
+ 
+ import torch.distributed as dist
+-from ring_flash_attn import substitute_hf_flash_attn
++
++# ring_flash_attn (which requires flash-attn) is needed only when cp_size > 1.
++try:
++    from ring_flash_attn import substitute_hf_flash_attn
++except ImportError:
++    substitute_hf_flash_attn = None
+ from torch.distributed.device_mesh import init_device_mesh
+ 
+ from miles.utils.distributed_utils import get_gloo_group
+@@ -31,6 +37,9 @@ def create_fsdp_parallel_state(args: Namespace) -> ParallelState:
+ 
+     # Setup Ring Flash Attention with CP group from mesh (only when cp_size > 1)
+     if cp_size > 1:
++        assert substitute_hf_flash_attn is not None, (
++            "ring_flash_attn (and flash-attn) must be installed for context parallelism."
++        )
+         substitute_hf_flash_attn(mesh.get_group("cp"), heads_k_stride=1)
+         logger.info(f"[Rank {rank}] CP initialized via device mesh")
+     else:
+diff --git a/miles/miles/backends/megatron_utils/lora_utils.py b/miles/miles/backends/megatron_utils/lora_utils.py
+index 15bda70..3a0b614 100644
+--- a/miles/miles/backends/megatron_utils/lora_utils.py
++++ b/miles/miles/backends/megatron_utils/lora_utils.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): optional megatron import, so that the rollout side (sglang_engine.py imports
++# the LoRA constants from here) works in a Megatron-free FSDP environment.
+ """LoRA utilities for Megatron backend using Megatron-Bridge PEFT integration."""
+ 
+ import logging
+@@ -9,7 +11,13 @@ from typing import Any
+ 
+ import torch
+ import torch.distributed as dist
+-from megatron.core import mpu
++
++# sglang_engine.py imports LORA_ADAPTER_NAME / convert_target_modules_to_hf / is_lora_enabled from this module and none
++# of them touch mpu; the functions that do are called only on the Megatron backend with LoRA on.
++try:
++    from megatron.core import mpu
++except ImportError:
++    mpu = None
+ 
+ logger = logging.getLogger(__name__)
+ 
+diff --git a/miles/miles/backends/sglang_utils/arguments.py b/miles/miles/backends/sglang_utils/arguments.py
+index 3b86975..a638d73 100644
+--- a/miles/miles/backends/sglang_utils/arguments.py
++++ b/miles/miles/backends/sglang_utils/arguments.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): newer sglang renamed the ServerArgs parallel-size dests
++# (data_parallel_size -> dp_size, ...); read either name.
+ from sglang.srt.server_args import ServerArgs
+ from miles.utils.http_utils import _wrap_ipv6
+ 
+@@ -112,10 +114,18 @@ def add_sglang_arguments(parser):
+ 
+ 
+ def validate_args(args):
++    # newer sglang registers dp_size / pp_size / ep_size instead of data_parallel_size / pipeline_parallel_size /
++    # expert_parallel_size; prefer the old name and fall back to the new one.
++    def _pick(old_name, new_name, default=1):
++        v = getattr(args, old_name, None)
++        if v is None:
++            v = getattr(args, new_name, default)
++        return v
++
+     args.sglang_tp_size = args.rollout_num_gpus_per_engine
+-    args.sglang_dp_size = args.sglang_data_parallel_size
+-    args.sglang_pp_size = args.sglang_pipeline_parallel_size
+-    args.sglang_ep_size = args.sglang_expert_parallel_size
++    args.sglang_dp_size = _pick("sglang_data_parallel_size", "sglang_dp_size")
++    args.sglang_pp_size = _pick("sglang_pipeline_parallel_size", "sglang_pp_size")
++    args.sglang_ep_size = _pick("sglang_expert_parallel_size", "sglang_ep_size")
+ 
+     if args.sglang_dp_size > 1:
+         assert args.sglang_enable_dp_attention
+diff --git a/miles/miles/backends/training_utils/data.py b/miles/miles/backends/training_utils/data.py
+index 6caea9d..6f81115 100644
+--- a/miles/miles/backends/training_utils/data.py
++++ b/miles/miles/backends/training_utils/data.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): multimodal_train_inputs may hold non-tensor values for text-only samples of
++# a multimodal checkpoint (Qwen3.5); only tensors are moved to the GPU.
+ import logging
+ from argparse import Namespace
+ from collections.abc import Sequence
+@@ -36,9 +38,14 @@ def get_rollout_data(args: Namespace, rollout_data_ref: Box, parallel_state: Par
+     ]
+     if "multimodal_train_inputs" in rollout_data:
+         # Move multimodal training tensors to GPU in advance
++        # Qwen3.5 checkpoints are a multimodal wrapper, so this key can be populated for a text-only run with values
++        # that are plain lists; move what is movable and leave the rest untouched.
+         rollout_data["multimodal_train_inputs"] = [
+             (
+-                {key: tensor.to(device=torch.cuda.current_device()) for key, tensor in mm_dict.items()}
++                {
++                    key: (value.to(device=torch.cuda.current_device()) if torch.is_tensor(value) else value)
++                    for key, value in mm_dict.items()
++                }
+                 if mm_dict is not None
+                 else None
+             )
+diff --git a/miles/miles/backends/training_utils/log_utils.py b/miles/miles/backends/training_utils/log_utils.py
+index 28182dd..201053d 100644
+--- a/miles/miles/backends/training_utils/log_utils.py
++++ b/miles/miles/backends/training_utils/log_utils.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): the rollout-data reducer accepts 0-dim per-sample tensors and skips None
++# per-sample scalars (a response without a verifier verdict).
+ import logging
+ from argparse import Namespace
+ from math import isclose
+@@ -183,7 +185,8 @@ def log_rollout_data(
+                 if isinstance(val[0], torch.Tensor):
+                     # NOTE: Here we have to do the clone().detach(), otherwise the tensor will be
+                     # modified in place and will cause problem for the next rollout.
+-                    val = torch.cat(val).clone().detach()
++                    # a single sample can yield a 0-dim tensor (e.g. a one-token response), which torch.cat rejects
++                    val = torch.cat([v if v.dim() > 0 else v.reshape(1) for v in val]).clone().detach()
+                     if key in [
+                         "log_probs",
+                         "ref_log_probs",
+@@ -205,7 +208,9 @@ def log_rollout_data(
+                     else:
+                         val = val.mean() * cp_size
+                 else:
+-                    val = sum(val) / len(val)
++                    # a per-sample scalar may be None (e.g. response_correct without a verifier verdict); skip it
++                    _vals = [v for v in val if v is not None]
++                    val = (sum(_vals) / len(_vals)) if _vals else float("nan")
+             elif isinstance(val, torch.Tensor):
+                 val = val.float().mean()
+             else:
+diff --git a/miles/miles/backends/training_utils/loss.py b/miles/miles/backends/training_utils/loss.py
+index 4363753..625422e 100644
+--- a/miles/miles/backends/training_utils/loss.py
++++ b/miles/miles/backends/training_utils/loss.py
+@@ -1,3 +1,7 @@
++# Modified by the DN-MOPD authors (2026): one-token responses keep a 1-D log-prob tensor (reshape, not squeeze);
++# the on-policy-distillation advantages are multiplied by the per-sample DN-MOPD multiplier (dn_adv_scale) and
++# replaced by the annealed-injection constant on injected samples (inject_adv_const), both set by
++# Uni_OPD_utils.mopd_hook.
+ import logging
+ from argparse import Namespace
+ from collections.abc import Callable, Iterator
+@@ -201,7 +205,9 @@ def get_log_probs_and_entropy(
+             true_on_policy=args.true_on_policy_mode,
+         )
+ 
+-        log_probs_list.append(log_prob.squeeze(-1))
++        # reshape, not squeeze: with --log-probs-chunk-size the chunked path returns [R], so a one-token response
++        # became a 0-dim tensor and torch.cat(advantages) failed. Bitwise identical for every R > 1.
++        log_probs_list.append(log_prob.reshape(-1))
+         entropy_list.append(entropy)
+ 
+     res = {
+@@ -406,6 +412,13 @@ def compute_advantages_and_returns(args: Namespace, parallel_state: ParallelStat
+                 adv: torch.Tensor = (t_logps - s_logps) * teacher_valid_mask  # 失败位置直接置 0
+             advantages.append(adv)
+ 
++        # DN-MOPD and its controls (Uni_OPD_utils.mopd_hook, adv_norm): every response's advantage is multiplied by
++        # its domain's multiplier, computed once per rollout batch by the hook and carried here per sample.
++        advantages = apply_dn_adv_scale(advantages, rollout_data.get("dn_adv_scale", None))
++        # Annealed teacher-trajectory injection (Uni_OPD_utils.mopd_hook, inject_*): an injected sample's advantage
++        # is the constant c(t) on every token; 0.0 marks a sample whose advantage is unchanged.
++        advantages = apply_inject_adv_const(advantages, rollout_data.get("inject_adv_const", None))
++
+         # 基于 response 正确性调整 advantage，使正确样本的 advantage 高于错误样本
+         if args.use_opd_margin_shift is True:
+             advantages: list[torch.Tensor] = opd_correctness_margin_shift(
+@@ -547,6 +560,35 @@ def _build_teacher_failed_mask(teacher_log_probs_cat: torch.Tensor) -> torch.Ten
+     return (teacher_log_probs_cat != TEACHER_LOGP_FAILED_SENTINEL).float()
+ 
+ 
++def apply_dn_adv_scale(advantages: list[torch.Tensor], scale: list[float] | None) -> list[torch.Tensor]:
++    """Multiply each sample's advantages by its per-sample multiplier (DN-MOPD: the domain multiplier w_d).
++
++    `scale` is None when the run carries no multiplier (Label, single-teacher, pool, dynamic), and the advantages are
++    returned unchanged. Signs are preserved; sentinel positions stay 0.
++    """
++    if scale is None:
++        return advantages
++    if len(scale) != len(advantages):
++        raise RuntimeError(f"dn_adv_scale has {len(scale)} entries for {len(advantages)} samples")
++    values = [float(w) for w in scale]
++    print(
++        f"MOPD_DN_APPLIED samples={len(values)} min={min(values, default=float('nan')):.6g} "
++        f"max={max(values, default=float('nan')):.6g} mean={sum(values) / max(len(values), 1):.6g}",
++        flush=True,
++    )
++    return [a * w for a, w in zip(advantages, values, strict=True)]
++
++
++def apply_inject_adv_const(advantages: list[torch.Tensor], const: list[float] | None) -> list[torch.Tensor]:
++    """Replace an injected sample's advantages by its constant (annealed injection); 0.0 keeps the sample's own
++    advantages. `const` is None when the run injects nothing."""
++    if const is None:
++        return advantages
++    if len(const) != len(advantages):
++        raise RuntimeError(f"inject_adv_const has {len(const)} entries for {len(advantages)} samples")
++    return [torch.full_like(a, float(c)) if float(c) > 0.0 else a for a, c in zip(advantages, const, strict=True)]
++
++
+ # 被 miles/backends/megatron_utils/model.py 的 train_one_step 方法调用
+ def policy_loss_function(
+     args: Namespace,
+diff --git a/miles/miles/ray/rollout.py b/miles/miles/ray/rollout.py
+index 5d9502e..7d4bf04 100644
+--- a/miles/miles/ray/rollout.py
++++ b/miles/miles/ray/rollout.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): the per-sample DN-MOPD multiplier (dn_adv_scale) and annealed-injection
++# constant (inject_adv_const) set by Uni_OPD_utils.mopd_hook are carried into the training data.
+ import itertools
+ import logging
+ import multiprocessing
+@@ -450,6 +452,12 @@ class RolloutManager:
+                 print("No teacher_log_probs found in samples, skipping.")
+             if "response_correct" in samples[0].__dict__:
+                 train_data["response_correct"] = [sample.response_correct for sample in samples]
++            # per-sample advantage multiplier of DN-MOPD and its controls (set by Uni_OPD_utils.mopd_hook)
++            if "dn_adv_scale" in samples[0].__dict__:
++                train_data["dn_adv_scale"] = [float(sample.dn_adv_scale) for sample in samples]
++            # per-sample constant advantage of annealed injection (0.0 = the sample's advantage is unchanged)
++            if "inject_adv_const" in samples[0].__dict__:
++                train_data["inject_adv_const"] = [float(sample.inject_adv_const) for sample in samples]
+ 
+         return train_data
+ 
+@@ -492,6 +500,8 @@ class RolloutManager:
+                 "prompt",
+                 "teacher_log_probs",
+                 "response_correct",
++                "dn_adv_scale",
++                "inject_adv_const",
+             ]:
+                 if key not in data:
+                     continue
+diff --git a/miles/miles/ray/rollout_logs.py b/miles/miles/ray/rollout_logs.py
+index eec9387..ed4f359 100644
+--- a/miles/miles/ray/rollout_logs.py
++++ b/miles/miles/ray/rollout_logs.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): log the mean scalar reward (reward/mean, reward/std, reward/frac_correct)
++# of every rollout; response_correct is logged only when at least one verdict exists.
+ import logging
+ from argparse import Namespace
+ from collections import Counter
+@@ -101,6 +103,34 @@ def compute_metrics_from_samples(args, samples: list[Sample]):
+     log_dict |= _compute_OPD_metrics(args, samples)
+     log_dict["repetition_frac"] = np.mean([int(has_repetition(s.response)) for s in samples]).item()
+     log_dict["truncated_ratio"] = np.mean([int(s.status == Sample.Status.TRUNCATED) for s in samples]).item()
++
++    # Mean reward of the rollout (a reward curve for GRPO runs). On the OPD path sample.reward is a dict of reward
++    # components, so a numeric component is used when present. Logging must never stop training.
++    try:
++        _rw = []
++        for s in samples:
++            r = getattr(s, "reward", None)
++            if r is None:
++                continue
++            if isinstance(r, dict):
++                for key in ("reward", "score", "total", "acc"):
++                    if isinstance(r.get(key), (int, float)):
++                        r = r[key]
++                        break
++                else:
++                    nums = [v for v in r.values() if isinstance(v, (int, float))]
++                    if not nums:
++                        continue
++                    r = sum(nums) / len(nums)
++            if isinstance(r, bool) or not isinstance(r, (int, float)):
++                continue
++            _rw.append(float(r))
++        if _rw:
++            log_dict["reward/mean"] = float(np.mean(_rw))
++            log_dict["reward/std"] = float(np.std(_rw))
++            log_dict["reward/frac_correct"] = float(np.mean([r >= 1.0 for r in _rw]))
++    except Exception as e:  # never let a logging line take down a training run
++        log_dict["reward/logging_error"] = repr(e)[:120]
+     return log_dict
+ 
+ 
+@@ -247,5 +277,7 @@ def _compute_OPD_metrics(args, all_samples: list[Sample]):
+         elif "response_correct" in sample.reward and sample.reward["response_correct"] is not None:
+             response_corrects.append(sample.reward["response_correct"])
+ 
+-    metrics["response_correct"] = np.mean(response_corrects)
++    # a batch whose verdicts are all None (verifier errors) has no correctness to report
++    if response_corrects:
++        metrics["response_correct"] = np.mean(response_corrects)
+     return metrics
+diff --git a/miles/miles/rollout/sglang_rollout.py b/miles/miles/rollout/sglang_rollout.py
+index 4b07579..0f9044b 100644
+--- a/miles/miles/rollout/sglang_rollout.py
++++ b/miles/miles/rollout/sglang_rollout.py
+@@ -1,4 +1,7 @@
++# Modified by the DN-MOPD authors (2026): for text-only prompts of a multimodal checkpoint (Qwen3.5),
++# multimodal_train_inputs keeps only real tensors and is None when the sample has no multimodal input.
+ import asyncio
++import torch
+ import copy
+ import inspect
+ import logging
+@@ -120,9 +123,14 @@ async def generate(args: Namespace, sample: Sample, sampling_params: dict[str, A
+     if state.processor:
+         processor_output = state.processor(text=sample.prompt, **(sample.multimodal_inputs or {}))
+         prompt_ids = processor_output["input_ids"][0]
+-        sample.multimodal_train_inputs = {
+-            k: v for k, v in processor_output.items() if k not in ["input_ids", "attention_mask"]
+-        } or None
++        # Qwen3.5 checkpoints are multimodal, so a processor is loaded even for a text-only run and its outputs for a
++        # text-only prompt include plain lists; keep only real tensors, and only when the sample has multimodal input.
++        _mm = {
++            k: v
++            for k, v in processor_output.items()
++            if k not in ["input_ids", "attention_mask"] and torch.is_tensor(v)
++        }
++        sample.multimodal_train_inputs = _mm if (sample.multimodal_inputs and _mm) else None
+     else:
+         prompt_ids = state.tokenizer.encode(sample.prompt, add_special_tokens=False)
+ 
+diff --git a/miles/miles/utils/ppo_utils.py b/miles/miles/utils/ppo_utils.py
+index c85a909..b178b02 100644
+--- a/miles/miles/utils/ppo_utils.py
++++ b/miles/miles/utils/ppo_utils.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): compute_log_probs falls back to a plain log-softmax gather when Megatron is
++# not installed (valid only with an unsharded vocabulary, i.e. no tensor parallelism).
+ # Adapt from https://github.com/OpenRLHF/OpenRLHF/blob/10c733694ed9fbb78a0a2ff6a05efc7401584d46/openrlhf/models/utils.py
+ # and https://github.com/OpenRLHF/OpenRLHF/blob/10c733694ed9fbb78a0a2ff6a05efc7401584d46/openrlhf/trainer/ppo_utils/experience_maker.py
+ 
+@@ -152,8 +154,14 @@ def compute_policy_loss(
+ 
+ 
+ def compute_log_probs(logits: torch.Tensor, tokens: torch.Tensor, process_group: dist.ProcessGroup | None):
+-    # TODO: when megatron is not installed, fall back to naive implementation
+-    from megatron.core.fusions.fused_cross_entropy import fused_vocab_parallel_cross_entropy
++    try:
++        from megatron.core.fusions.fused_cross_entropy import fused_vocab_parallel_cross_entropy
++    except ImportError:
++        # Megatron-free fallback (FSDP backend): valid only when the vocab dim is not sharded across process_group
++        if process_group is not None and dist.get_world_size(process_group) > 1:
++            raise RuntimeError("naive compute_log_probs requires unsharded vocab (TP=1); install megatron for TP>1")
++        logp = torch.log_softmax(logits.float(), dim=-1)
++        return logp.gather(-1, tokens.unsqueeze(-1)).squeeze(-1)
+ 
+     # convert to [seq_len, batch_size, vocab_size] as expected by fused_vocab_parallel_cross_entropy
+     logits = logits.unsqueeze(1)
+diff --git a/miles/miles/utils/types.py b/miles/miles/utils/types.py
+index f5a66a3..5ee5666 100644
+--- a/miles/miles/utils/types.py
++++ b/miles/miles/utils/types.py
+@@ -1,3 +1,5 @@
++# Modified by the DN-MOPD authors (2026): Sample.per_teacher_log_probs holds every teacher's response log-probs
++# (all-teacher scoring for Uni_OPD_utils.mopd_hook).
+ from argparse import Namespace
+ from dataclasses import dataclass, field
+ from enum import Enum
+@@ -29,6 +31,9 @@ class Sample:
+     weight_versions: list[str] = field(default_factory=list)
+     rollout_log_probs: list[float] | None = None  # Log probabilities from rollout engine
+     teacher_log_probs: list[float] | None = None  # Log probabilities from teacher model
++    # all-teacher scoring: {teacher_name: Tensor[response_length]}; a failed teacher's row is the sentinel -100.0
++    # (filled by Uni_OPD_utils.OPD_reward.post_process_rewards)
++    per_teacher_log_probs: dict[str, Any] | None = None
+     rollout_routed_experts: numpy.ndarray | None = (
+         None  # Routed experts from rollout engine. shape: (num_tokens-1, num_layers, moe_router_topk), dtype=int32
+     )
+diff --git a/miles/tools/convert_fsdp_to_hf.py b/miles/tools/convert_fsdp_to_hf.py
+index 142730c..ec38c65 100644
+--- a/miles/tools/convert_fsdp_to_hf.py
++++ b/miles/tools/convert_fsdp_to_hf.py
+@@ -1,4 +1,9 @@
++# Modified by the DN-MOPD authors (2026): a passthrough export that keeps the origin repo's key names and dtype
++# (needed for the multimodal Qwen3.5 checkpoints), a text-config retry and language-tower rename for the
++# instantiate-then-load path, and a refusal to write a checkpoint whose keys match < 90% of the target.
+ import argparse
++import glob
++import json
+ import os
+ import pickle
+ import shutil
+@@ -6,6 +11,8 @@ import time
+ 
+ import torch
+ import torch.distributed.checkpoint as dist_cp
++from huggingface_hub import save_torch_state_dict
++from safetensors import safe_open
+ from transformers import AutoConfig, AutoModelForCausalLM
+ from typing_extensions import override
+ 
+@@ -105,6 +112,78 @@ def _strip_best_prefix(keys: list[str], target_keys: set[str]) -> tuple[str, int
+     return best_prefix, best_match
+ 
+ 
++def _origin_key_set(origin_hf_dir: str) -> set[str]:
++    """The tensor names the ORIGIN repo actually ships, read from its own files."""
++    index = os.path.join(origin_hf_dir, "model.safetensors.index.json")
++    if os.path.isfile(index):
++        with open(index) as f:
++            return set(json.load(f)["weight_map"].keys())
++    keys: set[str] = set()
++    for shard in sorted(glob.glob(os.path.join(origin_hf_dir, "*.safetensors"))):
++        with safe_open(shard, framework="pt") as h:
++            keys |= set(h.keys())
++    return keys
++
++
++def _passthrough_save(tensor_items: dict[str, torch.Tensor], origin_hf_dir: str, output_dir: str) -> bool:
++    """Write the checkpoint under the ORIGIN repo's own key names (the "passthrough" export).
++
++    The instantiate-then-load path below asks `AutoModelForCausalLM.from_config` what the keys
++    should be, and for Qwen3.5 that question has no good answer: the config is a multimodal
++    wrapper (`Qwen3_5ForConditionalGeneration`), the class transformers builds from it does not
++    use the checkpoint's key names, and vLLM registers only the wrapper.
++
++    The FSDP checkpoint's keys, after prefix stripping, are the origin repo's keys (lm_head +
++    model.language_model.* + model.visual.*; the origin additionally ships mtp.* tensors that the
++    trainer never holds). So copy them out as they are and keep the origin config, which by
++    construction describes them. No model is instantiated, nothing is renamed, and the
++    checkpoint's own dtype survives (the from_config path builds fp32 params and would upcast
++    bf16 weights into them).
++
++    Returns True when it handled the conversion.
++    """
++    origin_keys = _origin_key_set(origin_hf_dir)
++    if not origin_keys:
++        return False
++    prefix, match = _strip_best_prefix(list(tensor_items.keys()), origin_keys)
++    if match < 0.9 * len(origin_keys):
++        print(f"passthrough not applicable: only {match}/{len(origin_keys)} origin tensors matched")
++        return False
++
++    state = {}
++    for k, v in tensor_items.items():
++        stripped = k.removeprefix(prefix)
++        if stripped in origin_keys:
++            state[stripped] = v
++    dropped = len(tensor_items) - len(state)
++    print(f"passthrough: {len(state)}/{len(origin_keys)} origin tensors matched with prefix "
++          f"'{prefix}'; {dropped} checkpoint tensors not in the origin repo were dropped")
++
++    # Name what the ORIGIN has and the checkpoint does not: silently missing weights would give a
++    # partially random model. For Qwen3.5 this legitimately reports the 15 `mtp.*` tensors: the
++    # trainer does not train or save the multi-token-prediction head, and vLLM does not need it
++    # unless speculative decoding is enabled. Any OTHER group appearing here is a bug.
++    absent = origin_keys - set(state)
++    if absent:
++        groups: dict[str, int] = {}
++        for k in absent:
++            groups[k.split(".")[0]] = groups.get(k.split(".")[0], 0) + 1
++        print(f"   NOTE {len(absent)} origin tensors absent from the checkpoint, by top-level "
++              f"group: {sorted(groups.items(), key=lambda x: -x[1])}")
++
++    os.makedirs(output_dir, exist_ok=True)
++    # Stale shards from an earlier conversion would be listed by no index and loaded by nothing,
++    # or worse, listed by a stale index. Clear them.
++    for stale in glob.glob(os.path.join(output_dir, "*.safetensors")) + [
++        os.path.join(output_dir, "model.safetensors.index.json")
++    ]:
++        if os.path.isfile(stale):
++            os.remove(stale)
++    save_torch_state_dict(state, output_dir, max_shard_size="5GB")
++    print(f"Model weights saved to {output_dir} (passthrough)")
++    return True
++
++
+ def _convert_fsdp_to_hf(
+     origin_hf_dir: str,
+     input_dir: str,
+@@ -117,6 +196,9 @@ def _convert_fsdp_to_hf(
+ 
+     tensor_items = {k: v for k, v in state_dict.items() if isinstance(v, torch.Tensor)}
+ 
++    if _passthrough_save(tensor_items, origin_hf_dir, output_dir):
++        return
++
+     config = AutoConfig.from_pretrained(origin_hf_dir, trust_remote_code=True)
+     hf_model = AutoModelForCausalLM.from_config(config)
+     target_keys = set(hf_model.state_dict().keys())
+@@ -124,16 +206,65 @@ def _convert_fsdp_to_hf(
+     best_prefix, best_match = _strip_best_prefix(list(tensor_items.keys()), target_keys)
+     total_keys = len(tensor_items)
+ 
++    # For a MULTIMODAL wrapper config (Qwen3_5ForConditionalGeneration), `from_config` builds
++    # the wrapper -- keys `model.language_model.*` plus a vision tower -- while the trainer used
++    # `AutoModelForCausalLM.from_pretrained`, which resolves to the text-only model with keys
++    # `model.*`. With strict=False the mismatch would be silent, so retry against the text config
++    # when the match is poor.
++    if best_match < 0.9 * total_keys and hasattr(config, "get_text_config"):
++        text_config = config.get_text_config()
++        if type(text_config).__name__ != type(config).__name__:
++            print(f"low match {best_match}/{total_keys} with {type(hf_model).__name__}; "
++                  f"retrying with text config {type(text_config).__name__}")
++            alt_model = AutoModelForCausalLM.from_config(text_config)
++            alt_keys = set(alt_model.state_dict().keys())
++            alt_prefix, alt_match = _strip_best_prefix(list(tensor_items.keys()), alt_keys)
++            if alt_match > best_match:
++                hf_model, target_keys = alt_model, alt_keys
++                best_prefix, best_match = alt_prefix, alt_match
++
+     print(f"Using prefix '{best_prefix}' for key mapping. " f"Matched {best_match}/{total_keys} parameter keys.")
+ 
+     model_state = {k.removeprefix(best_prefix): v for k, v in tensor_items.items()}
+ 
++    # A multimodal-wrapper checkpoint stores the language tower under `model.language_model.*`
++    # alongside `model.visual.*`, while the target text-only model expects `model.*`. Rename the
++    # language tower and DROP the vision tower, which a text-only model does not have. Trigger on
++    # a POOR match, not on zero overlap: exactly one key (lm_head.weight) matches by coincidence
++    # in both layouts.
++    if best_match < 0.9 * len(target_keys) and any(k.startswith("model.language_model.") for k in model_state):
++        renamed = {}
++        for k, v in model_state.items():
++            if k.startswith("model.language_model."):
++                renamed["model." + k[len("model.language_model."):]] = v
++            elif k.startswith("model.visual.") or k.startswith("mtp."):
++                continue  # not part of the text-only model
++            else:
++                renamed[k] = v
++        n_hit = len(set(renamed) & target_keys)
++        print(f"multimodal wrapper detected: renamed language tower, dropped vision/mtp; "
++              f"now {n_hit}/{len(target_keys)} target keys covered")
++        if n_hit > best_match:
++            model_state, best_match = renamed, n_hit
++            total_keys = len(target_keys)
++
+     if not model_state:
+         raise ValueError(
+             "No model weights found in checkpoint. "
+             "Please pass the checkpoint directory (e.g. iter_xxx or iter_xxx/model)."
+         )
+ 
++    # A converter that writes a random model on a key mismatch is worse than one that crashes:
++    # the artefact looks valid, loads, generates, and is wrong. Refuse instead. This check must
++    # run AFTER the rename above.
++    if best_match < 0.9 * len(target_keys):
++        raise ValueError(
++            f"key mapping matched only {best_match}/{len(target_keys)} target tensors with "
++            f"model class {type(hf_model).__name__} and prefix '{best_prefix}'. Refusing to "
++            f"write a partially-initialised checkpoint. Check that --origin-hf-dir matches the "
++            f"architecture the trainer actually instantiated."
++        )
++
+     missing, unexpected = hf_model.load_state_dict(model_state, strict=False)
+     print(f"Missing keys: {missing}\nUnexpected keys: {unexpected}")
+ 

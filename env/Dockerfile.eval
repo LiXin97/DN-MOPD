@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# DN-MOPD evaluation environment: Python 3.10, vLLM 0.18.0, torch 2.10.0 (CUDA 12.8), transformers 4.57.6.
+# A minimal starting point. It has not been built as part of the release checks.
+#
+#   docker build -f env/Dockerfile.eval -t dn-mopd:eval env/
+#   docker run --gpus all --ipc=host --shm-size=32g -it -v "$PWD":/workspace/DN-MOPD dn-mopd:eval
+
+FROM nvidia/cuda:12.8.1-devel-ubuntu22.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONUNBUFFERED=1 \
+    VIRTUAL_ENV=/opt/venv \
+    PATH=/opt/venv/bin:$PATH
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3.10 python3.10-venv python3.10-dev build-essential git curl ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && python3.10 -m venv /opt/venv \
+    && pip install --upgrade pip
+
+COPY requirements-eval.txt constraints-eval.txt /opt/dn-mopd-env/
+
+RUN pip install --index-url https://pypi.org/simple \
+        -r /opt/dn-mopd-env/requirements-eval.txt -c /opt/dn-mopd-env/constraints-eval.txt
+
+# The official checkers and the nltk data are fetched into the mounted repository at run time, pinned and verified:
+#   python -m eval.external.fetch
+
+WORKDIR /workspace/DN-MOPD
+RUN printf '%s\n' '#!/bin/bash' 'set -e' \
+      'if [ -f ./pyproject.toml ]; then pip install --quiet --no-deps -e . ; fi' \
+      'exec "$@"' > /usr/local/bin/dn-mopd-entry \
+    && chmod +x /usr/local/bin/dn-mopd-entry
+ENTRYPOINT ["/usr/local/bin/dn-mopd-entry"]
+CMD ["bash"]

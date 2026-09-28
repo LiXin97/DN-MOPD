@@ -1,0 +1,11 @@
+{
+  "Qwen3-4B-Math-Teacher": {
+    "path": "<Your path to the model ckpt>",
+    "servers": ["http://<Your IP>:<Your port>"]
+  },
+
+  "Qwen3-4B-Code-Teacher": {
+    "path": "<Your path to the model ckpt>",
+    "servers": ["http://<Your IP>:<Your port>"]
+  }
+}

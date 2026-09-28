@@ -1,0 +1,47 @@
+# SPDX-License-Identifier: Apache-2.0
+# On-policy distillation students (Label, DN-MOPD, single-teacher, uniform pool, dynamic router, annealed injection and
+# the control runs). Values are the paper runs' (App. A.2); every method shares this recipe and differs only in the
+# teacher target / advantage multiplier (configs/methods.yaml).
+recipe:
+  student_gpus: [0, 1, 2, 3]       # FSDP actor + colocated SGLang rollout engines (one engine per GPU)
+  sglang_mem_fraction_static: 0.60
+  rollout_batch_size: 64           # prompts per rollout
+  n_samples_per_prompt: 8
+  global_batch_size: 512           # = 64 x 8: one optimizer step per rollout ("update")
+  micro_batch_size: 1
+  max_prompt_len: 2048
+  max_response_len: 8192
+  temperature: 1.0                 # top-p 1.0 (the SGLang default)
+  advantage_estimator: on_policy_distillation   # sampled-token reverse KL, PPO-clip 0.2/0.2 (miles defaults)
+  kl_loss_coef: 0.0
+  entropy_coef: 0.0
+  optimizer: adam
+  lr: 1.0e-6
+  lr_decay_style: constant
+  lr_warmup_iters: 5
+  weight_decay: 0.1
+  adam_beta1: 0.9
+  adam_beta2: 0.98
+  clip_grad: 1.0
+  save_interval: 10
+  updates: 80                      # the 160-update continuations resume the same run directory to 160
+  seed: 42                         # sets --rollout-seed (data shuffle, SGLang sampling); --seed stays at 1234
+  opd_rm_max_inflight: 96          # concurrent teacher-scoring requests of the rollout manager
+
+# Teacher servers (SGLang, TP 1, one GPU each), started by start_teachers.sh. The memory fractions are the paper runs'
+# (the IF teacher sat in the launcher's third-server slot); they size the KV pool only and do not change the scores.
+teacher_servers:
+  common_args: [--tp, "1", --chunked-prefill-size, "4096"]
+  math:   {gpu: 4, port: 13141, mem_fraction_static: 0.35}
+  code:   {gpu: 5, port: 13142, mem_fraction_static: 0.35}
+  ifeval: {gpu: 6, port: 13140, mem_fraction_static: 0.85}
+
+# Short path test for recipes/qwen3.5/smoke_test.sh (not a paper setting).
+profiles:
+  smoke:
+    rollout_batch_size: 8
+    global_batch_size: 64
+    max_response_len: 1024
+    lr_warmup_iters: 1
+    save_interval: 2
+    updates: 2

@@ -1,0 +1,5 @@
+# fetched by python -m eval.external.fetch (default destination)
+third_party/
+# written by python -m eval.data.prepare
+data/prepared/
+__pycache__/

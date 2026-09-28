@@ -1,0 +1,13 @@
+{
+ "frozen_update0_multipliers": {
+  "9b": {"math": 1.768, "code": 0.888, "ifeval": 0.25},
+  "4b": {"math": 2.009, "code": 0.811, "ifeval": 0.341},
+  "2b": {"math": 2.102, "code": 0.822, "ifeval": 0.431}
+ },
+ "fixed_weights": {
+  "fix21q": {"math": 2.0, "code": 1.0, "ifeval": 0.25},
+  "fixmath": {"math": 2.0, "code": 1.0, "ifeval": 1.0},
+  "fixif": {"math": 1.0, "code": 1.0, "ifeval": 0.25}
+ },
+ "notes": "frozen_update0_multipliers: the size's DN-MOPD multipliers at update 0 (seed 42), rounded to 3 decimals; fixed weights are listed in the order math, code, IF"
+}
