@@ -1,0 +1,251 @@
+/* p5a_hero: two-column hero with an animated DN-MOPD schematic, plus an at-a-glance stat row.
+   Loaded after style.css. Everything here is scoped to .hx (the hero section) and its children.
+   Motion: transform / opacity / stroke-dashoffset only, and only under prefers-reduced-motion: no-preference.
+   Merge (p5_all): hero.js is gone. polish.js runs the page's single pause gate and sets html.hero-off while the hero stage
+   is off-screen or the tab is hidden; that one class pauses this art, P5's aurora and the scroll cue together.
+   The load-in of the art and the stat row joins p5d's title-block load-in (keyframes and easing live in polish.css). */
+
+.hx {
+  --hx-shadow: rgba(16, 38, 61, .07);
+  --hx-axis: #A9B7C5;
+  --hx-stu-bg: #173B5B;
+  --hx-stu-fg: #FFFFFF;
+  --hx-chip-stroke: #D5DEE7;
+  --hx-ink-bar: #173B5B;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hx {
+    --hx-shadow: rgba(0, 0, 0, .28);
+    --hx-axis: #3E556C;
+    --hx-stu-bg: #1D4466;
+    --hx-stu-fg: #F4F8FB;
+    --hx-chip-stroke: #2A4259;
+    --hx-ink-bar: #5E7C98;
+  }
+}
+:root[data-theme="dark"] .hx {
+  --hx-shadow: rgba(0, 0, 0, .28);
+  --hx-axis: #3E556C;
+  --hx-stu-bg: #1D4466;
+  --hx-stu-fg: #F4F8FB;
+  --hx-chip-stroke: #2A4259;
+  --hx-ink-bar: #5E7C98;
+}
+
+/* ------------------------------------------------------------------ layout */
+.hx-stage { position: relative; }
+.hx-art { margin: 0; position: relative; }
+.hx-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hx-note {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  margin-top: 6px; font-size: 12px; font-weight: 500; letter-spacing: .02em; color: var(--muted);
+}
+.hx-note-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); opacity: .7; }
+
+@media (min-width: 961px) {
+  .hx-stage {
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: clamp(20px, 2.4vw, 34px); align-items: center;
+  }
+  .hx .hero-inner.hx-copy { padding-top: 60px; text-align: left; align-items: flex-start; }
+  .hx-copy .display { margin-top: 22px; font-size: clamp(2.15rem, .55rem + 2.5vw, 2.9rem); line-height: 1.06; }
+  .hx-copy .lede { margin-top: 20px; max-width: 36em; font-size: clamp(1.04rem, .9rem + .3vw, 1.2rem); text-wrap: pretty; }
+  .hx-copy .authors { margin-top: 24px; justify-content: flex-start; gap: 2px 16px; font-size: 1rem; }
+  .hx-copy .affils { justify-content: flex-start; gap: 0 18px; }
+  .hx-copy .cta { margin-top: 26px; justify-content: flex-start; gap: 8px; }
+  .hx-copy .btn { padding: 0 13px; gap: 7px; font-size: 14.5px; }
+  .hx-copy .soon { font-size: 10.5px; padding: 2px 6px; }
+  /* the art may bleed a little into the right page margin, like the reference */
+  .hx-art { margin: 40px calc(-1 * clamp(0px, (100vw - 1248px) / 2 - 8px, 92px)) 0 0; }
+  .hx .hero-grid {
+    -webkit-mask-image: radial-gradient(ellipse 44% 62% at 24% 34%, #000 20%, transparent 76%);
+    mask-image: radial-gradient(ellipse 44% 62% at 24% 34%, #000 20%, transparent 76%);
+  }
+}
+@media (max-width: 960px) {
+  .hx-art { max-width: 620px; margin: 40px auto 0; }
+}
+@media (max-width: 680px) {
+  /* nearly full-bleed on phones so the labels stay legible */
+  .hx-art { max-width: none; margin: 30px calc(6px - var(--gutter)) 0; }
+}
+
+/* ------------------------------------------------------------------ stat row */
+.hx-stats {
+  list-style: none; margin: 52px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;
+}
+.hx-stat {
+  position: relative; overflow: hidden; padding: 16px 18px 17px 22px; border-radius: 16px;
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+}
+.hx-stat::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--hx-ink-bar); }
+.hx-stat.s-tri::before { background: linear-gradient(var(--gold) 0 33.4%, var(--blue) 33.4% 66.7%, var(--purple) 66.7%); }
+.hx-stat b {
+  display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.55rem; line-height: 1.12;
+  letter-spacing: -.012em; color: var(--heading); white-space: nowrap;
+}
+.hx-stat span { display: block; margin-top: 6px; font-size: .875rem; line-height: 1.45; color: var(--muted); }
+.hx-stat sub { font-size: .75em; line-height: 0; }
+.hx .float-card.teaser { margin-top: 40px; }
+@media (max-width: 960px) { .hx-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 40px; } }
+@media (max-width: 420px) {
+  .hx-stats { gap: 10px; }
+  .hx-stat { padding: 13px 12px 14px 17px; border-radius: 14px; }
+  .hx-stat b { font-size: 1.28rem; }
+  .hx-stat span { font-size: .8rem; }
+}
+
+/* ------------------------------------------------------------------ illustration: paint */
+.hx-svg text { font-family: var(--font-body); }
+.hx-svg .mi { font-family: "KaTeX_Math", "Cambria Math", "STIX Two Math", "Times New Roman", serif; font-style: italic; }
+.hx-svg .mr { font-family: "KaTeX_Main", "Cambria Math", "STIX Two Math", "Times New Roman", serif; font-style: normal; }
+.hx-svg .sb { font-size: .68em; }
+
+.hx-math { --d: var(--gold);   --d-ink: var(--gold-ink);   --d-wash: var(--gold-wash); }
+.hx-code { --d: var(--blue);   --d-ink: var(--blue-ink);   --d-wash: var(--blue-wash); }
+.hx-if   { --d: var(--purple); --d-ink: var(--purple-ink); --d-wash: var(--purple-wash); }
+
+.hx-glow-0 { stop-color: var(--teal); stop-opacity: .14; }
+.hx-glow-1 { stop-color: var(--teal); stop-opacity: .05; }
+.hx-glow-2 { stop-color: var(--teal); stop-opacity: 0; }
+.hx-rip { stroke: var(--teal); stroke-width: 1.4; transform-box: view-box; transform-origin: 300px 257px; }
+.hx-rip.r1 { transform: scale(.66); opacity: .22; }
+.hx-rip.r2 { transform: scale(.94); opacity: .14; }
+.hx-rip.r3 { transform: scale(1.22); opacity: .07; }
+
+.hx-cap { fill: var(--muted); font-size: 10.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+.hx-sh { fill: var(--hx-shadow); }
+
+.hx-base { fill: none; stroke: var(--hx-axis); stroke-width: 1.3; stroke-linecap: round; stroke-dasharray: 4 8; }
+.hx-st path { stroke: var(--d); stroke-width: 1.7; stroke-linecap: round; fill: none; }
+.hx-st circle { fill: var(--d); }
+.hx-raw .hx-st { opacity: .92; }
+.hx-raw > g { transform-box: view-box; }
+
+.hx-flow { stroke: var(--d); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 5 7; }
+.hx-arrows path { fill: var(--d); }
+
+.hx-scard { fill: var(--surface); stroke: var(--d); stroke-width: 1.6; }
+.hx-swash { fill: var(--d-wash); }
+.hx-ico { fill: none; stroke: var(--d); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.hx-ico-s { stroke-width: 2.2; }
+.hx-ico-t { fill: var(--d); font-size: 31px; font-family: "KaTeX_Main", "Times New Roman", serif !important; }
+.hx-beacon { fill: var(--d); }
+.hx-slabel { fill: var(--d-ink); font-size: 15px; font-weight: 650; font-family: var(--font-display) !important; }
+
+.hx-ncard { fill: var(--surface); stroke: var(--teal); stroke-width: 1.8; }
+.hx-nwash { fill: var(--teal-wash); }
+.hx-ntitle { fill: var(--teal-ink); font-size: 18px; font-weight: 750; letter-spacing: .01em; font-family: var(--font-display) !important; }
+.hx-fx text { fill: var(--heading); font-size: 16px; }
+.hx-fbar { stroke: var(--heading); stroke-width: 1.1; }
+.hx-guides path { stroke: var(--teal); stroke-width: 1; stroke-dasharray: 2 4; opacity: .35; }
+.hx-rlabel { fill: var(--d-ink); font-size: 12.5px; font-weight: 600; }
+.hx-rval { fill: var(--d-ink); opacity: .78; font-size: 11px; font-weight: 500; }
+.hx-track { stroke: var(--border-strong); stroke-width: 2; stroke-linecap: round; }
+.hx-bar { fill: var(--d); opacity: .3; transform-box: view-box; }
+.hx-math .hx-bar { transform: scaleX(.44); }
+.hx-code .hx-bar { transform: scaleX(.06); }
+.hx-if .hx-bar { transform: scaleX(1); }
+.hx-wall { stroke: var(--teal-ink); stroke-width: 2; stroke-linecap: round; opacity: .75; }
+.hx-knob circle { fill: var(--d); stroke: var(--surface); stroke-width: 2.4; }
+.hx-ticks text { fill: var(--muted); font-size: 11.5px; font-weight: 500; }
+.hx-ticks .hx-tk-l { fill: var(--text-2); font-size: 14px; }
+
+.hx-stu { fill: var(--hx-stu-bg); }
+.hx-stu-t { fill: var(--hx-stu-fg); font-size: 14.5px; font-weight: 700; font-family: var(--font-display) !important; }
+.hx-chipm { fill: var(--gold); } .hx-chipc { fill: var(--blue); } .hx-chipi { fill: var(--purple); }
+
+.hx-chip { fill: var(--surface); stroke: var(--hx-chip-stroke); stroke-width: 1.2; }
+.hx-ccap { fill: var(--muted); font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.hx-cfx { fill: var(--heading); font-size: 18px; }
+
+/* phones: slightly larger secondary labels (the layout leaves room for them) */
+@media (max-width: 560px) {
+  .hx-cap { font-size: 11px; letter-spacing: .06em; }
+  .hx-rlabel { font-size: 13.5px; }
+  .hx-rval { font-size: 12px; }
+  .hx-ticks text { font-size: 13px; }
+  .hx-ccap { font-size: 11.5px; letter-spacing: .04em; }
+}
+
+/* ------------------------------------------------------------------ illustration: motion */
+@media (prefers-reduced-motion: no-preference) {
+  /* every period divides 5.4 s, so the whole scene loops cleanly */
+  .hx-rip { opacity: 0; animation: hx-ripple 5.4s cubic-bezier(.2, .6, .3, 1) infinite; }
+  .hx-rip.r2 { animation-delay: -1.8s; }
+  .hx-rip.r3 { animation-delay: -3.6s; }
+
+  /* spikes drift from the teachers, under the normalizer, and out rescaled; dashes move with them */
+  .hx-drift { animation: hx-drift 5.4s linear infinite; }
+  .hx-base, .hx-flow { animation: hx-dash 5.4s linear infinite; }
+
+  /* raw spikes flicker (IF most, math least); the rescaled ones stay calm */
+  .hx-math { --jit: .3; }
+  .hx-code { --jit: .55; }
+  .hx-if   { --jit: 1; }
+  .hx-raw .j0 { animation: hx-jit 1.8s ease-in-out infinite; }
+  .hx-raw .j1 { animation: hx-jit 2.7s ease-in-out -.9s infinite; }
+  .hx-raw .j2 { animation: hx-jit 1.35s ease-in-out -.5s infinite reverse; }
+
+  /* per-batch multipliers: math wobbles around 2, code near 1, IF sits on the 0.25 floor */
+  .hx-math .hx-knob { animation: hx-k-math 5.4s ease-in-out infinite; }
+  .hx-math .hx-bar  { animation: hx-b-math 5.4s ease-in-out infinite; }
+  .hx-code .hx-knob { animation: hx-k-code 5.4s ease-in-out -1.8s infinite; }
+  .hx-code .hx-bar  { animation: hx-b-code 5.4s ease-in-out -1.8s infinite; }
+  .hx-if .hx-knob   { animation: hx-k-if 5.4s ease-in-out infinite; }
+  .hx-if .hx-bar    { animation: hx-b-if 5.4s ease-in-out infinite; }
+
+  .hx-float { animation: hx-float 5.4s ease-in-out infinite; }
+  .hx-float.f2 { animation-delay: -1.35s; }
+  .hx-float.f3 { animation-delay: -2.7s; }
+  .hx-float.f4 { animation-delay: -4.05s; }
+
+  .hx-beacon { animation: hx-beacon 2.7s ease-in-out infinite; }
+  .hx-beacon.b-code { animation-delay: -.9s; }
+  .hx-beacon.b-if { animation-delay: -1.8s; }
+}
+@keyframes hx-ripple { 0% { transform: scale(.42); opacity: 0; } 14% { opacity: .4; } 100% { transform: scale(1.3); opacity: 0; } }
+@keyframes hx-drift { from { transform: translateX(0); } to { transform: translateX(108px); } }
+@keyframes hx-dash { to { stroke-dashoffset: -108; } }
+@keyframes hx-jit {
+  0%, 100% { transform: scaleY(1); }
+  22% { transform: scaleY(calc(1 + var(--jit, 0) * .16)); }
+  48% { transform: scaleY(calc(1 - var(--jit, 0) * .12)); }
+  74% { transform: scaleY(calc(1 + var(--jit, 0) * .07)); }
+}
+@keyframes hx-k-math { 0%, 100% { transform: translateX(0); } 18% { transform: translateX(-5px); } 38% { transform: translateX(3px); } 58% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+@keyframes hx-b-math { 0%, 100% { transform: scaleX(.44); } 18% { transform: scaleX(.327); } 38% { transform: scaleX(.509); } 58% { transform: scaleX(.373); } 80% { transform: scaleX(.486); } }
+@keyframes hx-k-code { 0%, 100% { transform: translateX(0); } 30% { transform: translateX(-3px); } 62% { transform: translateX(2.6px); } }
+@keyframes hx-b-code { 0%, 100% { transform: scaleX(.06); } 30% { transform: scaleX(.128); } 62% { transform: scaleX(0); } }
+@keyframes hx-k-if { 0%, 68%, 86%, 100% { transform: translateX(0); } 76% { transform: translateX(7px); } }
+@keyframes hx-b-if { 0%, 68%, 86%, 100% { transform: scaleX(1); } 76% { transform: scaleX(.84); } }
+@keyframes hx-float { 50% { transform: translateY(-6px); } }
+@keyframes hx-beacon { 50% { opacity: .3; } }
+
+/* merge: one pause gate for the whole hero (polish.js): off-screen stage or hidden tab */
+html.hero-off .hx-svg, html.hero-off .hx-svg * { animation-play-state: paused !important; }
+
+/* merge: hero load-in. p5d's staggered title block (.hero-inner > *, in polish.css) is followed by the schematic and the
+   stat row, so the whole hero arrives as one sequence. CSS only: it completes without JS. */
+@media (prefers-reduced-motion: no-preference) {
+  .hx-art { animation: pl-rise-lg 1s var(--ease-out) .34s both; }
+  .hx-stat { animation: pl-rise .8s var(--ease-out) both; }
+  .hx-stat:nth-child(1) { animation-delay: .52s; }
+  .hx-stat:nth-child(2) { animation-delay: .58s; }
+  .hx-stat:nth-child(3) { animation-delay: .64s; }
+  .hx-stat:nth-child(4) { animation-delay: .7s; }
+}
+
+/* merge: p5d's scroll cue sits at the foot of the copy column; left-aligned with the copy in the two-column layout */
+@media (min-width: 961px) {
+  .hx-copy .scroll-cue { margin-top: 28px; }
+}
+/* stacked layout: the schematic follows the buttons directly and already signals more below */
+@media (max-width: 960px) {
+  .hx-copy .scroll-cue { display: none; }
+}
+
+@media print {
+  .hx-art { break-inside: avoid; }
+}

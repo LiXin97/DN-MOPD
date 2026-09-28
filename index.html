@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DN-MOPD · Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation</title>
+<meta name="description" content="Label routing decides which teacher supervises a prompt; DN-MOPD also controls how strongly each teacher's feedback counts.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FAFBFC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A131C" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://lixin.ai/DN-MOPD">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation">
+<meta property="og:description" content="Label routing decides which teacher supervises a prompt; DN-MOPD also controls how strongly each teacher's feedback counts.">
+<meta property="og:url" content="https://lixin.ai/DN-MOPD">
+<meta property="og:image" content="https://lixin.ai/DN-MOPD/static/teaser.png">
+<meta property="og:image:alt" content="Figure 1 of the DN-MOPD paper: unequal feedback across domains, domain normalization, and gains over label routing.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DN-MOPD: Domain-Normalized Multi-Teacher On-Policy Distillation">
+<meta name="twitter:description" content="Label routing decides which teacher supervises a prompt; DN-MOPD also controls how strongly each teacher's feedback counts.">
+<meta name="twitter:image" content="https://lixin.ai/DN-MOPD/static/teaser.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23173B5B'/%3E%3Crect x='7' y='13' width='4.5' height='12' rx='1.5' fill='%23C58A24'/%3E%3Crect x='13.75' y='9' width='4.5' height='16' rx='1.5' fill='%233E83B5'/%3E%3Crect x='20.5' y='18' width='4.5' height='7' rx='1.5' fill='%239271B4'/%3E%3C/svg%3E">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('dnmopd-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+    document.documentElement.classList.add('js');
+    // deep links, reloads and history navigation restore a scroll position: render every section exactly
+    try {
+      var n = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (location.hash.length > 1 || (n && n.type !== 'navigate')) document.documentElement.classList.add('cv-off');
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="polish.css">
+<link rel="stylesheet" href="hero.css">
+<link rel="stylesheet" href="scrolly.css">
+<link rel="stylesheet" href="datamotion.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="app.js"></script>
+<script defer src="polish.js"></script>
+<script defer src="scrolly.js"></script>
+<script defer src="datamotion.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top-nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="DN-MOPD, back to top">
+      <svg class="brand-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="7" fill="#173B5B"/><rect x="7" y="13" width="4.5" height="12" rx="1.5" fill="#C58A24"/><rect x="13.75" y="9" width="4.5" height="16" rx="1.5" fill="#3E83B5"/><rect x="20.5" y="18" width="4.5" height="7" rx="1.5" fill="#9271B4"/></svg>
+      <span class="brand-name"><span class="nw">DN-MOPD</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#cite">Cite</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle colour theme" title="Toggle colour theme">
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+      <a class="btn btn-primary btn-sm" href="static/DN-MOPD.pdf">Paper</a>
+      <details class="menu">
+        <summary class="icon-btn" aria-label="Open section menu">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <nav class="menu-panel" aria-label="Sections (menu)">
+          <a href="#overview">Overview</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#analysis">Analysis</a>
+          <a href="#limitations">Limitations</a>
+          <a href="#cite">Cite</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Chapters">
+  <ol>
+    <li><a href="#overview"><span class="rail-dot" aria-hidden="true">01</span><span class="rail-lbl">Overview</span></a></li>
+    <li><a href="#method"><span class="rail-dot" aria-hidden="true">02</span><span class="rail-lbl">Method</span></a></li>
+    <li><a href="#results"><span class="rail-dot" aria-hidden="true">03</span><span class="rail-lbl">Results</span></a></li>
+    <li><a href="#analysis"><span class="rail-dot" aria-hidden="true">04</span><span class="rail-lbl">Analysis</span></a></li>
+    <li><a href="#limitations"><span class="rail-dot" aria-hidden="true">05</span><span class="rail-lbl">Limitations</span></a></li>
+    <li><a href="#cite"><span class="rail-dot" aria-hidden="true">06</span><span class="rail-lbl">Cite</span></a></li>
+  </ol>
+</nav>
+
+<main id="main">
+<!-- ===================== HERO ===================== -->
+<section class="hero hx" id="top">
+  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span><span class="a4"></span></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="wrap hx-stage">
+    <div class="hero-inner hx-copy">
+      <p class="eyebrow-pill"><span class="dot" aria-hidden="true"></span><span class="ep-brand"><span class="nw">DN-MOPD</span></span><span class="sep ep-brand" aria-hidden="true"></span><span>Qwen3.5-9B, 4B and 2B</span><span class="sep" aria-hidden="true"></span><span>September 2026</span></p>
+      <h1 class="display">Beyond Teacher Assignment: <span class="grad nw">Domain-Normalized</span> <span class="nw">Multi-Teacher</span> <span class="nw">On-Policy</span> Distillation</h1>
+      <p class="lede"><span class="tldr-tag">TL;DR</span> Label routing decides which teacher supervises a prompt; <strong><span class="nw">DN-MOPD</span> also controls how strongly each teacher's feedback counts.</strong></p>
+
+      <p class="authors">
+        <span><a class="author-link" href="https://lixin.ai/">Xin Li</a><sup>1</sup></span><span>Hao Jiang<sup>1</sup></span><span>Xin Gao<sup>2</sup></span><span>Annan Wang<sup>1</sup></span><span>Yuchen Xie<sup>1</sup></span><span>Jinghao Guo<sup>1</sup></span><span>Xingwei Qu<sup>3</sup></span><span>Yichi Zhang</span><span>Chau Yuen<sup>1</sup></span>
+      </p>
+      <p class="affils"><span><sup>1</sup>Nanyang Technological University</span><span><sup>2</sup>Yale University</span><span><sup>3</sup>University of Manchester</span></p>
+
+      <div class="cta">
+        <a class="btn btn-primary" href="static/DN-MOPD.pdf">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 3h7l5 5v13H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v5h5M10 13h6M10 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Paper (PDF)
+        </a>
+        <span class="btn btn-ghost is-disabled" role="link" aria-disabled="true" title="arXiv version coming soon">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 19L12 5l7 14M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          arXiv <span class="soon">coming soon</span>
+        </span>
+        <span class="btn btn-ghost is-disabled" role="link" aria-disabled="true" title="Code coming soon">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Code <span class="soon">coming soon</span>
+        </span>
+        <a class="btn btn-ghost" href="https://huggingface.co/datasets/XINLI1997/DN-MOPD-Data" title="Training prompt sets on Hugging Face">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+          Data
+        </a>
+        <a class="btn btn-ghost" href="#cite">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 7h4v4c0 3-1.5 5-4 6M14 7h4v4c0 3-1.5 5-4 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          BibTeX
+        </a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 5v13M6 12l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Scroll</span></div>
+    </div>
+    <figure class="hx-art">
+      <svg class="hx-svg" viewBox="0 0 600 540" role="img" aria-labelledby="hx-t hx-d" focusable="false">
+      <title id="hx-t">Schematic of DN-MOPD: three teachers' feedback rescaled onto a common scale for one shared student</title>
+      <desc id="hx-d">Three teacher stations, math, code and instruction following (IF), emit token-level teacher–student log-ratios on different scales: small for math, moderate for code, large and jittery for IF. The signals flow into a DN-MOPD normalizer that applies w_d = clip(σ_all / σ_d, 0.25, 4) per domain: math is amplified, code stays near 1, and IF is attenuated down to the 0.25 floor, so it is bounded rather than fully equalized. The rescaled signals keep their signs and feed one shared student. Schematic, not to scale.</desc>
+      <defs>
+      <radialGradient id="hx-glow" cx="300" cy="257" r="250" gradientUnits="userSpaceOnUse"><stop offset="0" class="hx-glow-0"/><stop offset=".62" class="hx-glow-1"/><stop offset="1" class="hx-glow-2"/></radialGradient>
+      <linearGradient id="hx-fin" x1="70" x2="100" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient>
+      <linearGradient id="hx-fout" x1="470" x2="502" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <mask id="hx-m-in" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="540"><rect x="70" y="100" width="146" height="380" fill="url(#hx-fin)"/></mask>
+      <mask id="hx-m-out" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="540"><rect x="390" y="100" width="114" height="380" fill="url(#hx-fout)"/></mask>
+      </defs>
+      <circle cx="300" cy="257" r="250" fill="url(#hx-glow)"/>
+      <g class="hx-ripples" fill="none">
+      <circle class="hx-rip r1" cx="300" cy="257" r="200"/>
+      <circle class="hx-rip r2" cx="300" cy="257" r="200"/>
+      <circle class="hx-rip r3" cx="300" cy="257" r="200"/>
+      </g>
+      <text class="hx-cap" x="142" y="128" text-anchor="middle">raw log-ratios</text>
+      <text class="hx-cap" x="449" y="128" text-anchor="middle">rescaled</text>
+      <g class="hx-lane hx-math">
+      <path class="hx-base" d="M72 172H214"/>
+      <g mask="url(#hx-m-in)"><g class="hx-drift"><g class="hx-raw"><g class="hx-st j0" style="transform-origin:0 172px"><path d="M-36 172V164.8"/><circle cx="-36" cy="164.8" r="2.3"/><path d="M0 172V168.4"/><circle cx="0" cy="168.4" r="2.3"/><path d="M36 172V178"/><circle cx="36" cy="178" r="2.3"/><path d="M72 172V164.8"/><circle cx="72" cy="164.8" r="2.3"/><path d="M108 172V168.4"/><circle cx="108" cy="168.4" r="2.3"/><path d="M144 172V178"/><circle cx="144" cy="178" r="2.3"/><path d="M180 172V164.8"/><circle cx="180" cy="164.8" r="2.3"/></g><g class="hx-st j1" style="transform-origin:0 172px"><path d="M-24 172V177.4"/><circle cx="-24" cy="177.4" r="2.3"/><path d="M12 172V181.6"/><circle cx="12" cy="181.6" r="2.3"/><path d="M48 172V163.6"/><circle cx="48" cy="163.6" r="2.3"/><path d="M84 172V177.4"/><circle cx="84" cy="177.4" r="2.3"/><path d="M120 172V181.6"/><circle cx="120" cy="181.6" r="2.3"/><path d="M156 172V163.6"/><circle cx="156" cy="163.6" r="2.3"/><path d="M192 172V177.4"/><circle cx="192" cy="177.4" r="2.3"/></g><g class="hx-st j2" style="transform-origin:0 172px"><path d="M-12 172V161.2"/><circle cx="-12" cy="161.2" r="2.3"/><path d="M24 172V160"/><circle cx="24" cy="160" r="2.3"/><path d="M60 172V176.2"/><circle cx="60" cy="176.2" r="2.3"/><path d="M96 172V161.2"/><circle cx="96" cy="161.2" r="2.3"/><path d="M132 172V160"/><circle cx="132" cy="160" r="2.3"/><path d="M168 172V176.2"/><circle cx="168" cy="176.2" r="2.3"/><path d="M204 172V161.2"/><circle cx="204" cy="161.2" r="2.3"/></g></g></g></g>
+      <path class="hx-base hx-base-o" d="M392 172H502"/>
+      <g mask="url(#hx-m-out)"><g class="hx-drift"><g class="hx-st hx-calm j0"><path d="M288 172V157.6"/><circle cx="288" cy="157.6" r="2.3"/><path d="M324 172V164.8"/><circle cx="324" cy="164.8" r="2.3"/><path d="M360 172V184"/><circle cx="360" cy="184" r="2.3"/><path d="M396 172V157.6"/><circle cx="396" cy="157.6" r="2.3"/><path d="M432 172V164.8"/><circle cx="432" cy="164.8" r="2.3"/><path d="M468 172V184"/><circle cx="468" cy="184" r="2.3"/><path d="M504 172V157.6"/><circle cx="504" cy="157.6" r="2.3"/></g><g class="hx-st hx-calm j1"><path d="M300 172V182.8"/><circle cx="300" cy="182.8" r="2.3"/><path d="M336 172V191.2"/><circle cx="336" cy="191.2" r="2.3"/><path d="M372 172V155.2"/><circle cx="372" cy="155.2" r="2.3"/><path d="M408 172V182.8"/><circle cx="408" cy="182.8" r="2.3"/><path d="M444 172V191.2"/><circle cx="444" cy="191.2" r="2.3"/><path d="M480 172V155.2"/><circle cx="480" cy="155.2" r="2.3"/></g><g class="hx-st hx-calm j2"><path d="M312 172V150.4"/><circle cx="312" cy="150.4" r="2.3"/><path d="M348 172V148"/><circle cx="348" cy="148" r="2.3"/><path d="M384 172V180.4"/><circle cx="384" cy="180.4" r="2.3"/><path d="M420 172V150.4"/><circle cx="420" cy="150.4" r="2.3"/><path d="M456 172V148"/><circle cx="456" cy="148" r="2.3"/><path d="M492 172V180.4"/><circle cx="492" cy="180.4" r="2.3"/></g></g></g>
+      </g>
+      <g class="hx-lane hx-code">
+      <path class="hx-base" d="M72 290H214"/>
+      <g mask="url(#hx-m-in)"><g class="hx-drift"><g class="hx-raw"><g class="hx-st j0" style="transform-origin:0 290px"><path d="M-36 290V302"/><circle cx="-36" cy="302" r="2.3"/><path d="M0 290V304.4"/><circle cx="0" cy="304.4" r="2.3"/><path d="M36 290V273.2"/><circle cx="36" cy="273.2" r="2.3"/><path d="M72 290V302"/><circle cx="72" cy="302" r="2.3"/><path d="M108 290V304.4"/><circle cx="108" cy="304.4" r="2.3"/><path d="M144 290V273.2"/><circle cx="144" cy="273.2" r="2.3"/><path d="M180 290V302"/><circle cx="180" cy="302" r="2.3"/></g><g class="hx-st j1" style="transform-origin:0 290px"><path d="M-24 290V270.8"/><circle cx="-24" cy="270.8" r="2.3"/><path d="M12 290V280.4"/><circle cx="12" cy="280.4" r="2.3"/><path d="M48 290V297.2"/><circle cx="48" cy="297.2" r="2.3"/><path d="M84 290V270.8"/><circle cx="84" cy="270.8" r="2.3"/><path d="M120 290V280.4"/><circle cx="120" cy="280.4" r="2.3"/><path d="M156 290V297.2"/><circle cx="156" cy="297.2" r="2.3"/><path d="M192 290V270.8"/><circle cx="192" cy="270.8" r="2.3"/></g><g class="hx-st j2" style="transform-origin:0 290px"><path d="M-12 290V266"/><circle cx="-12" cy="266" r="2.3"/><path d="M24 290V311.6"/><circle cx="24" cy="311.6" r="2.3"/><path d="M60 290V275.6"/><circle cx="60" cy="275.6" r="2.3"/><path d="M96 290V266"/><circle cx="96" cy="266" r="2.3"/><path d="M132 290V311.6"/><circle cx="132" cy="311.6" r="2.3"/><path d="M168 290V275.6"/><circle cx="168" cy="275.6" r="2.3"/><path d="M204 290V266"/><circle cx="204" cy="266" r="2.3"/></g></g></g></g>
+      <path class="hx-base hx-base-o" d="M392 290H502"/>
+      <g mask="url(#hx-m-out)"><g class="hx-drift"><g class="hx-st hx-calm j0"><path d="M288 290V301.5"/><circle cx="288" cy="301.5" r="2.3"/><path d="M324 290V303.8"/><circle cx="324" cy="303.8" r="2.3"/><path d="M360 290V273.9"/><circle cx="360" cy="273.9" r="2.3"/><path d="M396 290V301.5"/><circle cx="396" cy="301.5" r="2.3"/><path d="M432 290V303.8"/><circle cx="432" cy="303.8" r="2.3"/><path d="M468 290V273.9"/><circle cx="468" cy="273.9" r="2.3"/><path d="M504 290V301.5"/><circle cx="504" cy="301.5" r="2.3"/></g><g class="hx-st hx-calm j1"><path d="M300 290V271.6"/><circle cx="300" cy="271.6" r="2.3"/><path d="M336 290V280.8"/><circle cx="336" cy="280.8" r="2.3"/><path d="M372 290V296.9"/><circle cx="372" cy="296.9" r="2.3"/><path d="M408 290V271.6"/><circle cx="408" cy="271.6" r="2.3"/><path d="M444 290V280.8"/><circle cx="444" cy="280.8" r="2.3"/><path d="M480 290V296.9"/><circle cx="480" cy="296.9" r="2.3"/></g><g class="hx-st hx-calm j2"><path d="M312 290V267"/><circle cx="312" cy="267" r="2.3"/><path d="M348 290V310.7"/><circle cx="348" cy="310.7" r="2.3"/><path d="M384 290V276.2"/><circle cx="384" cy="276.2" r="2.3"/><path d="M420 290V267"/><circle cx="420" cy="267" r="2.3"/><path d="M456 290V310.7"/><circle cx="456" cy="310.7" r="2.3"/><path d="M492 290V276.2"/><circle cx="492" cy="276.2" r="2.3"/></g></g></g>
+      </g>
+      <g class="hx-lane hx-if">
+      <path class="hx-base" d="M72 408H214"/>
+      <g mask="url(#hx-m-in)"><g class="hx-drift"><g class="hx-raw"><g class="hx-st j0" style="transform-origin:0 408px"><path d="M-36 408V433.2"/><circle cx="-36" cy="433.2" r="2.3"/><path d="M0 408V352"/><circle cx="0" cy="352" r="2.3"/><path d="M36 408V380"/><circle cx="36" cy="380" r="2.3"/><path d="M72 408V433.2"/><circle cx="72" cy="433.2" r="2.3"/><path d="M108 408V352"/><circle cx="108" cy="352" r="2.3"/><path d="M144 408V380"/><circle cx="144" cy="380" r="2.3"/><path d="M180 408V433.2"/><circle cx="180" cy="433.2" r="2.3"/></g><g class="hx-st j1" style="transform-origin:0 408px"><path d="M-24 408V354.8"/><circle cx="-24" cy="354.8" r="2.3"/><path d="M12 408V388.4"/><circle cx="12" cy="388.4" r="2.3"/><path d="M48 408V452.8"/><circle cx="48" cy="452.8" r="2.3"/><path d="M84 408V354.8"/><circle cx="84" cy="354.8" r="2.3"/><path d="M120 408V388.4"/><circle cx="120" cy="388.4" r="2.3"/><path d="M156 408V452.8"/><circle cx="156" cy="452.8" r="2.3"/><path d="M192 408V354.8"/><circle cx="192" cy="354.8" r="2.3"/></g><g class="hx-st j2" style="transform-origin:0 408px"><path d="M-12 408V447.2"/><circle cx="-12" cy="447.2" r="2.3"/><path d="M24 408V458.4"/><circle cx="24" cy="458.4" r="2.3"/><path d="M60 408V371.6"/><circle cx="60" cy="371.6" r="2.3"/><path d="M96 408V447.2"/><circle cx="96" cy="447.2" r="2.3"/><path d="M132 408V458.4"/><circle cx="132" cy="458.4" r="2.3"/><path d="M168 408V371.6"/><circle cx="168" cy="371.6" r="2.3"/><path d="M204 408V447.2"/><circle cx="204" cy="447.2" r="2.3"/></g></g></g></g>
+      <path class="hx-base hx-base-o" d="M392 408H502"/>
+      <g mask="url(#hx-m-out)"><g class="hx-drift"><g class="hx-st hx-calm j0"><path d="M288 408V420.1"/><circle cx="288" cy="420.1" r="2.3"/><path d="M324 408V381"/><circle cx="324" cy="381" r="2.3"/><path d="M360 408V394.5"/><circle cx="360" cy="394.5" r="2.3"/><path d="M396 408V420.1"/><circle cx="396" cy="420.1" r="2.3"/><path d="M432 408V381"/><circle cx="432" cy="381" r="2.3"/><path d="M468 408V394.5"/><circle cx="468" cy="394.5" r="2.3"/><path d="M504 408V420.1"/><circle cx="504" cy="420.1" r="2.3"/></g><g class="hx-st hx-calm j1"><path d="M300 408V382.4"/><circle cx="300" cy="382.4" r="2.3"/><path d="M336 408V398.6"/><circle cx="336" cy="398.6" r="2.3"/><path d="M372 408V429.6"/><circle cx="372" cy="429.6" r="2.3"/><path d="M408 408V382.4"/><circle cx="408" cy="382.4" r="2.3"/><path d="M444 408V398.6"/><circle cx="444" cy="398.6" r="2.3"/><path d="M480 408V429.6"/><circle cx="480" cy="429.6" r="2.3"/></g><g class="hx-st hx-calm j2"><path d="M312 408V426.9"/><circle cx="312" cy="426.9" r="2.3"/><path d="M348 408V432.3"/><circle cx="348" cy="432.3" r="2.3"/><path d="M384 408V390.4"/><circle cx="384" cy="390.4" r="2.3"/><path d="M420 408V426.9"/><circle cx="420" cy="426.9" r="2.3"/><path d="M456 408V432.3"/><circle cx="456" cy="432.3" r="2.3"/><path d="M492 408V390.4"/><circle cx="492" cy="390.4" r="2.3"/></g></g></g>
+      </g>
+      <g class="hx-flows" fill="none">
+      <path class="hx-flow hx-math" d="M500 172H546q10 0 10 10V242"/>
+      <path class="hx-flow hx-code" d="M500 290H508"/>
+      <path class="hx-flow hx-if" d="M500 408H546q10 0 10-10V338"/>
+      </g>
+      <g class="hx-arrows"><path class="hx-math" d="M550.5 241.5h11l-5.5 7.5z"/><path class="hx-code" d="M507.5 284.5v11l7.5-5.5z"/><path class="hx-if" d="M550.5 338.5h11l-5.5-7.5z"/></g>
+      <g class="hx-station hx-math">
+      <rect class="hx-sh" x="12" y="146" width="56" height="56" rx="14"/>
+      <rect class="hx-scard" x="12" y="144" width="56" height="56" rx="14"/>
+      <rect class="hx-swash" x="12" y="144" width="56" height="56" rx="14"/>
+      <text class="hx-ico-t" x="40" y="182" text-anchor="middle">Σ</text>
+      <circle class="hx-beacon b-math" cx="62" cy="150" r="3.4"/>
+      <text class="hx-slabel" x="40" y="219" text-anchor="middle">Math</text>
+      </g>
+      <g class="hx-station hx-code">
+      <rect class="hx-sh" x="12" y="264" width="56" height="56" rx="14"/>
+      <rect class="hx-scard" x="12" y="262" width="56" height="56" rx="14"/>
+      <rect class="hx-swash" x="12" y="262" width="56" height="56" rx="14"/>
+      <path class="hx-ico" d="M33 281l-9 9 9 9M47 281l9 9-9 9M43.5 277l-7 26"/>
+      <circle class="hx-beacon b-code" cx="62" cy="268" r="3.4"/>
+      <text class="hx-slabel" x="40" y="337" text-anchor="middle">Code</text>
+      </g>
+      <g class="hx-station hx-if">
+      <rect class="hx-sh" x="12" y="382" width="56" height="56" rx="14"/>
+      <rect class="hx-scard" x="12" y="380" width="56" height="56" rx="14"/>
+      <rect class="hx-swash" x="12" y="380" width="56" height="56" rx="14"/>
+      <path class="hx-ico hx-ico-s" d="M25 397l3.2 3.2 5.6-6.2M38 397h15M25 408l3.2 3.2 5.6-6.2M38 408h15M25 419l3.2 3.2 5.6-6.2M38 419h15"/>
+      <circle class="hx-beacon b-if" cx="62" cy="386" r="3.4"/>
+      <text class="hx-slabel" x="40" y="455" text-anchor="middle">IF</text>
+      </g>
+      <g class="hx-norm">
+      <rect class="hx-sh" x="204" y="66" width="192" height="398" rx="20"/>
+      <rect class="hx-ncard" x="204" y="62" width="192" height="398" rx="20"/>
+      <rect class="hx-nwash" x="204" y="62" width="192" height="398" rx="20"/>
+      <text class="hx-ntitle" x="300" y="91" text-anchor="middle">DN-MOPD</text>
+      <g class="hx-fx">
+      <text x="223" y="129"><tspan class="mi">w</tspan><tspan class="mi sb" dy="4">d</tspan><tspan class="mr" dy="-4" dx="4">=</tspan><tspan class="mr" dx="4">clip(</tspan></text>
+      <text x="305" y="120" text-anchor="middle"><tspan class="mi">σ</tspan><tspan class="mr sb" dy="3.5">all</tspan></text>
+      <path class="hx-fbar" d="M293 124.5H317"/>
+      <text x="305" y="141" text-anchor="middle"><tspan class="mi">σ</tspan><tspan class="mi sb" dy="3.5">d</tspan></text>
+      <text x="320" y="129"><tspan class="mr">, 0.25, 4)</tspan></text>
+      </g>
+      <g class="hx-guides">
+      <path d="M292 158V422"/>
+      <path d="M336 158V422"/>
+      <path d="M380 158V422"/>
+      </g>
+      <g class="hx-row hx-math">
+      <text class="hx-rlabel" x="216" y="171">amplify</text>
+      <text class="hx-rval" x="216" y="186">×1.5–2.1</text>
+      <path class="hx-track" d="M292 172H380"/>
+      <rect class="hx-bar hx-bar-r" x="336" y="169" width="44.0" height="6" rx="3" style="transform-origin:336px 172px"/>
+      <path class="hx-wall" d="M292 164V180M380 164V180"/>
+      <g class="hx-knob"><circle cx="355.4" cy="172" r="6.6"/></g>
+      </g>
+      <g class="hx-row hx-code">
+      <text class="hx-rlabel" x="216" y="289">rescale</text>
+      <text class="hx-rval" x="216" y="304">≈1</text>
+      <path class="hx-track" d="M292 290H380"/>
+      <rect class="hx-bar hx-bar-l" x="292" y="287" width="44.0" height="6" rx="3" style="transform-origin:336px 290px"/>
+      <path class="hx-wall" d="M292 282V298M380 282V298"/>
+      <g class="hx-knob"><circle cx="333.4" cy="290" r="6.6"/></g>
+      </g>
+      <g class="hx-row hx-if">
+      <text class="hx-rlabel" x="216" y="407">attenuate</text>
+      <text class="hx-rval" x="216" y="422">0.25 floor</text>
+      <path class="hx-track" d="M292 408H380"/>
+      <rect class="hx-bar hx-bar-l" x="292" y="405" width="44.0" height="6" rx="3" style="transform-origin:336px 408px"/>
+      <path class="hx-wall" d="M292 400V416M380 400V416"/>
+      <g class="hx-knob"><circle cx="292" cy="408" r="6.6"/></g>
+      </g>
+      <g class="hx-ticks"><text x="292" y="445" text-anchor="middle">0.25</text><text x="336" y="445" text-anchor="middle">1</text><text x="380" y="445" text-anchor="middle">4</text><text class="hx-tk-l" x="216" y="445"><tspan class="mi">w</tspan><tspan class="mi sb" dy="3">d</tspan></text></g>
+      </g>
+      <g class="hx-student">
+      <rect class="hx-sh" x="516" y="254" width="80" height="80" rx="18"/>
+      <rect class="hx-stu" x="516" y="250" width="80" height="80" rx="18"/>
+      <text class="hx-stu-t" x="556" y="283" text-anchor="middle">Shared</text>
+      <text class="hx-stu-t" x="556" y="301" text-anchor="middle">student</text>
+      <rect class="hx-chipm" x="533" y="311" width="14" height="5" rx="1.5"/><rect class="hx-chipc" x="549" y="311" width="14" height="5" rx="1.5"/><rect class="hx-chipi" x="565" y="311" width="14" height="5" rx="1.5"/>
+      </g>
+      <g class="hx-float f1"><rect class="hx-sh" x="64" y="19" width="112" height="50" rx="12"/><rect class="hx-chip" x="64" y="16" width="112" height="50" rx="12"/><text class="hx-ccap" x="120" y="33" text-anchor="middle">domain spread</text><text class="hx-cfx" x="120" y="55" text-anchor="middle"><tspan class="mi">σ</tspan><tspan class="mi sb" dy="4">d</tspan></text></g>
+      <g class="hx-float f2"><rect class="hx-sh" x="424" y="23" width="118" height="50" rx="12"/><rect class="hx-chip" x="424" y="20" width="118" height="50" rx="12"/><text class="hx-ccap" x="483" y="37" text-anchor="middle">pooled spread</text><text class="hx-cfx" x="483" y="59" text-anchor="middle"><tspan class="mi">σ</tspan><tspan class="mr sb" dy="4">all</tspan></text></g>
+      <g class="hx-float f3"><rect class="hx-sh" x="398" y="471" width="186" height="52" rx="12"/><rect class="hx-chip" x="398" y="468" width="186" height="52" rx="12"/><text class="hx-ccap" x="491" y="485" text-anchor="middle">rescaled advantage</text><text class="hx-cfx" x="491" y="509" text-anchor="middle"><tspan class="mi">Ã</tspan><tspan class="mi sb" dy="4">t</tspan><tspan class="mr" dy="-4" dx="3">=</tspan><tspan class="mi" dx="3">w</tspan><tspan class="mi sb" dy="4">d</tspan><tspan class="mr" dy="-4" dx="2">·</tspan><tspan class="mi" dx="2">A</tspan><tspan class="mi sb" dy="4">t</tspan></text></g>
+      <g class="hx-float f4"><rect class="hx-sh" x="34" y="485" width="136" height="52" rx="12"/><rect class="hx-chip" x="34" y="482" width="136" height="52" rx="12"/><text class="hx-ccap" x="102" y="499" text-anchor="middle">clip bounds</text><text class="hx-cfx" x="102" y="523" text-anchor="middle"><tspan class="mr">0.25 ≤ </tspan><tspan class="mi">w</tspan><tspan class="mi sb" dy="4">d</tspan><tspan class="mr" dy="-4"> ≤ 4</tspan></text></g>
+      </svg>
+      <figcaption class="hx-note"><span class="hx-note-dot" aria-hidden="true"></span>Schematic, not to scale</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap">
+    <ul class="hx-stats" aria-label="DN-MOPD at a glance">
+      <li class="hx-stat s-tri"><b>3 &rarr; 1</b><span>specialists (math, code, IF) teach one shared student</span></li>
+      <li class="hx-stat s-ink"><b>3 sizes</b><span>Qwen3.5-9B, 4B and 2B, each with its own expert pool</span></li>
+      <li class="hx-stat s-tri"><b>6 benchmarks</b><span>AIME25, AIME26 &middot; LiveCodeBench v5, v6 &middot; IFEval, IFBench</span></li>
+      <li class="hx-stat s-ink"><b>80 updates</b><span>per student, with an 8,192-token training response cap</span></li>
+    </ul>
+  </div>
+
+  <div class="wrap">
+    <figure class="float-card teaser rv">
+      <div class="fig-white">
+        <img src="static/teaser.svg" width="1402" height="510" loading="lazy" decoding="async" alt="Figure 1. Panel (a): teacher–student log-ratios for math, code and IF drawn on different scales, with IF the most spread out. Panel (b): DN-MOPD box that amplifies math, rescales code and attenuates IF with w_d = clip(σ_all/σ_d, 0.25, 4) before feeding a shared student. Panel (c): horizontal bars of the six-task Total gain over label routing: 9B +2.47 at 8K and +1.17 at 16K; 4B +3.08 and +2.24; 2B +2.92 and +2.36.">
+      </div>
+      <figcaption><span class="fig-tag">Figure 1</span> Label routing decides which teacher supervises a prompt; <span class="nw">DN-MOPD</span> also controls how strongly each teacher's feedback counts. <b>(a)</b> Teacher–student log-ratios differ in scale across domains (schematic). <b>(b)</b> <span class="nw">DN-MOPD</span> rescales each domain's feedback with a bounded, sign-preserving multiplier (schematic). <b>(c)</b> Six-task Total gain of <span class="nw">DN-MOPD</span> over label routing. <a class="fig-open" href="static/teaser.svg" target="_blank" rel="noopener">Full size<span aria-hidden="true"> ↗</span></a></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== OVERVIEW / BENTO ===================== -->
+<section class="section" id="overview" aria-labelledby="h-overview">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span>01</span> Overview</p>
+      <h2 id="h-overview">Routing determines where feedback comes from, but not how much it counts.</h2>
+      <p class="sec-lede">Multi-teacher on-policy distillation (MOPD) routes each prompt to the specialist of its domain. <span class="nw">DN-MOPD</span> keeps that routing and puts every teacher's feedback on a common scale.</p>
+    </header>
+
+    <div class="bento">
+      <!-- A: the problem -->
+      <article class="card b-a rv" aria-labelledby="b-a-h">
+        <p class="card-kicker"><i class="kdot k-if" aria-hidden="true"></i><span>The problem</span></p>
+        <h3 id="b-a-h" class="card-title">The feedback is unbalanced</h3>
+        <div class="big-stat">
+          <span class="big-num">2.3–4.4<span class="unit">×</span></span>
+          <span class="big-note">Instruction-following log-ratios are 2.3–4.4 times as dispersed as the pooled signal in the first training batch, and mathematics log-ratios about half as dispersed.</span>
+        </div>
+        <div class="meter-block">
+          <p class="meter-title">Share of the combined gradient supplied by the IF loss, initial 4B student</p>
+          <div class="meter-row">
+            <span class="meter-label">Equal weights</span>
+            <span class="meter-track"><span class="meter-fill m-if" style="width:94%"></span></span>
+            <span class="meter-val">94%</span>
+          </div>
+          <div class="meter-row">
+            <span class="meter-label"><span class="nw">DN-MOPD</span> first-batch weights</span>
+            <span class="meter-track"><span class="meter-fill m-if soft" style="width:64%"></span></span>
+            <span class="meter-val">64%</span>
+          </div>
+        </div>
+        <div class="mini-facts">
+          <p><span class="mf-num">about 1%</span><span class="mf-txt">of response tokens come from IF</span></p>
+          <p><span class="mf-num">up to half</span><span class="mf-txt">of the pooled log-ratio variance comes from IF</span></p>
+        </div>
+      </article>
+
+      <!-- B: the fix -->
+      <article class="card b-b card-accent rv" aria-labelledby="b-b-h">
+        <p class="card-kicker"><i class="kdot k-dn" aria-hidden="true"></i><span>The one-line fix</span></p>
+        <h3 id="b-b-h" class="card-title">Rescale each domain by its measured spread</h3>
+        <div class="formula eq-pair"><div class="tex tex-display" data-tex="w_d = \operatorname{clip}\!\left(\frac{\sigma_{\text{all}}}{\sigma_d},\; 0.25,\; 4\right)">w<sub>d</sub> = clip(σ<sub>all</sub> / σ<sub>d</sub>, 0.25, 4)</div><div class="tex tex-display" data-tex="\tilde{A}_t = w_d\, A_t">Ã<sub>t</sub> = w<sub>d</sub> · A<sub>t</sub></div></div>
+        <p class="card-body">Estimated on every batch. It keeps label routing and the sign of every advantage; MOPD is the special case in which every multiplier is one.</p>
+      </article>
+
+      <!-- F: cost -->
+      <article class="card b-f rv" aria-labelledby="b-f-h">
+        <p class="card-kicker"><i class="kdot k-code" aria-hidden="true"></i><span>Cost</span></p>
+        <h3 id="b-f-h" class="card-title">No extra teacher calls</h3>
+        <p class="card-body">No additional teacher call, teacher model or learned router: the operation reuses the rollout log-ratios, computes one pooled std and one per domain, and scales the existing advantages.</p>
+        <ul class="chips" aria-label="What stays the same">
+          <li>Same teacher per prompt</li>
+          <li>Same prompts per domain</li>
+          <li>Signs preserved</li>
+        </ul>
+      </article>
+
+      <!-- C: the gain -->
+      <article class="card b-c rv" aria-labelledby="b-c-h">
+        <p class="card-kicker"><i class="kdot k-dn" aria-hidden="true"></i><span>The result</span></p>
+        <h3 id="b-c-h" class="card-title">Six-task Total over MOPD, 16K evaluation cap</h3>
+        <p class="hero-num"><span class="hn">+1.17 to +2.36</span><span class="hn-unit">pp</span></p>
+        <ul class="size-chips" aria-label="Gain per size at 16K, seed 42">
+          <li><span class="sc-size">9B</span><span class="sc-val">+1.17</span></li>
+          <li><span class="sc-size">4B</span><span class="sc-val">+2.24</span></li>
+          <li><span class="sc-size">2B</span><span class="sc-val">+2.36</span></li>
+        </ul>
+        <p class="card-body"><span class="nw">DN-MOPD</span> − Label at student seed 42, with paired 95% bootstrap intervals: <strong>every interval is above zero</strong>.</p>
+        <p class="card-foot">At an 8K evaluation cap the gain is +2.47 to +3.08 pp.</p>
+      </article>
+
+      <!-- D: seeds -->
+      <article class="card b-d rv" aria-labelledby="b-d-h">
+        <p class="card-kicker"><i class="kdot k-dn" aria-hidden="true"></i><span>Robustness</span></p>
+        <h3 id="b-d-h" class="card-title">3 seeds, every size</h3>
+        <p class="card-body small">Three-seed mean gain over Label at 16K, with 95% interval (student seeds 42, 43, 44).</p>
+        <div class="range-mini" role="list" aria-label="Three-seed mean gain over Label at 16K"><div class="rm-row" role="listitem" title="Per seed: seed 42 +1.17 · seed 43 +1.08 · seed 44 +1.10"><span class="rm-size">9B</span><span class="rm-track" aria-hidden="true"><span class="rm-ci" style="left:20.67%;width:33.33%"></span><span class="rm-dot" style="left:37.33%"></span></span><span class="rm-val"><b>+1.12</b><small>[+0.62, +1.62]</small></span></div><div class="rm-row" role="listitem" title="Per seed: seed 42 +2.24 · seed 43 +1.85 · seed 44 +1.82"><span class="rm-size">4B</span><span class="rm-track" aria-hidden="true"><span class="rm-ci" style="left:46.33%;width:39.00%"></span><span class="rm-dot" style="left:65.67%"></span></span><span class="rm-val"><b>+1.97</b><small>[+1.39, +2.56]</small></span></div><div class="rm-row" role="listitem" title="Per seed: seed 42 +2.36 · seed 43 +2.24 · seed 44 +2.43"><span class="rm-size">2B</span><span class="rm-track" aria-hidden="true"><span class="rm-ci" style="left:62.00%;width:32.67%"></span><span class="rm-dot" style="left:78.00%"></span></span><span class="rm-val"><b>+2.34</b><small>[+1.86, +2.84]</small></span></div><div class="rm-axis" aria-hidden="true"><span class="rm-ticks"><span style="left:0.00%">0</span><span style="left:33.33%">1</span><span style="left:66.67%">2</span><span style="left:100.00%">3</span></span></div></div>
+        <p class="card-foot">Every seed-matched comparison favors <span class="nw">DN-MOPD</span>.</p>
+      </article>
+
+      <!-- E: math -->
+      <article class="card b-e rv" aria-labelledby="b-e-h">
+        <p class="card-kicker"><i class="kdot k-math" aria-hidden="true"></i><span>Mathematics</span></p>
+        <h3 id="b-e-h" class="card-title">Math recovered</h3>
+        <p class="card-body small">MATH-500 at 16K, <span class="nw">DN-MOPD</span> minus Label (points).</p>
+        <div class="bars-mini"><div class="bm-row" title="95% interval [+0.31, +1.18]"><span class="bm-size">9B</span><span class="bm-track" aria-hidden="true"><span class="bm-bar" style="width:10.57%"></span></span><span class="bm-val">+0.74</span></div><div class="bm-row" title="95% interval [+0.67, +1.85]"><span class="bm-size">4B</span><span class="bm-track" aria-hidden="true"><span class="bm-bar" style="width:17.86%"></span></span><span class="bm-val">+1.25</span></div><div class="bm-row" title="95% interval [+4.95, +6.96]"><span class="bm-size">2B</span><span class="bm-track" aria-hidden="true"><span class="bm-bar" style="width:85.00%"></span></span><span class="bm-val">+5.95</span></div></div>
+        <p class="card-foot">At 16K, Label shows no math gain over the initial student at any size; <span class="nw">DN-MOPD</span> improves math at every size.</p>
+      </article>
+    </div>
+
+    <!-- Abstract -->
+    <div class="abstract rv" id="abstract">
+      <h3 class="side-label">Abstract</h3>
+      <div class="abstract-body">
+        <p>Reinforcement learning can turn one language model into several specialists, each excellent at a single skill such as mathematics, coding or following instructions, but users need one model with all of these skills. Multi-teacher on-policy distillation (MOPD) merges them by letting the specialists teach one student: the student answers each prompt, and the specialist for that prompt's domain gives feedback on every token. This routing decides which specialist teaches, but not how strongly its feedback moves the shared student. In Qwen3.5 models at three sizes, we find that MOPD's student does not beat one taught by the best single specialist and gains little of the mathematics specialist's advantage. The feedback is unbalanced: instruction-following feedback is several times more spread out than mathematics feedback and dominates the student's updates. We propose Domain-Normalized MOPD (<span class="nw">DN-MOPD</span>), which keeps the routing and rescales each domain's feedback by its measured spread. On six public benchmarks, <span class="nw">DN-MOPD</span> improves the average score over MOPD at every size, across three random seeds and under two answer-length limits, and recovers most of the lost mathematics gain. Controls with fixed domain weights show that the gain comes mainly from turning down instruction-following feedback rather than turning up mathematics alone, and that fixed weights close to those <span class="nw">DN-MOPD</span> measures perform comparably. Combining specialists therefore requires deciding not only which one teaches, but also how strongly its feedback counts.</p>
+      </div>
+    </div>
+
+    <!-- Contributions -->
+    <div class="contribs">
+      <article class="contrib rv">
+        <span class="contrib-n" aria-hidden="true">01</span>
+        <h3>Teacher assignment alone does not transfer the specialists' skills.</h3>
+        <ul>
+          <li>MOPD with label routing does not outperform the strongest single-teacher student at any of three Qwen3.5 sizes.</li>
+          <li>It transfers little of the mathematics expert's gain.</li>
+          <li>Its domains give feedback on unequal scales. In the first training batch, instruction-following log-ratios are 2.3–4.4 times as dispersed as the pooled signal, and mathematics log-ratios about half as dispersed.</li>
+          <li>For the initial 4B student, the instruction-following loss supplies 94% of the combined gradient.</li>
+        </ul>
+      </article>
+      <article class="contrib rv">
+        <span class="contrib-n" aria-hidden="true">02</span>
+        <h3><span class="nw">DN-MOPD</span> puts every teacher's feedback on a common scale.</h3>
+        <ul>
+          <li>It rescales each domain's distillation advantages by the clipped ratio of pooled to domain log-ratio spread, estimated on every batch.</li>
+          <li>It keeps label routing and the sign of every advantage.</li>
+          <li>MOPD is the special case in which every multiplier is one.</li>
+        </ul>
+      </article>
+      <article class="contrib rv">
+        <span class="contrib-n" aria-hidden="true">03</span>
+        <h3>Calibrating feedback scale consistently improves on MOPD.</h3>
+        <ul>
+          <li><span class="nw">DN-MOPD</span> improves the six-task average over MOPD at every size and both evaluation budgets.</li>
+          <li>Every paired interval is above zero, and the gain holds across three student seeds.</li>
+          <li>It also exceeds the strongest single-teacher student and recovers most of the mathematics gain that MOPD loses.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== METHOD ===================== -->
+<section class="section section-alt" id="method" aria-labelledby="h-method">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span>02</span> Method</p>
+      <h2 id="h-method"><span class="nw">DN-MOPD</span> puts every teacher's feedback on a common scale.</h2>
+      <p class="sec-lede">One initial model; three copies are RL-trained into specialists for math, code and IF, and a fourth copy is the student <span class="tex" data-tex="\pi_u">π<sub>u</sub></span>. Every training prompt <span class="tex" data-tex="x">x</span> carries a domain label <span class="tex" data-tex="d \in \{\text{math}, \text{code}, \text{IF}\}">d ∈ {math, code, IF}</span>, and <span class="tex" data-tex="T_d">T<sub>d</sub></span> is that domain's specialist.</p>
+      <p class="sy-hint"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Scroll through one training iteration; the diagram follows each step.</p>
+    </header>
+
+    <div class="sy" id="sy">
+      <div class="sy-fig-col">
+        <div class="sy-sticky">
+          <figure class="sy-fig">
+            <svg class="sy-svg" id="sy-svg" viewBox="0 0 560 736" role="img" aria-labelledby="sy-t sy-d" preserveAspectRatio="xMidYMid meet" focusable="false">
+<title id="sy-t">One DN-MOPD training iteration, in five steps</title>
+<desc id="sy-d">Step 1, rollout: labelled prompts (x, d) for math, code and IF go to the student, which samples a response to each; the rollout log-probabilities are cached. Step 2, teacher scoring: each response is routed by its label to the frozen math, code or IF teacher, giving teacher log-probabilities for the same response. Step 3, scale estimation: r is the teacher log-probability minus the cached rollout log-probability; its spread is measured per domain and pooled, and each domain multiplier is the clipped ratio of pooled to domain spread. In the first batch of the 4B DN-MOPD run (seed 42) the spreads are 0.306 for math, 0.756 for code, 1.798 for IF and 0.614 pooled, giving multipliers 2.01, 0.81 and 0.34. Step 4, rescale: the actor-side advantage is multiplied by its domain multiplier, which keeps every sign. Step 5, update: the clipped OPD objective updates the student and the next iteration begins; label routing is the case where every multiplier is 1. Tokens, tick marks and bar heights are schematic.</desc>
+<defs>
+<marker id="sy-ah-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.2L9 5L1 8.8z" class="sy-mk-ink"/></marker>
+<marker id="sy-ah-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.2L9 5L1 8.8z" class="sy-mk-teal"/></marker>
+<marker id="sy-ah-mut" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.2L9 5L1 8.8z" class="sy-mk-mut"/></marker>
+<marker id="sy-ah-math" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.2L9 5L1 8.8z" class="sy-mk-math"/></marker>
+<marker id="sy-ah-code" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.2L9 5L1 8.8z" class="sy-mk-code"/></marker>
+<marker id="sy-ah-if" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.2L9 5L1 8.8z" class="sy-mk-if"/></marker>
+</defs>
+<g class="sy-hl sy-s3 sy-s4">
+<rect x="9" y="298" width="545" height="254" rx="16" class="sy-dnbox"/>
+<rect x="470" y="543" width="76" height="19" rx="9.5" class="sy-dntag"/><text x="508" y="556.5" text-anchor="middle" class="sy-dntag-t">DN-MOPD</text>
+</g>
+<g class="sy-hl sy-s1">
+<circle cx="22" cy="22" r="11" class="sy-b-ink"/><text x="22" y="26.3" text-anchor="middle" class="sy-bn">1</text><text x="40" y="26.5" class="sy-hd">ROLLOUT</text>
+<rect x="16" y="40" width="262" height="60" rx="10" class="sy-paper"/>
+<text x="28" y="59" class="sy-lb">Labelled prompts <tspan class="sy-mi">(x, d)</tspan></text>
+<g class="sy-math"><rect x="28" y="68" width="74" height="22" rx="6" class="sy-chip"/><text x="65" y="83.5" text-anchor="middle" class="sy-chip-t"><tspan class="sy-mi">d</tspan> = math</text></g>
+<g class="sy-code"><rect x="110" y="68" width="74" height="22" rx="6" class="sy-chip"/><text x="147" y="83.5" text-anchor="middle" class="sy-chip-t"><tspan class="sy-mi">d</tspan> = code</text></g>
+<g class="sy-if"><rect x="192" y="68" width="74" height="22" rx="6" class="sy-chip"/><text x="229" y="83.5" text-anchor="middle" class="sy-chip-t"><tspan class="sy-mi">d</tspan> = IF</text></g>
+<path d="M147 101V112" class="sy-arr sy-flow" marker-end="url(#sy-ah-ink)"/>
+</g>
+<g class="sy-hl sy-s1 sy-s5">
+<rect x="64" y="116" width="166" height="50" rx="12" class="sy-paper sy-strong"/>
+<text x="147" y="146" text-anchor="middle" class="sy-lb sy-lb-lg">Student <tspan class="sy-mi">π</tspan><tspan class="sy-sub" dy="4">u</tspan></text>
+</g>
+<g class="sy-hl sy-s1 sy-s2">
+<path d="M147 167V178" class="sy-arr sy-flow" marker-end="url(#sy-ah-ink)"/>
+<g class="sy-math"><rect x="16" y="186" width="5" height="16" rx="2" class="sy-dfill"/>
+<rect x="28.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:0;--r:0"/>
+<rect x="40.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:1;--r:0"/>
+<rect x="53.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:2;--r:0"/>
+<rect x="65.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:3;--r:0"/>
+<rect x="78.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:4;--r:0"/>
+<rect x="90.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:5;--r:0"/>
+<rect x="103.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:6;--r:0"/>
+<rect x="115.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:7;--r:0"/>
+<rect x="128.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:8;--r:0"/>
+<rect x="140.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:9;--r:0"/>
+<rect x="153.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:10;--r:0"/>
+<rect x="165.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:11;--r:0"/>
+<rect x="178.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:12;--r:0"/>
+<rect x="190.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:13;--r:0"/>
+<rect x="203.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:14;--r:0"/>
+<rect x="215.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:15;--r:0"/>
+<rect x="228.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:16;--r:0"/>
+<rect x="240.5" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:17;--r:0"/>
+<rect x="253.0" y="186" width="9" height="16" rx="2" class="sy-tok" style="--i:18;--r:0"/>
+</g>
+<g class="sy-code"><rect x="16" y="210" width="5" height="16" rx="2" class="sy-dfill"/>
+<rect x="28.0" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:0;--r:1"/>
+<rect x="40.5" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:1;--r:1"/>
+<rect x="53.0" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:2;--r:1"/>
+<rect x="65.5" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:3;--r:1"/>
+<rect x="78.0" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:4;--r:1"/>
+<rect x="90.5" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:5;--r:1"/>
+<rect x="103.0" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:6;--r:1"/>
+<rect x="115.5" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:7;--r:1"/>
+<rect x="128.0" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:8;--r:1"/>
+<rect x="140.5" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:9;--r:1"/>
+<rect x="153.0" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:10;--r:1"/>
+<rect x="165.5" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:11;--r:1"/>
+<rect x="178.0" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:12;--r:1"/>
+<rect x="190.5" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:13;--r:1"/>
+<rect x="203.0" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:14;--r:1"/>
+<rect x="215.5" y="210" width="9" height="16" rx="2" class="sy-tok" style="--i:15;--r:1"/>
+</g>
+<g class="sy-if"><rect x="16" y="234" width="5" height="16" rx="2" class="sy-dfill"/>
+<rect x="28.0" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:0;--r:2"/>
+<rect x="40.5" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:1;--r:2"/>
+<rect x="53.0" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:2;--r:2"/>
+<rect x="65.5" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:3;--r:2"/>
+<rect x="78.0" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:4;--r:2"/>
+<rect x="90.5" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:5;--r:2"/>
+<rect x="103.0" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:6;--r:2"/>
+<rect x="115.5" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:7;--r:2"/>
+<rect x="128.0" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:8;--r:2"/>
+<rect x="140.5" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:9;--r:2"/>
+<rect x="153.0" y="234" width="9" height="16" rx="2" class="sy-tok" style="--i:10;--r:2"/>
+</g>
+<text x="16" y="276" class="sy-mx"><tspan class="sy-mi">y</tspan><tspan class="sy-sub" dy="4">i</tspan><tspan dy="-4"> ~ </tspan><tspan class="sy-mi">π</tspan><tspan class="sy-sub" dy="4">u</tspan><tspan dy="-4">(· | </tspan><tspan class="sy-mi">x</tspan><tspan class="sy-sub" dy="4">i</tspan><tspan dy="-4">)</tspan></text>
+<rect x="176" y="258" width="102" height="24" rx="12" class="sy-paper sy-dash"/>
+<text x="227" y="274.5" text-anchor="middle" class="sy-sm2"><tspan class="sy-mi">ℓ</tspan><tspan class="sy-sup" dy="-5">roll</tspan><tspan dy="5"> cached</tspan></text>
+</g>
+<g class="sy-hl sy-s2">
+<circle cx="312" cy="22" r="11" class="sy-b-ink"/><text x="312" y="26.3" text-anchor="middle" class="sy-bn">2</text><text x="330" y="26.5" class="sy-hd">TEACHER SCORING</text>
+<path d="M265.0 194H290C312 194 304 66 332 66" class="sy-route sy-flow sy-math" marker-end="url(#sy-ah-math)"/>
+<path d="M227.5 218H298C320 218 312 116 332 116" class="sy-route sy-flow sy-code" marker-end="url(#sy-ah-code)"/>
+<path d="M165.0 242H306C328 242 320 166 332 166" class="sy-route sy-flow sy-if" marker-end="url(#sy-ah-if)"/>
+<g class="sy-math"><rect x="336" y="48" width="150" height="36" rx="9" class="sy-teacher"/><text x="350" y="70.5" class="sy-tt">Math teacher</text><path d="M462.5 64v-3.2a4.5 4.5 0 0 1 9 0v3.2" class="sy-lock-s"/><rect x="460" y="63.5" width="14" height="11" rx="2.4" class="sy-dfill"/></g>
+<g class="sy-code"><rect x="336" y="98" width="150" height="36" rx="9" class="sy-teacher"/><text x="350" y="120.5" class="sy-tt">Code teacher</text><path d="M462.5 114v-3.2a4.5 4.5 0 0 1 9 0v3.2" class="sy-lock-s"/><rect x="460" y="113.5" width="14" height="11" rx="2.4" class="sy-dfill"/></g>
+<g class="sy-if"><rect x="336" y="148" width="150" height="36" rx="9" class="sy-teacher"/><text x="350" y="170.5" class="sy-tt">IF teacher</text><path d="M462.5 164v-3.2a4.5 4.5 0 0 1 9 0v3.2" class="sy-lock-s"/><rect x="460" y="163.5" width="14" height="11" rx="2.4" class="sy-dfill"/></g>
+<text x="411" y="201" text-anchor="middle" class="sy-sm">frozen · one per response</text>
+<path d="M487 66H506M487 116H506M487 166H506M506 66V204" class="sy-arr sy-flow" marker-end="url(#sy-ah-ink)"/>
+<rect x="336" y="208" width="212" height="80" rx="10" class="sy-paper sy-strong"/>
+<text x="348" y="226" class="sy-lb">Scored batch · same responses</text>
+<text x="348" y="251" class="sy-mx"><tspan class="sy-mi">ℓ</tspan><tspan class="sy-sup" dy="-5">T</tspan></text>
+<text x="348" y="277" class="sy-mx"><tspan class="sy-mi">ℓ</tspan><tspan class="sy-sup" dy="-5">roll</tspan></text>
+<rect x="388" y="245" width="7" height="8" rx="1.5" class="sy-sc sy-math" style="--i:0"/>
+<rect x="388" y="273" width="7" height="6" rx="1.5" class="sy-roll"/>
+<rect x="399" y="242" width="7" height="11" rx="1.5" class="sy-sc sy-math" style="--i:1"/>
+<rect x="399" y="270" width="7" height="9" rx="1.5" class="sy-roll"/>
+<rect x="410" y="247" width="7" height="6" rx="1.5" class="sy-sc sy-math" style="--i:2"/>
+<rect x="410" y="272" width="7" height="7" rx="1.5" class="sy-roll"/>
+<rect x="421" y="241" width="7" height="12" rx="1.5" class="sy-sc sy-math" style="--i:3"/>
+<rect x="421" y="269" width="7" height="10" rx="1.5" class="sy-roll"/>
+<rect x="432" y="244" width="7" height="9" rx="1.5" class="sy-sc sy-math" style="--i:4"/>
+<rect x="432" y="271" width="7" height="8" rx="1.5" class="sy-roll"/>
+<rect x="443" y="246" width="7" height="7" rx="1.5" class="sy-sc sy-math" style="--i:5"/>
+<rect x="443" y="273" width="7" height="6" rx="1.5" class="sy-roll"/>
+<rect x="454" y="243" width="7" height="10" rx="1.5" class="sy-sc sy-code" style="--i:6"/>
+<rect x="454" y="270" width="7" height="9" rx="1.5" class="sy-roll"/>
+<rect x="465" y="248" width="7" height="5" rx="1.5" class="sy-sc sy-code" style="--i:7"/>
+<rect x="465" y="273" width="7" height="6" rx="1.5" class="sy-roll"/>
+<rect x="476" y="242" width="7" height="11" rx="1.5" class="sy-sc sy-code" style="--i:8"/>
+<rect x="476" y="269" width="7" height="10" rx="1.5" class="sy-roll"/>
+<rect x="487" y="245" width="7" height="8" rx="1.5" class="sy-sc sy-code" style="--i:9"/>
+<rect x="487" y="272" width="7" height="7" rx="1.5" class="sy-roll"/>
+<rect x="498" y="247" width="7" height="6" rx="1.5" class="sy-sc sy-code" style="--i:10"/>
+<rect x="498" y="272" width="7" height="7" rx="1.5" class="sy-roll"/>
+<rect x="509" y="241" width="7" height="12" rx="1.5" class="sy-sc sy-if" style="--i:11"/>
+<rect x="509" y="268" width="7" height="11" rx="1.5" class="sy-roll"/>
+<rect x="520" y="244" width="7" height="9" rx="1.5" class="sy-sc sy-if" style="--i:12"/>
+<rect x="520" y="271" width="7" height="8" rx="1.5" class="sy-roll"/>
+<rect x="531" y="243" width="7" height="10" rx="1.5" class="sy-sc sy-if" style="--i:13"/>
+<rect x="531" y="270" width="7" height="9" rx="1.5" class="sy-roll"/>
+<path d="M279 270H333" class="sy-arr sy-cache sy-flow" marker-end="url(#sy-ah-mut)"/>
+</g>
+<g class="sy-hl sy-s3">
+<circle cx="22" cy="318" r="11" class="sy-b-teal"/><text x="22" y="322.3" text-anchor="middle" class="sy-bn">3</text><text x="40" y="322.5" class="sy-hd">SCALE ESTIMATION</text>
+<path d="M344 289V303" class="sy-arr sy-flow" marker-end="url(#sy-ah-teal)"/>
+<rect x="198" y="306" width="154" height="26" rx="13" class="sy-fchip"/>
+<text x="275" y="323.5" text-anchor="middle" class="sy-mx sy-teal-t"><tspan class="sy-mi">r</tspan> = <tspan class="sy-mi">ℓ</tspan><tspan class="sy-sup" dy="-5">T</tspan><tspan dy="5"> − </tspan><tspan class="sy-mi">ℓ</tspan><tspan class="sy-sup" dy="-5">roll</tspan></text>
+<g class="sy-ph-a"><text x="144.0" y="358" text-anchor="middle" class="sy-sm">raw ±<tspan class="sy-mi">σ</tspan><tspan class="sy-sub" dy="3">d</tspan><tspan dy="-3"> · </tspan><tspan class="sy-teal-t">dashed ±<tspan class="sy-mi">σ</tspan><tspan class="sy-sub" dy="3">all</tspan></tspan></text></g>
+<g class="sy-ph-b"><text x="144.0" y="358" text-anchor="middle" class="sy-sm sy-teal-t">after <tspan class="sy-mi">w</tspan><tspan class="sy-sub" dy="3">d</tspan><tspan dy="-3">: ±</tspan><tspan class="sy-mi">σ</tspan><tspan class="sy-sub" dy="3">all</tspan></text></g>
+<text x="296" y="358" text-anchor="end" class="sy-sm"><tspan class="sy-mi">σ</tspan><tspan class="sy-sub" dy="3">d</tspan></text>
+<text x="327" y="358" text-anchor="middle" class="sy-sm"><tspan class="sy-mi">w</tspan><tspan class="sy-sub" dy="3">d</tspan></text>
+<path d="M144.0 366V496" class="sy-axis"/>
+<g transform="translate(144.0 0)"><g id="sy-guides" class="sy-sz" style="transform:scaleX(0.6137)"><path d="M-50.0 366V494M50.0 366V494" class="sy-guide" vector-effect="non-scaling-stroke"/></g></g>
+<g class="sy-math"><text x="16" y="386.5" class="sy-dl">Math</text><g transform="translate(144.0 382)"><g id="sy-band-math" class="sy-sz" style="transform:scaleX(0.3055)"><g class="sy-norm" style="--w:2.00859"><path d="M-50.0 0H50.0" class="sy-band" vector-effect="non-scaling-stroke"/><path d="M-50.0 -8V8M50.0 -8V8" class="sy-end" vector-effect="non-scaling-stroke"/><path d="M-57.5 -4.5V4.5M-44.0 -4.5V4.5M-32.0 -4.5V4.5M-21.0 -4.5V4.5M-12.0 -4.5V4.5M-4.0 -4.5V4.5M5.0 -4.5V4.5M14.0 -4.5V4.5M24.0 -4.5V4.5M35.0 -4.5V4.5M46.0 -4.5V4.5M57.0 -4.5V4.5" class="sy-tick" vector-effect="non-scaling-stroke"/></g></g></g></g>
+<text x="296" y="386.5" text-anchor="end" class="sy-num" id="sy-sig-math">0.306</text>
+<g class="sy-code"><text x="16" y="418.5" class="sy-dl">Code</text><g transform="translate(144.0 414)"><g id="sy-band-code" class="sy-sz" style="transform:scaleX(0.7562)"><g class="sy-norm" style="--w:0.81148"><path d="M-50.0 0H50.0" class="sy-band" vector-effect="non-scaling-stroke"/><path d="M-50.0 -8V8M50.0 -8V8" class="sy-end" vector-effect="non-scaling-stroke"/><path d="M-57.5 -4.5V4.5M-44.0 -4.5V4.5M-32.0 -4.5V4.5M-21.0 -4.5V4.5M-12.0 -4.5V4.5M-4.0 -4.5V4.5M5.0 -4.5V4.5M14.0 -4.5V4.5M24.0 -4.5V4.5M35.0 -4.5V4.5M46.0 -4.5V4.5M57.0 -4.5V4.5" class="sy-tick" vector-effect="non-scaling-stroke"/></g></g></g></g>
+<text x="296" y="418.5" text-anchor="end" class="sy-num" id="sy-sig-code">0.756</text>
+<g class="sy-if"><text x="16" y="450.5" class="sy-dl">IF</text><g transform="translate(144.0 446)"><g id="sy-band-if" class="sy-sz" style="transform:scaleX(1.7983)"><g class="sy-norm" style="--w:0.34123"><path d="M-50.0 0H50.0" class="sy-band" vector-effect="non-scaling-stroke"/><path d="M-50.0 -8V8M50.0 -8V8" class="sy-end" vector-effect="non-scaling-stroke"/><path d="M-57.5 -4.5V4.5M-44.0 -4.5V4.5M-32.0 -4.5V4.5M-21.0 -4.5V4.5M-12.0 -4.5V4.5M-4.0 -4.5V4.5M5.0 -4.5V4.5M14.0 -4.5V4.5M24.0 -4.5V4.5M35.0 -4.5V4.5M46.0 -4.5V4.5M57.0 -4.5V4.5" class="sy-tick" vector-effect="non-scaling-stroke"/></g></g></g></g>
+<text x="296" y="450.5" text-anchor="end" class="sy-num" id="sy-sig-if">1.798</text>
+<path d="M16 464H350" class="sy-rule"/>
+<g class="sy-all"><text x="16" y="486.5" class="sy-dl">Pooled</text><g transform="translate(144.0 482)"><g id="sy-band-all" class="sy-sz" style="transform:scaleX(0.6137)"><g class="sy-norm" style="--w:1.00000"><path d="M-50.0 0H50.0" class="sy-band" vector-effect="non-scaling-stroke"/><path d="M-50.0 -8V8M50.0 -8V8" class="sy-end" vector-effect="non-scaling-stroke"/><path d="M-57.5 -4.5V4.5M-44.0 -4.5V4.5M-32.0 -4.5V4.5M-21.0 -4.5V4.5M-12.0 -4.5V4.5M-4.0 -4.5V4.5M5.0 -4.5V4.5M14.0 -4.5V4.5M24.0 -4.5V4.5M35.0 -4.5V4.5M46.0 -4.5V4.5M57.0 -4.5V4.5" class="sy-tick" vector-effect="non-scaling-stroke"/></g></g></g></g>
+<text x="296" y="486.5" text-anchor="end" class="sy-num" id="sy-sig-all">0.614</text>
+<text x="327" y="486.5" text-anchor="middle" class="sy-sm"><tspan class="sy-mi">σ</tspan><tspan class="sy-sub" dy="3">all</tspan></text>
+<text x="16" y="514" class="sy-mx sy-mx-sm"><tspan class="sy-mi">w</tspan><tspan class="sy-sub" dy="4">d</tspan><tspan dy="-4"> = clip(</tspan><tspan class="sy-mi">σ</tspan><tspan class="sy-sub" dy="4">all</tspan><tspan dy="-4"> / </tspan><tspan class="sy-mi">σ</tspan><tspan class="sy-sub" dy="4">d</tspan><tspan dy="-4">, 0.25, 4)</tspan></text>
+<text x="16" y="536" class="sy-sm" id="sy-src">first batch · 4B DN-MOPD run · seed 42</text>
+</g>
+<g class="sy-hl sy-s3 sy-s4">
+<g class="sy-math sy-wchip" id="sy-wc-math"><rect x="304" y="371" width="46" height="22" rx="7" class="sy-chip sy-wbox"/><text x="327" y="386.5" text-anchor="middle" class="sy-num sy-chip-t" id="sy-w-math">×2.01</text></g>
+<g class="sy-code sy-wchip" id="sy-wc-code"><rect x="304" y="403" width="46" height="22" rx="7" class="sy-chip sy-wbox"/><text x="327" y="418.5" text-anchor="middle" class="sy-num sy-chip-t" id="sy-w-code">×0.81</text></g>
+<g class="sy-if sy-wchip" id="sy-wc-if"><rect x="304" y="435" width="46" height="22" rx="7" class="sy-chip sy-wbox"/><text x="327" y="450.5" text-anchor="middle" class="sy-num sy-chip-t" id="sy-w-if">×0.34</text></g>
+</g>
+<g class="sy-hl sy-s4">
+<circle cx="376" cy="318" r="11" class="sy-b-teal"/><text x="376" y="322.3" text-anchor="middle" class="sy-bn">4</text><text x="394" y="322.5" class="sy-hd">RESCALE</text>
+<path d="M530 289V331" class="sy-arr sy-flow" marker-end="url(#sy-ah-ink)"/>
+<text x="462" y="346" text-anchor="middle" class="sy-mx"><tspan class="sy-mi">A</tspan> = <tspan class="sy-mi">ℓ</tspan><tspan class="sy-sup" dy="-5">T</tspan><tspan dy="5"> − </tspan><tspan class="sy-mi">ℓ</tspan><tspan class="sy-sup" dy="-5">actor</tspan></text>
+<text x="462" y="362" text-anchor="middle" class="sy-sm">from actor re-evaluation</text>
+<path d="M352 382H369" class="sy-arr sy-flow sy-math sy-route" marker-end="url(#sy-ah-math)"/>
+<g class="sy-math" transform="translate(0 382)">
+<path d="M374 0H548" class="sy-base"/>
+<g class="sy-ghost"><rect x="380" y="-3.85" width="9" height="3.85" rx="1"/><rect x="397" y="0.00" width="9" height="5.60" rx="1"/><rect x="414" y="-2.45" width="9" height="2.45" rx="1"/><rect x="431" y="-6.30" width="9" height="6.30" rx="1"/><rect x="448" y="0.00" width="9" height="3.15" rx="1"/><rect x="465" y="-4.90" width="9" height="4.90" rx="1"/><rect x="482" y="0.00" width="9" height="7.00" rx="1"/><rect x="499" y="-2.80" width="9" height="2.80" rx="1"/><rect x="516" y="0.00" width="9" height="4.20" rx="1"/><rect x="533" y="-5.60" width="9" height="5.60" rx="1"/></g>
+<g class="sy-solid" id="sy-bars-math" style="--w:2.00859"><rect x="380" y="-3.85" width="9" height="3.85" rx="1"/><rect x="397" y="0.00" width="9" height="5.60" rx="1"/><rect x="414" y="-2.45" width="9" height="2.45" rx="1"/><rect x="431" y="-6.30" width="9" height="6.30" rx="1"/><rect x="448" y="0.00" width="9" height="3.15" rx="1"/><rect x="465" y="-4.90" width="9" height="4.90" rx="1"/><rect x="482" y="0.00" width="9" height="7.00" rx="1"/><rect x="499" y="-2.80" width="9" height="2.80" rx="1"/><rect x="516" y="0.00" width="9" height="4.20" rx="1"/><rect x="533" y="-5.60" width="9" height="5.60" rx="1"/></g>
+</g>
+<path d="M352 414H369" class="sy-arr sy-flow sy-code sy-route" marker-end="url(#sy-ah-code)"/>
+<g class="sy-code" transform="translate(0 414)">
+<path d="M374 0H548" class="sy-base"/>
+<g class="sy-ghost"><rect x="380" y="0.00" width="9" height="4.20" rx="1"/><rect x="397" y="-5.95" width="9" height="5.95" rx="1"/><rect x="414" y="-2.80" width="9" height="2.80" rx="1"/><rect x="431" y="0.00" width="9" height="6.65" rx="1"/><rect x="448" y="-3.50" width="9" height="3.50" rx="1"/><rect x="465" y="0.00" width="9" height="2.45" rx="1"/><rect x="482" y="-6.30" width="9" height="6.30" rx="1"/><rect x="499" y="0.00" width="9" height="4.90" rx="1"/><rect x="516" y="-2.10" width="9" height="2.10" rx="1"/><rect x="533" y="-4.55" width="9" height="4.55" rx="1"/></g>
+<g class="sy-solid" id="sy-bars-code" style="--w:0.81148"><rect x="380" y="0.00" width="9" height="4.20" rx="1"/><rect x="397" y="-5.95" width="9" height="5.95" rx="1"/><rect x="414" y="-2.80" width="9" height="2.80" rx="1"/><rect x="431" y="0.00" width="9" height="6.65" rx="1"/><rect x="448" y="-3.50" width="9" height="3.50" rx="1"/><rect x="465" y="0.00" width="9" height="2.45" rx="1"/><rect x="482" y="-6.30" width="9" height="6.30" rx="1"/><rect x="499" y="0.00" width="9" height="4.90" rx="1"/><rect x="516" y="-2.10" width="9" height="2.10" rx="1"/><rect x="533" y="-4.55" width="9" height="4.55" rx="1"/></g>
+</g>
+<path d="M352 446H369" class="sy-arr sy-flow sy-if sy-route" marker-end="url(#sy-ah-if)"/>
+<g class="sy-if" transform="translate(0 446)">
+<path d="M374 0H548" class="sy-base"/>
+<g class="sy-ghost"><rect x="380" y="-6.30" width="9" height="6.30" rx="1"/><rect x="397" y="0.00" width="9" height="3.50" rx="1"/><rect x="414" y="0.00" width="9" height="5.95" rx="1"/><rect x="431" y="-4.20" width="9" height="4.20" rx="1"/><rect x="448" y="-7.00" width="9" height="7.00" rx="1"/><rect x="465" y="0.00" width="9" height="2.80" rx="1"/><rect x="482" y="-4.90" width="9" height="4.90" rx="1"/><rect x="499" y="0.00" width="9" height="6.65" rx="1"/><rect x="516" y="-3.15" width="9" height="3.15" rx="1"/><rect x="533" y="0.00" width="9" height="2.10" rx="1"/></g>
+<g class="sy-solid" id="sy-bars-if" style="--w:0.34123"><rect x="380" y="-6.30" width="9" height="6.30" rx="1"/><rect x="397" y="0.00" width="9" height="3.50" rx="1"/><rect x="414" y="0.00" width="9" height="5.95" rx="1"/><rect x="431" y="-4.20" width="9" height="4.20" rx="1"/><rect x="448" y="-7.00" width="9" height="7.00" rx="1"/><rect x="465" y="0.00" width="9" height="2.80" rx="1"/><rect x="482" y="-4.90" width="9" height="4.90" rx="1"/><rect x="499" y="0.00" width="9" height="6.65" rx="1"/><rect x="516" y="-3.15" width="9" height="3.15" rx="1"/><rect x="533" y="0.00" width="9" height="2.10" rx="1"/></g>
+</g>
+<g class="sy-ph-c"><text x="462" y="490" text-anchor="middle" class="sy-mx sy-teal-t"><tspan class="sy-mi">Ã</tspan> = stopgrad(<tspan class="sy-mi">w</tspan><tspan class="sy-sub" dy="4">d</tspan><tspan dy="-4"> · </tspan><tspan class="sy-mi">A</tspan>)</text></g>
+<g class="sy-ph-d"><text x="462" y="490" text-anchor="middle" class="sy-mx">before: <tspan class="sy-mi">A</tspan>, every <tspan class="sy-mi">w</tspan><tspan class="sy-sub" dy="4">d</tspan><tspan dy="-4"> = 1</tspan></text></g>
+<text x="462" y="510" text-anchor="middle" class="sy-sm">dashed <tspan class="sy-mi">A</tspan> · solid <tspan class="sy-mi">Ã</tspan></text>
+<text x="462" y="527" text-anchor="middle" class="sy-sm">signs kept · bars schematic</text>
+</g>
+<g class="sy-hl sy-s5">
+<circle cx="22" cy="580" r="11" class="sy-b-ink"/><text x="22" y="584.3" text-anchor="middle" class="sy-bn">5</text><text x="40" y="584.5" class="sy-hd">STUDENT UPDATE</text>
+<path d="M462 533V583" class="sy-arr sy-flow" marker-end="url(#sy-ah-teal)"/>
+<rect x="196" y="588" width="352" height="58" rx="12" class="sy-paper sy-strong"/>
+<text x="372" y="610" text-anchor="middle" class="sy-lb sy-lb-lg">Clipped OPD objective</text>
+<text x="372" y="633" text-anchor="middle" class="sy-mx sy-mx-sm">−min{ <tspan class="sy-mi">ρ Ã</tspan>, clip(<tspan class="sy-mi">ρ</tspan>, 1 − <tspan class="sy-mi">η</tspan><tspan class="sy-sub" dy="4">−</tspan><tspan dy="-4">, 1 + </tspan><tspan class="sy-mi">η</tspan><tspan class="sy-sub" dy="4">+</tspan><tspan dy="-4">) </tspan><tspan class="sy-mi">Ã</tspan> }</text>
+<path d="M372 647V659" class="sy-arr sy-flow" marker-end="url(#sy-ah-ink)"/>
+<g transform="translate(372 682)"><g class="sy-pulse"><rect x="-176" y="-19" width="352" height="38" rx="11" class="sy-ring"/></g></g>
+<rect x="196" y="663" width="352" height="38" rx="11" class="sy-upd"/>
+<text x="372" y="687" text-anchor="middle" class="sy-upd-t">Update student <tspan class="sy-mi">π</tspan><tspan class="sy-sub" dy="4">u</tspan></text>
+<rect x="196" y="708" width="352" height="24" rx="12" class="sy-paper sy-dash"/>
+<text x="372" y="724.5" text-anchor="middle" class="sy-sm2">Label routing is the special case: every <tspan class="sy-mi">w</tspan><tspan class="sy-sub" dy="3">d</tspan><tspan dy="-3"> = 1</tspan></text>
+<path d="M195 682H3V141H61" class="sy-loop sy-flow" marker-end="url(#sy-ah-ink)"/>
+<text x="102" y="672" text-anchor="middle" class="sy-lb">Next iteration</text>
+</g>
+</svg>
+            <figcaption class="sy-cap">
+              <span class="sy-count"><b id="sy-label">One training iteration in five steps</b></span>
+              <span class="sy-prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+              <span class="sy-note" id="sy-note">Schematic, except σ and w in step 3: first batch, 4B DN-MOPD run, seed 42.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <ol class="sy-steps">
+        <li class="sy-step" data-step="1" data-title="Rollout" data-vb="0 0 300 298" data-note="Schematic: prompts and tokens are illustrative.">
+          <article class="sy-card" aria-labelledby="sy-h1">
+            <p class="sy-kick"><span class="sy-n">1</span>Rollout</p>
+            <h3 id="sy-h1">The student answers labelled prompts</h3>
+            <p>The student <span class="tex" data-tex="\pi_u">π<sub>u</sub></span> samples a response <span class="tex" data-tex="y_i">y<sub>i</sub></span> to each prompt <span class="tex" data-tex="x_i">x<sub>i</sub></span>, and each prompt keeps its domain label <span class="tex" data-tex="d_i">d<sub>i</sub></span>. The teachers will give feedback on these responses, the student's own tokens.</p>
+            <p>The rollout log-probabilities <span class="tex" data-tex="\ell^{\text{roll}}_{i,t}">ℓ<sup>roll</sup><sub>i,t</sub></span> are cached with each response; step&nbsp;3 reuses them.</p>
+            <div class="sy-algo">
+              <p class="sy-algo-tag">Algorithm 1 · line 1</p>
+              <ol>
+                <li><span class="sy-ln">1</span><div>Sample responses <span class="tex" data-tex="y_i \sim \pi_u(\cdot \mid x_i)">y<sub>i</sub> ~ π<sub>u</sub>(· | x<sub>i</sub>)</span>.</div></li>
+              </ol>
+            </div>
+          </article>
+        </li>
+
+        <li class="sy-step" data-step="2" data-title="Teacher scoring" data-vb="190 0 370 298" data-note="Schematic: routing and log-probability bars are illustrative.">
+          <article class="sy-card" aria-labelledby="sy-h2">
+            <p class="sy-kick"><span class="sy-n">2</span>Teacher scoring</p>
+            <h3 id="sy-h2">Each response is scored by the frozen teacher of its domain</h3>
+            <p>Label routing decides which teacher supervises a prompt: a math response goes to the math specialist, and so on. That teacher's token-level log-probabilities <span class="tex" data-tex="\ell^{T}_{i,t}">ℓ<sup>T</sup><sub>i,t</sub></span> on the student's own response give a dense distillation signal, the token advantage</p>
+            <div class="eq-pair"><div class="tex tex-display" data-tex="A_t = \log p_{T_d}(y_t \mid h_t) - \log \pi_u(y_t \mid h_t),">A<sub>t</sub> = log p<sub>T_d</sub>(y<sub>t</sub> | h<sub>t</sub>) − log π<sub>u</sub>(y<sub>t</sub> | h<sub>t</sub>),</div><div class="tex tex-display" data-tex="h_t = (x, y_{&lt;t})">h<sub>t</sub> = (x, y<sub>&lt;t</sub>)</div></div>
+            <p>A positive <span class="tex" data-tex="A_t">A<sub>t</sub></span> encourages the sampled token; a negative one discourages it. Label-routed MOPD stops here: routing determines where feedback comes from, but not how much it counts.</p>
+            <div class="sy-algo">
+              <p class="sy-algo-tag">Algorithm 1 · line 2</p>
+              <ol>
+                <li><span class="sy-ln">2</span><div>Score each <span class="tex" data-tex="y_i">y<sub>i</sub></span> with its domain teacher <span class="tex" data-tex="T_{d_i}">T<sub>d_i</sub></span>.</div></li>
+              </ol>
+            </div>
+          </article>
+        </li>
+
+        <li class="sy-step sy-dn" data-step="3" data-title="Scale estimation" data-vb="0 296 372 258" data-note="σ and w: first batch, @SIZE@ DN-MOPD run, seed 42. Tick marks are schematic.">
+          <article class="sy-card" aria-labelledby="sy-h3">
+            <p class="sy-kick"><span class="sy-n">3</span>Scale estimation<span class="sy-tag">Added by <span class="nw">DN-MOPD</span></span></p>
+            <h3 id="sy-h3">Measure how spread out each domain's feedback is</h3>
+            <p>On valid response tokens, <span class="tex" data-tex="r_{i,t} = \ell^{T}_{i,t} - \ell^{\text{roll}}_{i,t}">r<sub>i,t</sub> = ℓ<sup>T</sup><sub>i,t</sub> − ℓ<sup>roll</sup><sub>i,t</sub></span>. <span class="tex" data-tex="\sigma_d">σ<sub>d</sub></span> is the population std of <span class="tex" data-tex="r">r</span> over the valid response tokens of domain <span class="tex" data-tex="d">d</span> in the batch, and <span class="tex" data-tex="\sigma_{\text{all}}">σ<sub>all</sub></span> pools all valid tokens across domains:</p>
+            <div class="tex tex-display" data-tex="w_d = \operatorname{clip}\!\left(\frac{\sigma_{\text{all}}}{\sigma_d},\; 0.25,\; 4\right)">w<sub>d</sub> = clip(σ<sub>all</sub> / σ<sub>d</sub>, 0.25, 4)</div>
+            <div class="sy-data">
+              <div class="sy-size" id="sy-size" role="group" aria-label="Model size of the first-batch numbers" hidden>
+                <span class="sy-size-l">Run</span>
+                <span class="sy-seg"><button type="button" data-size="9b" aria-pressed="false">9B</button><button type="button" data-size="4b" aria-pressed="true">4B</button><button type="button" data-size="2b" aria-pressed="false">2B</button></span>
+              </div>
+              <table class="sy-tbl">
+                <caption id="sy-tcap">First batch, 4B DN-MOPD run, seed 42</caption>
+                <thead><tr><th scope="col">Domain</th><th scope="col"><span class="tex" data-tex="\sigma_d">σ<sub>d</sub></span></th><th scope="col"><span class="tex" data-tex="\sigma_{\text{all}}/\sigma_d">σ<sub>all</sub>/σ<sub>d</sub></span></th><th scope="col"><span class="tex" data-tex="w_d">w<sub>d</sub></span></th></tr></thead>
+                <tbody>
+                  <tr class="sy-math"><th scope="row"><i aria-hidden="true"></i>Math</th><td data-k="math_sigma">0.306</td><td data-k="math_w_raw">2.01</td><td class="sy-wcell" data-k="math_w">2.01</td></tr>
+                  <tr class="sy-code"><th scope="row"><i aria-hidden="true"></i>Code</th><td data-k="code_sigma">0.756</td><td data-k="code_w_raw">0.81</td><td class="sy-wcell" data-k="code_w">0.81</td></tr>
+                  <tr class="sy-if"><th scope="row"><i aria-hidden="true"></i>IF</th><td data-k="if_sigma">1.798</td><td data-k="if_w_raw">0.34</td><td class="sy-wcell" data-k="if_w">0.34</td></tr>
+                  <tr class="sy-all"><th scope="row"><i aria-hidden="true"></i>Pooled</th><td data-k="sigma_all">0.614</td><td>–</td><td>–</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>For a nondegenerate, unclipped domain, <span class="tex" data-tex="\operatorname{Std}(w_d\, r_d) = \sigma_{\text{all}}">Std(w<sub>d</sub> r<sub>d</sub>) = σ<sub>all</sub></span>: in the diagram each band settles on the dashed pooled spread. <span class="tex" data-tex="w_d = 1">w<sub>d</sub> = 1</span> if a std is zero or has fewer than two observations.</p>
+            <p class="sy-fine">No 4B multiplier is clipped in this batch; in the 9B batch the IF ratio (0.23) is raised to the 0.25 floor. The IF multiplier sits at the 0.25 floor in most batches, so clipping bounds rather than equalizes that domain's scale. No additional teacher call, teacher model or learned router is needed: one pooled std and one per domain.</p>
+            <div class="sy-algo">
+              <p class="sy-algo-tag">Algorithm 1 · lines 3–5</p>
+              <ol>
+                <li class="sy-dn"><span class="sy-ln">3</span><div><span class="tex" data-tex="r_{i,t} \leftarrow \ell^{T}_{i,t} - \ell^{\text{roll}}_{i,t}">r<sub>i,t</sub> ← ℓ<sup>T</sup><sub>i,t</sub> − ℓ<sup>roll</sup><sub>i,t</sub></span> on valid tokens.</div></li>
+                <li class="sy-dn"><span class="sy-ln">4</span><div><span class="tex" data-tex="\sigma_{\text{all}} \leftarrow \operatorname{Std}(\{r_{i,t}\})">σ<sub>all</sub> ← Std({r<sub>i,t</sub>})</span>.</div></li>
+                <li class="sy-dn"><span class="sy-ln">5</span><div>For each domain <span class="tex" data-tex="d">d</span>:
+                  <ul>
+                    <li><span class="tex" data-tex="\sigma_d \leftarrow \operatorname{Std}(\{r_{i,t} : d_i = d\})">σ<sub>d</sub> ← Std({r<sub>i,t</sub> : d<sub>i</sub> = d})</span></li>
+                    <li><span class="tex" data-tex="w_d \leftarrow \operatorname{clip}(\sigma_{\text{all}}/\sigma_d,\, 0.25,\, 4)">w<sub>d</sub> ← clip(σ<sub>all</sub>/σ<sub>d</sub>, 0.25, 4)</span></li>
+                    <li>use <span class="tex" data-tex="w_d = 1">w<sub>d</sub> = 1</span> if either statistic is degenerate.</li>
+                  </ul></div></li>
+              </ol>
+            </div>
+          </article>
+        </li>
+
+        <li class="sy-step sy-dn" data-step="4" data-title="Rescale" data-vb="300 296 260 258" data-note="w: first batch, @SIZE@ DN-MOPD run, seed 42. Advantage bars are schematic.">
+          <article class="sy-card" aria-labelledby="sy-h4">
+            <p class="sy-kick"><span class="sy-n">4</span>Rescale<span class="sy-tag">Added by <span class="nw">DN-MOPD</span></span></p>
+            <h3 id="sy-h4">Rescale each domain's advantages, keeping every sign</h3>
+            <p>The advantage is recomputed from the actor log-probs and multiplied by its domain's weight:</p>
+            <div class="eq-pair"><div class="tex tex-display" data-tex="A_{i,t} = \ell^{T}_{i,t} - \ell^{\text{actor}}_{i,t},">A<sub>i,t</sub> = ℓ<sup>T</sup><sub>i,t</sub> − ℓ<sup>actor</sup><sub>i,t</sub>,</div><div class="tex tex-display" data-tex="\tilde{A}_{i,t} = \operatorname{stopgrad}(w_{d_i} A_{i,t})">Ã<sub>i,t</sub> = stopgrad(w<sub>d_i</sub> A<sub>i,t</sub>)</div></div>
+            <p>The rule amplifies feedback with a smaller spread and attenuates feedback with a larger spread; in this batch math is scaled by <b class="sy-bind" data-k="math_w">×2.01</b> and IF by <b class="sy-bind" data-k="if_w">×0.34</b>. It is a positive rescaling with no mean subtraction, so it keeps the sign of every advantage.</p>
+            <div class="sy-algo">
+              <p class="sy-algo-tag">Algorithm 1 · lines 6–7</p>
+              <ol>
+                <li><span class="sy-ln">6</span><div>Recompute <span class="tex" data-tex="A_{i,t} \leftarrow \ell^{T}_{i,t} - \ell^{\text{actor}}_{i,t}">A<sub>i,t</sub> ← ℓ<sup>T</sup><sub>i,t</sub> − ℓ<sup>actor</sup><sub>i,t</sub></span>.</div></li>
+                <li class="sy-dn"><span class="sy-ln">7</span><div><span class="tex" data-tex="\tilde{A}_{i,t} \leftarrow \operatorname{stopgrad}(w_{d_i} A_{i,t})">Ã<sub>i,t</sub> ← stopgrad(w<sub>d_i</sub> A<sub>i,t</sub>)</span>.</div></li>
+              </ol>
+            </div>
+          </article>
+        </li>
+
+        <li class="sy-step" data-step="5" data-title="Update" data-vb="186 510 374 234" data-note="Schematic.">
+          <article class="sy-card" aria-labelledby="sy-h5">
+            <p class="sy-kick"><span class="sy-n">5</span>Update</p>
+            <h3 id="sy-h5">Update the student with the clipped OPD objective</h3>
+            <p><span class="tex" data-tex="\tilde{A}_{i,t}">Ã<sub>i,t</sub></span> is used in the baseline clipped OPD loss:</p>
+            <div class="tex tex-display" data-tex="\begin{aligned} &amp;\mathcal{L}_{i,t}(\theta) = -\min\Big\{ \rho_{i,t}(\theta)\,\tilde{A}_{i,t},\\ &amp;\qquad \operatorname{clip}\big(\rho_{i,t}(\theta),\, 1-\eta_-,\, 1+\eta_+\big)\,\tilde{A}_{i,t} \Big\}\end{aligned}">L<sub>i,t</sub>(θ) = −min{ ρ<sub>i,t</sub>(θ) Ã<sub>i,t</sub>, clip(ρ<sub>i,t</sub>(θ), 1−η<sub>−</sub>, 1+η<sub>+</sub>) Ã<sub>i,t</sub> }</div>
+            <div class="tex tex-display" data-tex="\rho_{i,t}(\theta) = \frac{\pi_\theta(y_{i,t} \mid h_{i,t})}{\exp(\ell^{\text{actor}}_{i,t})}">ρ<sub>i,t</sub>(θ) = π<sub>θ</sub>(y<sub>i,t</sub> | h<sub>i,t</sub>) / exp(ℓ<sup>actor</sup><sub>i,t</sub>)</div>
+            <p>Setting every <span class="tex" data-tex="w_d = 1">w<sub>d</sub> = 1</span> recovers Label, so label routing is the special case. <span class="nw">DN-MOPD</span> changes neither which teacher supervises a prompt nor how many prompts each domain receives. The next iteration samples a new batch, and the multipliers are estimated again on every batch.</p>
+            <div class="sy-algo">
+              <p class="sy-algo-tag">Algorithm 1 · line 8</p>
+              <ol>
+                <li><span class="sy-ln">8</span><div>Update <span class="tex" data-tex="\pi_u">π<sub>u</sub></span> on <span class="tex" data-tex="\tilde{A}">Ã</span> with the clipped OPD objective.</div></li>
+              </ol>
+            </div>
+          </article>
+        </li>
+      </ol>
+    </div>
+    <script type="application/json" id="sy-data">{"9b":{"sigma_all":0.31297,"math_sigma":0.17702,"code_sigma":0.35242,"if_sigma":1.3792,"math_w":1.76797,"code_w":0.88808,"if_w":0.25,"math_w_raw":1.76797,"code_w_raw":0.88808,"if_w_raw":0.22692},"4b":{"sigma_all":0.61366,"math_sigma":0.30552,"code_sigma":0.75621,"if_sigma":1.79834,"math_w":2.00859,"code_w":0.81148,"if_w":0.34123,"math_w_raw":2.00859,"code_w_raw":0.81148,"if_w_raw":0.34123},"2b":{"sigma_all":0.51137,"math_sigma":0.2433,"code_sigma":0.62211,"if_sigma":1.18656,"math_w":2.10184,"code_w":0.82199,"if_w":0.43097,"math_w_raw":2.10184,"code_w_raw":0.82199,"if_w_raw":0.43097},"_k":1.0}</script>
+
+    <div class="practice rv">
+      <h3 class="practice-h">What the rule does in practice</h3>
+      <div class="practice-grid">
+        <div class="pd pd-math"><p class="pd-dom"><i aria-hidden="true"></i>Math</p><p class="pd-val">×1.5–2.1</p><p class="pd-txt">The multiplier amplifies math feedback by about 1.5–2.1 at every size.</p></div>
+        <div class="pd pd-code"><p class="pd-dom"><i aria-hidden="true"></i>Code</p><p class="pd-val">≈ 1</p><p class="pd-txt">It keeps code near 1 at 4B and 2B.</p></div>
+        <div class="pd pd-if"><p class="pd-dom"><i aria-hidden="true"></i>IF</p><p class="pd-val">0.25 floor</p><p class="pd-txt">The IF multiplier sits at the 0.25 floor in most batches, so clipping bounds rather than equalizes that domain's scale.</p></div>
+      </div>
+    </div>
+
+    <figure class="float-card wide rv sy-full" id="figure2">
+      <div class="fig-white">
+        <img src="static/method.svg" width="1300" height="527" loading="lazy" decoding="async" alt="Figure 2. Four stages of one DN-MOPD iteration: (1) the student samples a response to a labeled prompt; (2) the math, code or IF teacher of the prompt's domain scores it, giving teacher and rollout log-probabilities; (3) inside the DN-MOPD box, r = ℓ_T − ℓ_roll gives σ_d per domain and σ_all over all valid tokens, which set w_d = clip(σ_all/σ_d, 0.25, 4), and the actor advantage A = ℓ_T − ℓ_actor is rescaled to Ã = stopgrad(w_d A); (4) the clipped OPD objective updates the student, and the loop repeats.">
+      </div>
+      <figcaption><span class="fig-tag">Full diagram · Figure 2</span> One <span class="nw">DN-MOPD</span> training iteration. <b>(1)</b> The student samples responses to labeled prompts. <b>(2)</b> Each response is scored by the frozen teacher of its domain. <b>(3)</b> Each domain's multiplier is estimated from cached rollout log-ratios and applied to the actor-side advantages. <b>(4)</b> The student is updated with the clipped OPD objective. Label routing is the special case in which every multiplier is 1. <a class="fig-open" href="static/method.svg" target="_blank" rel="noopener">Full size<span aria-hidden="true"> ↗</span></a></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== RESULTS ===================== -->
+<section class="section" id="results" aria-labelledby="h-results">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span>03</span> Results</p>
+      <h2 id="h-results">Calibrating feedback scale consistently improves on MOPD.</h2>
+      <p class="sec-lede"><span class="nw">DN-MOPD</span> improves the six-task average over MOPD at every size and both evaluation budgets: +1.17 to +2.36 pp at 16K and +2.47 to +3.08 pp at 8K. Every paired interval is above zero.</p>
+    </header>
+
+    <div class="setup rv">
+      <div class="setup-facts">
+        <h3 class="mini-h">Setup</h3>
+        <ul class="facts">
+          <li><b>Models</b> Qwen3.5-9B, 4B and 2B, each with an independently trained expert pool (math, code, IF); students learn from teachers of their own size.</li>
+          <li><b>Training</b> 80 updates, student seed 42 (seeds 43 and 44 are controls), and an 8,192-token training response cap.</li>
+          <li><b>Evaluation</b> Total is the mean of the six task scores. Main tables use a 16,384-token evaluation cap; the 8K results are in the paper appendix. Paired 95% intervals come from a question-level bootstrap, conditional on the student seed and teacher pool.</li>
+        </ul>
+      </div>
+      <div class="setup-bench">
+        <h3 class="mini-h">Benchmarks</h3>
+        <div class="table-wrap" role="region" aria-label="Benchmarks" tabindex="0">
+          <table class="dt dt-compact">
+            <thead><tr><th scope="col">Domain</th><th scope="col">Benchmarks</th><th scope="col">Answers per question</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><i class="dd dd-math" aria-hidden="true"></i>Math</th><td>AIME25, AIME26</td><td>64 (avg@64)</td></tr>
+              <tr><th scope="row"><i class="dd dd-code" aria-hidden="true"></i>Code</th><td>LiveCodeBench v5, v6 (167/175 disjoint problems)</td><td>6 (avg@6)</td></tr>
+              <tr><th scope="row"><i class="dd dd-if" aria-hidden="true"></i>IF</th><td>IFEval, IFBench (strict prompt accuracy)</td><td>16 (avg@16)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3 class="mini-h mini-h-gap">Baselines</h3>
+        <ul class="facts baselines">
+          <li>The initial student and the three RL experts; single-teacher OPD students.</li>
+          <li>Uniform pool (averages teacher probabilities); Dynamic router (selects a teacher from the student's response); Label-routed MOPD.</li>
+          <li>SeqKD-SFT (offline distillation on teacher answers); ParamMerge-Avg and ParamMerge-TA (task arithmetic, λ = 1).</li>
+        </ul>
+      </div>
+    </div>
+
+    <figure class="chart-card dm-fig dm-gains" id="dm-gains" aria-labelledby="gc-title">
+      <div class="chart-head">
+        <div>
+          <p class="card-kicker"><i class="kdot k-dn" aria-hidden="true"></i><span><span class="nw">DN-MOPD</span> − Label</span></p>
+          <h3 id="gc-title" class="chart-title">Six-task Total gain over label-routed MOPD, per size</h3>
+          <p class="chart-sub" id="dm-gains-sub">Student seed 42 · paired 95% bootstrap intervals (questions resampled within each suite, B = 10,000)</p>
+        </div>
+      </div>
+      <div class="dm-ctrls dm-when-ready"><div class="dm-seg" role="group" aria-label="Evaluation cap" data-dm-seg="cap"><span class="dm-seg-thumb" aria-hidden="true"></span><button type="button" aria-pressed="true" data-v="16384">16K cap</button><button type="button" aria-pressed="false" data-v="8192">8K cap</button></div><div class="dm-seg" role="group" aria-label="Student seeds" data-dm-seg="seed"><span class="dm-seg-thumb" aria-hidden="true"></span><button type="button" aria-pressed="true" data-v="s42">Seed 42</button><button type="button" aria-pressed="false" data-v="mean">Three-seed mean</button></div></div>
+      <div class="dm-legend dm-when-ready" aria-hidden="true"><span><i class="dm-sw sw-dn"></i><span><span class="nw">DN-MOPD</span> − Label</span></span><span><i class="dm-wh"></i><span class="dm-lg-ci">Paired 95% interval</span></span><span class="dm-lg-seeds"><i class="dm-dot"></i>Each student seed (42, 43, 44)</span></div>
+      <div class="dm-mount dm-when-ready" data-dm-mount="gains"></div>
+      <p class="dm-sr" aria-live="polite" data-dm-status></p>
+      <div class="gc dm-fallback"><div class="gc-legend" aria-hidden="true"><span><i class="sw s16"></i>16K evaluation cap</span><span><i class="sw s8"></i>8K evaluation cap</span><span><i class="wh"></i>Paired 95% interval</span></div><div class="gc-plot"><div class="gc-grid" aria-hidden="true"><i style="left:0.00%"></i><i style="left:22.22%"></i><i style="left:44.44%"></i><i style="left:66.67%"></i><i style="left:88.89%"></i></div><div class="gc-group"><div class="gc-row" tabindex="0" aria-label="9B, 16K evaluation cap: +1.17 pp, 95% interval +0.28 to +2.03; DN-MOPD 59.56, Label 58.39"><span class="gc-size">9B</span><span class="gc-cap">16K</span><span class="gc-track"><span class="gc-bar s16" style="width:26.00%"></span><span class="gc-ci" style="left:6.22%;width:38.89%"></span><span class="gc-tip" aria-hidden="true"><b>9B · 16K cap</b><span class="nw">DN-MOPD</span> 59.56 · Label 58.39<br>Δ +1.17 pp [+0.28, +2.03]</span></span><span class="gc-val"><b>+1.17</b><small>[+0.28, +2.03]</small></span></div><div class="gc-row" tabindex="0" aria-label="9B, 8K evaluation cap: +2.47 pp, 95% interval +1.65 to +3.27; DN-MOPD 55.31, Label 52.84"><span class="gc-size"></span><span class="gc-cap">8K</span><span class="gc-track"><span class="gc-bar s8" style="width:54.89%"></span><span class="gc-ci" style="left:36.67%;width:36.00%"></span><span class="gc-tip" aria-hidden="true"><b>9B · 8K cap</b><span class="nw">DN-MOPD</span> 55.31 · Label 52.84<br>Δ +2.47 pp [+1.65, +3.27]</span></span><span class="gc-val"><b>+2.47</b><small>[+1.65, +3.27]</small></span></div></div><div class="gc-group"><div class="gc-row" tabindex="0" aria-label="4B, 16K evaluation cap: +2.24 pp, 95% interval +1.30 to +3.20; DN-MOPD 52.54, Label 50.30"><span class="gc-size">4B</span><span class="gc-cap">16K</span><span class="gc-track"><span class="gc-bar s16" style="width:49.78%"></span><span class="gc-ci" style="left:28.89%;width:42.22%"></span><span class="gc-tip" aria-hidden="true"><b>4B · 16K cap</b><span class="nw">DN-MOPD</span> 52.54 · Label 50.30<br>Δ +2.24 pp [+1.30, +3.20]</span></span><span class="gc-val"><b>+2.24</b><small>[+1.30, +3.20]</small></span></div><div class="gc-row" tabindex="0" aria-label="4B, 8K evaluation cap: +3.08 pp, 95% interval +2.12 to +4.06; DN-MOPD 48.56, Label 45.48"><span class="gc-size"></span><span class="gc-cap">8K</span><span class="gc-track"><span class="gc-bar s8" style="width:68.44%"></span><span class="gc-ci" style="left:47.11%;width:43.11%"></span><span class="gc-tip" aria-hidden="true"><b>4B · 8K cap</b><span class="nw">DN-MOPD</span> 48.56 · Label 45.48<br>Δ +3.08 pp [+2.12, +4.06]</span></span><span class="gc-val"><b>+3.08</b><small>[+2.12, +4.06]</small></span></div></div><div class="gc-group"><div class="gc-row" tabindex="0" aria-label="2B, 16K evaluation cap: +2.36 pp, 95% interval +1.58 to +3.17; DN-MOPD 28.96, Label 26.60"><span class="gc-size">2B</span><span class="gc-cap">16K</span><span class="gc-track"><span class="gc-bar s16" style="width:52.44%"></span><span class="gc-ci" style="left:35.11%;width:35.33%"></span><span class="gc-tip" aria-hidden="true"><b>2B · 16K cap</b><span class="nw">DN-MOPD</span> 28.96 · Label 26.60<br>Δ +2.36 pp [+1.58, +3.17]</span></span><span class="gc-val"><b>+2.36</b><small>[+1.58, +3.17]</small></span></div><div class="gc-row" tabindex="0" aria-label="2B, 8K evaluation cap: +2.92 pp, 95% interval +2.02 to +3.85; DN-MOPD 27.87, Label 24.96"><span class="gc-size"></span><span class="gc-cap">8K</span><span class="gc-track"><span class="gc-bar s8" style="width:64.89%"></span><span class="gc-ci" style="left:44.89%;width:40.67%"></span><span class="gc-tip" aria-hidden="true"><b>2B · 8K cap</b><span class="nw">DN-MOPD</span> 27.87 · Label 24.96<br>Δ +2.92 pp [+2.02, +3.85]</span></span><span class="gc-val"><b>+2.92</b><small>[+2.02, +3.85]</small></span></div></div><div class="gc-axis" aria-hidden="true"><span></span><span></span><span class="gc-ticks"><span style="left:0.00%">0</span><span style="left:22.22%">1</span><span style="left:44.44%">2</span><span style="left:66.67%">3</span><span style="left:88.89%">4</span></span><span></span></div></div><p class="gc-axis-label" aria-hidden="true"><span class="nw">DN-MOPD</span> − Label, six-task Total (pp)</p></div>
+      <details class="data-view">
+        <summary>Show as table</summary>
+        <div class="table-wrap" role="region" aria-label="DN-MOPD minus Label, data" tabindex="0"><table class="dt dt-compact"><thead><tr><th scope="col">Size</th><th scope="col">Eval cap</th><th scope="col" class="num"><span class="nw">DN-MOPD</span></th><th scope="col" class="num">Label</th><th scope="col" class="num">Δ (pp)</th><th scope="col" class="num">95% interval</th></tr></thead><tbody><tr><th scope="row">9B</th><td>16K</td><td class="num">59.56</td><td class="num">58.39</td><td class="num"><b>+1.17</b></td><td class="num">[+0.28, +2.03]</td></tr><tr><th scope="row">9B</th><td>8K</td><td class="num">55.31</td><td class="num">52.84</td><td class="num"><b>+2.47</b></td><td class="num">[+1.65, +3.27]</td></tr><tr><th scope="row">4B</th><td>16K</td><td class="num">52.54</td><td class="num">50.30</td><td class="num"><b>+2.24</b></td><td class="num">[+1.30, +3.20]</td></tr><tr><th scope="row">4B</th><td>8K</td><td class="num">48.56</td><td class="num">45.48</td><td class="num"><b>+3.08</b></td><td class="num">[+2.12, +4.06]</td></tr><tr><th scope="row">2B</th><td>16K</td><td class="num">28.96</td><td class="num">26.60</td><td class="num"><b>+2.36</b></td><td class="num">[+1.58, +3.17]</td></tr><tr><th scope="row">2B</th><td>8K</td><td class="num">27.87</td><td class="num">24.96</td><td class="num"><b>+2.92</b></td><td class="num">[+2.02, +3.85]</td></tr></tbody></table></div>
+      </details>
+    </figure>
+
+    <div class="two-up">
+      <figure class="table-card rv">
+        <div class="table-title"><span class="t-tag">Three seeds</span><h3><span class="nw">DN-MOPD</span> − Label per student seed</h3></div>
+        <div class="table-wrap" role="region" aria-label="Three-seed results" tabindex="0"><table class="dt dt-compact"><thead><tr><th scope="col">Size</th><th scope="col" class="num">Seed 42</th><th scope="col" class="num">Seed 43</th><th scope="col" class="num">Seed 44</th><th scope="col" class="num">Mean<span class="sub-line">95% CI</span></th></tr></thead><tbody><tr class="grp"><th colspan="5" scope="rowgroup"><span>16K evaluation cap</span></th></tr><tr><th scope="row">9B</th><td class="num">+1.17</td><td class="num">+1.08</td><td class="num">+1.10</td><td class="num mean"><b>+1.12</b> <span class="ci">[+0.62, +1.62]</span></td></tr><tr><th scope="row">4B</th><td class="num">+2.24</td><td class="num">+1.85</td><td class="num">+1.82</td><td class="num mean"><b>+1.97</b> <span class="ci">[+1.39, +2.56]</span></td></tr><tr><th scope="row">2B</th><td class="num">+2.36</td><td class="num">+2.24</td><td class="num">+2.43</td><td class="num mean"><b>+2.34</b> <span class="ci">[+1.86, +2.84]</span></td></tr><tr class="grp"><th colspan="5" scope="rowgroup"><span>8K evaluation cap</span></th></tr><tr><th scope="row">9B</th><td class="num">+2.47</td><td class="num">+2.62</td><td class="num">+3.05</td><td class="num mean"><b>+2.71</b> <span class="ci">[+2.16, +3.29]</span></td></tr><tr><th scope="row">4B</th><td class="num">+3.08</td><td class="num">+2.74</td><td class="num">+3.01</td><td class="num mean"><b>+2.94</b> <span class="ci">[+2.37, +3.53]</span></td></tr><tr><th scope="row">2B</th><td class="num">+2.92</td><td class="num">+2.88</td><td class="num">+2.83</td><td class="num mean"><b>+2.87</b> <span class="ci">[+2.36, +3.40]</span></td></tr></tbody></table></div>
+        <figcaption><span class="nw">DN-MOPD</span> minus Label, six-task Total (pp), per student seed (42, 43, 44) and the three-seed mean with a two-level bootstrap 95% interval.</figcaption>
+      </figure>
+      <div class="stack">
+      <figure class="table-card rv">
+        <div class="table-title"><span class="t-tag">MATH-500</span><h3>Mathematics carries the largest gains</h3></div>
+        <div class="table-wrap" role="region" aria-label="MATH-500 results" tabindex="0"><table class="dt dt-compact"><thead><tr><th scope="col">Size</th><th scope="col" class="num">16K cap</th><th scope="col" class="num">8K cap</th></tr></thead><tbody><tr><th scope="row">9B</th><td class="num"><b>+0.74</b> <span class="ci">[+0.31, +1.18]</span></td><td class="num"><b>+1.45</b> <span class="ci">[+0.92, +2.00]</span></td></tr><tr><th scope="row">4B</th><td class="num"><b>+1.25</b> <span class="ci">[+0.67, +1.85]</span></td><td class="num"><b>+1.66</b> <span class="ci">[+1.05, +2.29]</span></td></tr><tr><th scope="row">2B</th><td class="num"><b>+5.95</b> <span class="ci">[+4.95, +6.96]</span></td><td class="num"><b>+6.85</b> <span class="ci">[+5.73, +7.99]</span></td></tr></tbody></table></div>
+        <figcaption>MATH-500 (16 answers per question), <span class="nw">DN-MOPD</span> minus Label (pp) with paired 95% intervals. At 16K, Label shows no math gain over the initial student at any size, whereas <span class="nw">DN-MOPD</span> improves math at every size.</figcaption>
+      </figure>
+        <div class="callout rv">
+          <h3>The single-teacher reference</h3>
+          <p>Label never exceeds the strongest single-teacher student. <span class="nw">DN-MOPD</span> exceeds it at every size, but this lead is smaller than the gain over Label, and some intervals include zero. At 9B the lead grows to <b>+2.57 [+1.65, +3.46]</b> when both continue to 160 updates.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn callout-wide rv">
+      <h3>Not the best recipe overall</h3>
+      <p>SeqKD-SFT and task arithmetic (ParamMerge-TA) retain higher Totals under their own training recipes (Tables 1–2). Bold marks the best result within the multi-teacher OPD block only.</p>
+    </div>
+
+    <figure class="table-card big" id="table1">
+      <div class="table-title"><span class="t-tag">Table 1</span><h3>Capability integration at 9B</h3></div>
+      <div class="table-wrap" role="region" aria-label="Capability integration at 9B" tabindex="0"><table class="dt"><thead><tr><th scope="col" rowspan="2" class="mcol">Method</th><th scope="colgroup" colspan="2" class="cg gsep"><i class="dd dd-math" aria-hidden="true"></i>Math <span class="sub">avg@64</span></th><th scope="colgroup" colspan="2" class="cg gsep"><i class="dd dd-code" aria-hidden="true"></i>Code <span class="sub">avg@6</span></th><th scope="colgroup" colspan="2" class="cg gsep"><i class="dd dd-if" aria-hidden="true"></i>IF <span class="sub">avg@16</span></th><th scope="col" rowspan="2" class="num tot gsep">Total</th></tr><tr><th scope="col" class="num gsep">AIME25</th><th scope="col" class="num">AIME26</th><th scope="col" class="num gsep">LCB v5</th><th scope="col" class="num">LCB v6</th><th scope="col" class="num gsep">IFEval</th><th scope="col" class="num">IFBench</th></tr></thead><tbody><tr><th scope="row">Initial student</th><td class="num gsep">57.7</td><td class="num">62.6</td><td class="num gsep">54.9</td><td class="num">51.4</td><td class="num gsep">82.4</td><td class="num">33.8</td><td class="num tot gsep">57.1</td></tr><tr class="grp"><th colspan="8" scope="rowgroup"><span>RL experts</span></th></tr><tr><th scope="row">Math expert</th><td class="num gsep">59.7</td><td class="num">69.4</td><td class="num gsep">53.4</td><td class="num">49.4</td><td class="num gsep">82.3</td><td class="num">34.9</td><td class="num tot gsep">58.2</td></tr><tr><th scope="row">Code expert</th><td class="num gsep">58.5</td><td class="num">65.4</td><td class="num gsep">58.5</td><td class="num">54.3</td><td class="num gsep">82.3</td><td class="num">34.6</td><td class="num tot gsep">58.9</td></tr><tr><th scope="row">IF expert</th><td class="num gsep">54.6</td><td class="num">60.5</td><td class="num gsep">54.0</td><td class="num">51.5</td><td class="num gsep">86.5</td><td class="num">42.1</td><td class="num tot gsep">58.2</td></tr><tr class="grp"><th colspan="8" scope="rowgroup"><span>Offline distillation</span></th></tr><tr><th scope="row">SeqKD-SFT</th><td class="num gsep">61.3</td><td class="num">67.6</td><td class="num gsep">62.7</td><td class="num">56.0</td><td class="num gsep">86.0</td><td class="num">42.4</td><td class="num tot gsep">62.6</td></tr><tr class="grp"><th colspan="8" scope="rowgroup"><span>Parameter merging</span></th></tr><tr><th scope="row">ParamMerge-Avg</th><td class="num gsep">59.4</td><td class="num">68.3</td><td class="num gsep">54.0</td><td class="num">50.9</td><td class="num gsep">84.1</td><td class="num">36.4</td><td class="num tot gsep">58.9</td></tr><tr><th scope="row">ParamMerge-TA</th><td class="num gsep">59.1</td><td class="num">68.6</td><td class="num gsep">55.2</td><td class="num">50.9</td><td class="num gsep">86.1</td><td class="num">43.3</td><td class="num tot gsep">60.5</td></tr><tr class="grp"><th colspan="8" scope="rowgroup"><span>Single-teacher OPD</span></th></tr><tr><th scope="row">Math teacher</th><td class="num gsep">58.9</td><td class="num">69.5</td><td class="num gsep">53.7</td><td class="num">49.4</td><td class="num gsep">82.4</td><td class="num">34.7</td><td class="num tot gsep">58.1</td></tr><tr><th scope="row">Code teacher</th><td class="num gsep">58.3</td><td class="num">66.2</td><td class="num gsep">57.0</td><td class="num">52.6</td><td class="num gsep">82.6</td><td class="num">34.2</td><td class="num tot gsep">58.5</td></tr><tr><th scope="row">IF teacher</th><td class="num gsep">56.8</td><td class="num">61.9</td><td class="num gsep">52.1</td><td class="num">49.2</td><td class="num gsep">84.7</td><td class="num">38.9</td><td class="num tot gsep">57.3</td></tr><tr class="grp"><th colspan="8" scope="rowgroup"><span>Multi-teacher OPD</span></th></tr><tr><th scope="row">Uniform pool</th><td class="num gsep">57.1</td><td class="num">65.9</td><td class="num gsep">53.6</td><td class="num">52.3</td><td class="num gsep">83.3</td><td class="num">35.7</td><td class="num tot gsep">58.0</td></tr><tr><th scope="row">Dynamic router</th><td class="num gsep">56.4</td><td class="num">63.5</td><td class="num gsep">55.4</td><td class="num">51.5</td><td class="num gsep">84.3</td><td class="num">37.7</td><td class="num tot gsep">58.1</td></tr><tr><th scope="row">Label-routed MOPD</th><td class="num gsep">55.3</td><td class="num">63.2</td><td class="num gsep"><strong>56.8</strong></td><td class="num"><strong>52.6</strong></td><td class="num gsep">84.0</td><td class="num">38.4</td><td class="num tot gsep">58.4</td></tr><tr class="dn-row"><th scope="row"><strong><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span> <span class="ours">Ours</span></span></strong></th><td class="num gsep"><strong>58.9</strong></td><td class="num"><strong>67.7</strong></td><td class="num gsep">56.3</td><td class="num">51.4</td><td class="num gsep"><strong>84.5</strong></td><td class="num"><strong>38.7</strong></td><td class="num tot gsep"><strong>59.6</strong></td></tr></tbody></table></div>
+      <figcaption>Capability integration at 9B. Qwen3.5-9B scores (%) on six public tasks, 16K evaluation cap. Total averages the six task scores. Bold: best within the multi-teacher OPD block.</figcaption>
+    </figure>
+
+    <figure class="table-card big" id="table2">
+      <div class="table-title"><span class="t-tag">Table 2</span><h3>Capability integration at smaller scales</h3></div>
+      <div class="table-wrap" role="region" aria-label="Capability integration at smaller scales" tabindex="0"><table class="dt"><thead><tr><th scope="col" rowspan="2" class="mcol">Method</th><th scope="colgroup" colspan="4" class="cg gsep">Qwen3.5-4B</th><th scope="colgroup" colspan="4" class="cg gsep">Qwen3.5-2B</th></tr><tr><th scope="col" class="num gsep">Math</th><th scope="col" class="num">Code</th><th scope="col" class="num">IF</th><th scope="col" class="num tot">Total</th><th scope="col" class="num gsep">Math</th><th scope="col" class="num">Code</th><th scope="col" class="num">IF</th><th scope="col" class="num tot">Total</th></tr></thead><tbody><tr><th scope="row">Initial student</th><td class="num gsep">52.2</td><td class="num">38.1</td><td class="num">52.8</td><td class="num tot">47.7</td><td class="num gsep">17.6</td><td class="num">11.3</td><td class="num">43.3</td><td class="num tot">24.0</td></tr><tr class="grp"><th colspan="9" scope="rowgroup"><span>RL experts</span></th></tr><tr><th scope="row">Math expert</th><td class="num gsep">54.2</td><td class="num">39.7</td><td class="num">54.0</td><td class="num tot">49.3</td><td class="num gsep">22.1</td><td class="num">13.4</td><td class="num">44.7</td><td class="num tot">26.7</td></tr><tr><th scope="row">Code expert</th><td class="num gsep">51.6</td><td class="num">47.4</td><td class="num">53.6</td><td class="num tot">50.8</td><td class="num gsep">20.7</td><td class="num">21.6</td><td class="num">44.4</td><td class="num tot">28.9</td></tr><tr><th scope="row">IF expert</th><td class="num gsep">50.7</td><td class="num">38.1</td><td class="num">60.6</td><td class="num tot">49.8</td><td class="num gsep">15.6</td><td class="num">12.5</td><td class="num">52.8</td><td class="num tot">27.0</td></tr><tr class="grp"><th colspan="9" scope="rowgroup"><span>Offline distillation</span></th></tr><tr><th scope="row">SeqKD-SFT</th><td class="num gsep">55.6</td><td class="num">52.3</td><td class="num">59.7</td><td class="num tot">55.9</td><td class="num gsep">23.1</td><td class="num">23.9</td><td class="num">51.6</td><td class="num tot">32.9</td></tr><tr class="grp"><th colspan="9" scope="rowgroup"><span>Parameter merging</span></th></tr><tr><th scope="row">ParamMerge-Avg</th><td class="num gsep">54.5</td><td class="num">43.1</td><td class="num">56.2</td><td class="num tot">51.2</td><td class="num gsep">20.7</td><td class="num">16.3</td><td class="num">47.5</td><td class="num tot">28.2</td></tr><tr><th scope="row">ParamMerge-TA</th><td class="num gsep">53.8</td><td class="num">44.4</td><td class="num">61.4</td><td class="num tot">53.2</td><td class="num gsep">24.4</td><td class="num">20.4</td><td class="num">53.3</td><td class="num tot">32.7</td></tr><tr class="grp"><th colspan="9" scope="rowgroup"><span>Single-teacher OPD</span></th></tr><tr><th scope="row">Math teacher</th><td class="num gsep">53.9</td><td class="num">39.9</td><td class="num">53.6</td><td class="num tot">49.1</td><td class="num gsep">22.1</td><td class="num">14.1</td><td class="num">44.2</td><td class="num tot">26.8</td></tr><tr><th scope="row">Code teacher</th><td class="num gsep">52.2</td><td class="num">46.8</td><td class="num">53.5</td><td class="num tot">50.9</td><td class="num gsep">20.4</td><td class="num">21.2</td><td class="num">44.9</td><td class="num tot">28.8</td></tr><tr><th scope="row">IF teacher</th><td class="num gsep">50.3</td><td class="num">39.2</td><td class="num">57.6</td><td class="num tot">49.0</td><td class="num gsep">16.5</td><td class="num">11.7</td><td class="num">49.2</td><td class="num tot">25.8</td></tr><tr class="grp"><th colspan="9" scope="rowgroup"><span>Multi-teacher OPD</span></th></tr><tr><th scope="row">Uniform pool</th><td class="num gsep">52.3</td><td class="num">41.5</td><td class="num">55.0</td><td class="num tot">49.6</td><td class="num gsep">19.9</td><td class="num">14.6</td><td class="num">46.2</td><td class="num tot">26.9</td></tr><tr><th scope="row">Dynamic router</th><td class="num gsep">49.9</td><td class="num">44.7</td><td class="num">57.1</td><td class="num tot">50.6</td><td class="num gsep">17.3</td><td class="num">13.8</td><td class="num">48.5</td><td class="num tot">26.5</td></tr><tr><th scope="row">Label-routed MOPD</th><td class="num gsep">50.2</td><td class="num">43.3</td><td class="num">57.4</td><td class="num tot">50.3</td><td class="num gsep">17.0</td><td class="num">13.4</td><td class="num">49.5</td><td class="num tot">26.6</td></tr><tr class="dn-row"><th scope="row"><strong><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span> <span class="ours">Ours</span></span></strong></th><td class="num gsep"><strong>54.0</strong></td><td class="num"><strong>45.4</strong></td><td class="num"><strong>58.2</strong></td><td class="num tot"><strong>52.5</strong></td><td class="num gsep"><strong>20.7</strong></td><td class="num"><strong>16.3</strong></td><td class="num"><strong>49.9</strong></td><td class="num tot"><strong>29.0</strong></td></tr></tbody></table></div>
+      <figcaption>Capability integration at smaller scales. Independently trained Qwen3.5-4B and 2B expert pools, 16K evaluation cap. Each domain averages its two tasks; Total weights the three domains equally. Bold: best within the multi-teacher OPD block at each size.</figcaption>
+    </figure>
+
+    <figure class="table-card big" id="table3">
+      <div class="table-title"><span class="t-tag">Table 3</span><h3>Changes to label-routed OPD</h3></div>
+      <div class="table-wrap" role="region" aria-label="Changes to label-routed OPD" tabindex="0"><table class="dt"><thead><tr><th scope="col">Variant</th><th scope="col">Teacher rule</th><th scope="col">Signal change</th><th scope="col" class="num gsep">9B</th><th scope="col" class="num">4B</th><th scope="col" class="num">2B</th></tr></thead><tbody><tr><th scope="row">Uniform pool</th><td>Mixture</td><td>Unchanged</td><td class="num gsep">-0.41</td><td class="num">-0.69</td><td class="num">+0.30</td></tr><tr><th scope="row">Dynamic router</th><td>Response</td><td>Unchanged</td><td class="num gsep">-0.25</td><td class="num">+0.28</td><td class="num">-0.07</td></tr><tr><th scope="row">Label-routed</th><td>Domain</td><td>Unchanged</td><td class="num gsep">+0.00</td><td class="num">+0.00</td><td class="num">+0.00</td></tr><tr><th scope="row">Annealed injection</th><td>Domain</td><td>Early imitation</td><td class="num gsep">-0.24</td><td class="num">+1.11</td><td class="num">+0.30</td></tr><tr><th scope="row">Math ×2 only</th><td>Domain</td><td>Math scale</td><td class="num gsep">—</td><td class="num">+1.20</td><td class="num">+0.27</td></tr><tr><th scope="row">IF ×0.25 only</th><td>Domain</td><td>IF scale</td><td class="num gsep">—</td><td class="num">+1.79</td><td class="num">+2.19</td></tr><tr class="dn-row"><th scope="row"><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span></span></th><td>Domain</td><td>Domain scale</td><td class="num gsep">+1.17</td><td class="num">+2.24</td><td class="num">+2.36</td></tr></tbody></table></div>
+      <figcaption>Changes to label-routed OPD. Total point differences (pp) relative to Label, evaluated at 16K. Pooling and Dynamic change the teacher assignment; annealed injection and <span class="nw">DN-MOPD</span> retain it and change the learning signal. The two fixed-weight rows set one domain&#x27;s weight (mathematics 2 or IF 0.25, others 1) and were run at 4B and 2B only.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== ANALYSIS ===================== -->
+<section class="section section-alt" id="analysis" aria-labelledby="h-analysis">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span>04</span> Analysis</p>
+      <h2 id="h-analysis">Where the gain comes from</h2>
+      <p class="sec-lede">The experts specialize, their feedback arrives on different scales, and controls with fixed domain weights show that the gain comes mainly from turning down instruction-following feedback rather than turning up mathematics alone.</p>
+    </header>
+
+    <figure class="float-card mid rv">
+      <div class="fig-white">
+        <img src="static/q35_expert_profiles_v2.svg" width="396" height="133" loading="lazy" decoding="async" alt="Figure 3. Three heatmaps, one per Qwen3.5 size (9B, 4B, 2B), with rows for the math, code and IF experts and columns for the math, code and IF evaluation domains; the diagonal cells, where each expert is evaluated in its own domain, are outlined and show that expert's gain over the shared initialization.">
+      </div>
+      <figcaption><span class="fig-tag">Figure 3</span> Expert specialization across domains. Each cell is the gain over the shared initialization (pp) at 16K, averaged over the two tasks in the evaluation domain. Rows identify experts and columns identify evaluation domains. <a class="fig-open" href="static/q35_expert_profiles_v2.svg" target="_blank" rel="noopener">Full size<span aria-hidden="true"> ↗</span></a></figcaption>
+    </figure>
+
+    <figure class="float-card mid rv">
+      <div class="fig-white">
+        <img src="static/q35_mechanism_domain.svg" width="396" height="202" loading="lazy" decoding="async" alt="Figure 4. (a) Relative log-ratio spread per domain at each size: IF far above the pooled spread and math below it. (b) Bars of the DN-MOPD minus Label domain accuracy at 16K for math, code and IF at 9B, 4B and 2B, with math the largest at every size. (c) Multipliers over training for each size: math above one, code near one, and IF held at the 0.25 floor with its unclipped value below the floor.">
+      </div>
+      <figcaption><span class="fig-tag">Figure 4</span> Feedback scales, domain gains and training multipliers. <b>(a)</b> Median relative log-ratio spread with interquartile ranges over the recorded batches of the <span class="nw">DN-MOPD</span> runs. <b>(b)</b> Domain accuracy differences between <span class="nw">DN-MOPD</span> and Label at 16K. <b>(c)</b> Raw multipliers (faint), trailing 5-update means (solid), and IF before clipping (dotted). <a class="fig-open" href="static/q35_mechanism_domain.svg" target="_blank" rel="noopener">Full size<span aria-hidden="true"> ↗</span></a></figcaption>
+    </figure>
+
+    <figure class="chart-card dm-fig dm-mult" id="dm-mult" aria-labelledby="dm-mult-title">
+      <div class="chart-head">
+        <div>
+          <p class="card-kicker"><i class="kdot k-dn" aria-hidden="true"></i><span>Multipliers during training</span></p>
+          <h3 id="dm-mult-title" class="chart-title">Math is amplified; IF sits at the 0.25 floor</h3>
+          <p class="chart-sub">Per-update multipliers w<sub>d</sub> of the seed-42 <span class="nw">DN-MOPD</span> runs, log scale. The main runs end at update 80; later updates are the continuation.</p>
+        </div>
+      </div>
+      <div class="dm-mult-top dm-when-ready">
+        <div class="dm-seg" role="group" aria-label="Model size" data-dm-seg="size"><span class="dm-seg-thumb" aria-hidden="true"></span><button type="button" aria-pressed="true" data-v="9B">9B</button><button type="button" aria-pressed="false" data-v="4B">4B</button><button type="button" aria-pressed="false" data-v="2B">2B</button></div>
+        <div class="dm-readout" aria-hidden="true">
+          <div class="dm-ro-u"><span class="dm-ro-k">Update</span> <b data-ro="upd">–</b> <span class="dm-ro-of" data-ro="of"></span><span class="dm-ro-phase" data-ro="phase"></span></div>
+          <div class="dm-ro-d"><i class="dm-key k-math"></i><span class="dm-ro-k">math</span> <b data-ro="math">–</b></div>
+          <div class="dm-ro-d"><i class="dm-key k-code"></i><span class="dm-ro-k">code</span> <b data-ro="code">–</b></div>
+          <div class="dm-ro-d dm-ro-if"><i class="dm-key k-if"></i><span class="dm-ro-k">IF</span> <b data-ro="if">–</b> <span class="dm-ro-flag" data-ro="flag"></span></div>
+        </div>
+      </div>
+      <div class="dm-mount dm-when-ready" data-dm-mount="mult" role="slider" tabindex="0" aria-label="Training update (drag or use the arrow keys)" aria-valuemin="1" aria-valuemax="1" aria-valuenow="1"></div>
+      <div class="dm-legend dm-legend-mult dm-when-ready" aria-hidden="true">
+        <span><i class="dm-lk k-math"></i>math</span><span><i class="dm-lk k-code"></i>code</span><span><i class="dm-lk k-if"></i>IF</span>
+        <span class="dm-lg-sep"><i class="dm-lk k-faint"></i>each update</span><span><i class="dm-lk k-solid"></i>trailing 5-update mean</span>
+        <span><i class="dm-lk k-dot"></i>IF before clipping</span><span><i class="dm-sw sw-band"></i>clip band [0.25, 4]</span>
+        <span><i class="dm-sw sw-floor"></i>IF at the 0.25 floor</span><span><i class="dm-lk k-m80"></i>update 80</span>
+      </div>
+      <p class="dm-hint dm-when-ready">Drag across the chart, or focus it and use the arrow keys, to scrub through the updates.</p>
+      <details class="data-view dm-tv" open>
+        <summary>Show as table</summary>
+        <div class="table-wrap" role="region" aria-label="Multipliers at selected updates" tabindex="0"><table class="dt dt-compact"><thead><tr><th scope="col">Update</th><th scope="col" class="num">w<sub>math</sub></th><th scope="col" class="num">w<sub>code</sub></th><th scope="col" class="num">w<sub>IF</sub></th><th scope="col" class="num">IF before clipping</th><th scope="col">IF at floor</th></tr></thead><tbody><tr class="grp"><th colspan="6" scope="rowgroup"><span>Qwen3.5-9B · 125 updates</span></th></tr><tr><th scope="row">1</th><td class="num">1.77</td><td class="num">0.89</td><td class="num">0.25</td><td class="num">0.23</td><td>yes</td></tr><tr><th scope="row">80</th><td class="num">1.01</td><td class="num">1.41</td><td class="num">0.25</td><td class="num">0.15</td><td>yes</td></tr><tr><th scope="row">125</th><td class="num">1.48</td><td class="num">1.67</td><td class="num">0.25</td><td class="num">0.14</td><td>yes</td></tr><tr class="grp"><th colspan="6" scope="rowgroup"><span>Qwen3.5-4B · 144 updates</span></th></tr><tr><th scope="row">1</th><td class="num">2.01</td><td class="num">0.81</td><td class="num">0.34</td><td class="num">0.34</td><td>no</td></tr><tr><th scope="row">80</th><td class="num">2.03</td><td class="num">0.98</td><td class="num">0.25</td><td class="num">0.16</td><td>yes</td></tr><tr><th scope="row">144</th><td class="num">1.40</td><td class="num">1.00</td><td class="num">0.25</td><td class="num">0.18</td><td>yes</td></tr><tr class="grp"><th colspan="6" scope="rowgroup"><span>Qwen3.5-2B · 160 updates</span></th></tr><tr><th scope="row">1</th><td class="num">2.10</td><td class="num">0.82</td><td class="num">0.43</td><td class="num">0.43</td><td>no</td></tr><tr><th scope="row">80</th><td class="num">2.22</td><td class="num">0.85</td><td class="num">0.25</td><td class="num">0.15</td><td>yes</td></tr><tr><th scope="row">160</th><td class="num">1.82</td><td class="num">0.91</td><td class="num">0.25</td><td class="num">0.20</td><td>yes</td></tr></tbody></table></div>
+        <p class="dm-tv-note">Selected updates (first, 80th, last). Every update is in <a href="static/multipliers.json">multipliers.json</a>.</p>
+      </details>
+    </figure>
+
+    <div class="mech rv">
+      <div class="mech-card">
+        <p class="card-kicker"><i class="kdot k-if" aria-hidden="true"></i><span>Mechanism</span></p>
+        <p class="mech-text">IF supplies about 1% of response tokens but up to half of the pooled log-ratio variance. For the initial 4B student, IF accounts for <b>94%</b> of the combined gradient under equal weights and <b>64%</b> under <span class="nw">DN-MOPD</span>'s first-batch weights.</p>
+      </div>
+    </div>
+
+    <h3 class="block-h rv">Fixed-weight controls</h3>
+    <ol class="controls">
+      <li class="rv"><span class="ctl-ic ic-neutral" aria-hidden="true">≈</span><div><h4>Teacher assignment</h4><p>Changing teacher assignment (Uniform pool, Dynamic router) brings no consistent gain.</p></div></li>
+      <li class="rv"><span class="ctl-ic ic-math" aria-hidden="true">↑</span><div><h4>Amplify math alone</h4><p>Amplifying math alone (Math ×2) recovers about half of <span class="nw">DN-MOPD</span>'s improvement at 4B and little at 2B.</p></div></li>
+      <li class="rv"><span class="ctl-ic ic-if" aria-hidden="true">↓</span><div><h4>Reduce IF alone</h4><p>Reducing IF alone (IF ×0.25) recovers most of it and raises math by about three points.</p></div></li>
+      <li class="rv"><span class="ctl-ic ic-dn" aria-hidden="true">=</span><div><h4>Fixed weights near <span class="nw">DN-MOPD</span>'s</h4><p>Weights fixed at <span class="nw">DN-MOPD</span>'s first-batch multipliers, or at a global (2, 1, 0.25), show no detectable difference from <span class="nw">DN-MOPD</span> at 9B and 4B.</p></div></li>
+      <li class="rv"><span class="ctl-ic ic-dn" aria-hidden="true">↻</span><div><h4>Per-batch estimation</h4><p>At 2B, per-batch estimation outperforms first-batch weights by 1.10 points.</p></div></li>
+    </ol>
+
+    <figure class="chart-card dm-fig dm-len" id="dm-len" aria-labelledby="dm-len-title">
+      <div class="chart-head">
+        <div>
+          <p class="card-kicker"><i class="kdot k-dn" aria-hidden="true"></i><span>Table 4 · Label vs <span class="nw">DN-MOPD</span></span></p>
+          <h3 id="dm-len-title" class="chart-title">Shorter math answers, fewer responses at the cap</h3>
+          <p class="chart-sub">The math gains come with shorter answers and fewer responses hitting the generation cap. Mean math response tokens, and the share of all responses reaching the 16K cap.</p>
+        </div>
+      </div>
+      <div class="dm-legend dm-when-ready" aria-hidden="true"><span><i class="dm-sw sw-label"></i>Label-routed MOPD</span><span><i class="dm-sw sw-dn"></i><span class="nw">DN-MOPD</span></span><span><i class="dm-sw sw-ghost"></i>Label's value, for reference</span></div>
+      <div class="dm-len-grid dm-when-ready">
+        <div class="dm-panel"><h4 class="dm-panel-h">Math tokens <span>mean per response</span></h4><div class="dm-mount" data-dm-mount="len-tok"></div></div>
+        <div class="dm-panel"><h4 class="dm-panel-h">At the 16K cap <span>% of responses</span></h4><div class="dm-mount" data-dm-mount="len-cap"></div></div>
+      </div>
+      <details class="data-view dm-tv" open>
+        <summary>Show as table</summary>
+        <div class="table-wrap" role="region" aria-label="Math tokens and at-cap share, Label versus DN-MOPD" tabindex="0"><table class="dt dt-compact"><thead><tr><th scope="col">Method</th><th scope="col" class="num">Total</th><th scope="col" class="num">Math tokens</th><th scope="col" class="num">At cap (%)</th></tr></thead><tbody><tr class="grp"><th colspan="4" scope="rowgroup"><span>Qwen3.5-9B</span></th></tr><tr><th scope="row">Label-routed</th><td class="num">58.4</td><td class="num">8,637</td><td class="num">9.8</td></tr><tr class="dn-row"><th scope="row"><span class="nw">DN-MOPD</span></th><td class="num">59.6</td><td class="num">7,032</td><td class="num">5.2</td></tr><tr class="grp"><th colspan="4" scope="rowgroup"><span>Qwen3.5-4B</span></th></tr><tr><th scope="row">Label-routed</th><td class="num">50.3</td><td class="num">8,653</td><td class="num">12.4</td></tr><tr class="dn-row"><th scope="row"><span class="nw">DN-MOPD</span></th><td class="num">52.5</td><td class="num">6,146</td><td class="num">5.3</td></tr><tr class="grp"><th colspan="4" scope="rowgroup"><span>Qwen3.5-2B</span></th></tr><tr><th scope="row">Label-routed</th><td class="num">26.6</td><td class="num">10,246</td><td class="num">20.2</td></tr><tr class="dn-row"><th scope="row"><span class="nw">DN-MOPD</span></th><td class="num">29.0</td><td class="num">7,444</td><td class="num">13.5</td></tr></tbody></table></div>
+        <p class="dm-tv-note">The full Table 4, with SeqKD-SFT, ParamMerge-TA and code and IF lengths, is below.</p>
+      </details>
+    </figure>
+
+    <div class="two-up two-up-uneven">
+      <figure class="table-card rv" id="table4">
+        <div class="table-title"><span class="t-tag">Table 4</span><h3>Shorter answers</h3></div>
+        <p class="table-lede">The math gains come with shorter answers and fewer responses hitting the generation cap. At 9B, math tokens drop from 8,637 to 7,032 and the at-cap share from 9.8% to 5.2%.</p>
+        <div class="table-wrap" role="region" aria-label="Capability and generated length" tabindex="0"><table class="dt"><thead><tr><th scope="col">Method</th><th scope="col" class="num">Total</th><th scope="col" class="num">Math tokens</th><th scope="col" class="num">Code tokens</th><th scope="col" class="num">IF tokens</th><th scope="col" class="num">At cap (%)</th></tr></thead><tbody><tr class="grp"><th colspan="6" scope="rowgroup"><span>Qwen3.5-9B</span></th></tr><tr><th scope="row">SeqKD-SFT</th><td class="num">62.6</td><td class="num">5,547</td><td class="num">5,896</td><td class="num">422</td><td class="num">1.5</td></tr><tr><th scope="row">ParamMerge-TA</th><td class="num">60.5</td><td class="num">5,083</td><td class="num">5,479</td><td class="num">430</td><td class="num">1.7</td></tr><tr><th scope="row">Label-routed</th><td class="num">58.4</td><td class="num">8,637</td><td class="num">6,846</td><td class="num">450</td><td class="num">9.8</td></tr><tr class="dn-row"><th scope="row"><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span></span></th><td class="num">59.6</td><td class="num">7,032</td><td class="num">6,427</td><td class="num">441</td><td class="num">5.2</td></tr><tr class="grp"><th colspan="6" scope="rowgroup"><span>Qwen3.5-4B</span></th></tr><tr><th scope="row">SeqKD-SFT</th><td class="num">55.9</td><td class="num">5,534</td><td class="num">7,389</td><td class="num">440</td><td class="num">3.2</td></tr><tr><th scope="row">ParamMerge-TA</th><td class="num">53.2</td><td class="num">4,865</td><td class="num">6,332</td><td class="num">494</td><td class="num">2.9</td></tr><tr><th scope="row">Label-routed</th><td class="num">50.3</td><td class="num">8,653</td><td class="num">8,238</td><td class="num">523</td><td class="num">12.4</td></tr><tr class="dn-row"><th scope="row"><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span></span></th><td class="num">52.5</td><td class="num">6,146</td><td class="num">7,649</td><td class="num">522</td><td class="num">5.3</td></tr><tr class="grp"><th colspan="6" scope="rowgroup"><span>Qwen3.5-2B</span></th></tr><tr><th scope="row">SeqKD-SFT</th><td class="num">32.9</td><td class="num">6,670</td><td class="num">9,419</td><td class="num">822</td><td class="num">8.9</td></tr><tr><th scope="row">ParamMerge-TA</th><td class="num">32.7</td><td class="num">5,383</td><td class="num">8,315</td><td class="num">930</td><td class="num">8.9</td></tr><tr><th scope="row">Label-routed</th><td class="num">26.6</td><td class="num">10,246</td><td class="num">10,047</td><td class="num">744</td><td class="num">20.2</td></tr><tr class="dn-row"><th scope="row"><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span></span></th><td class="num">29.0</td><td class="num">7,444</td><td class="num">10,054</td><td class="num">706</td><td class="num">13.5</td></tr></tbody></table></div>
+        <figcaption>Capability and generated length. Mean response tokens by domain and the share of responses reaching the 16K cap. Scores and lengths come from the same evaluation outputs.</figcaption>
+      </figure>
+      <figure class="table-card rv" id="table5">
+        <div class="table-title"><span class="t-tag">Table 5</span><h3>Longer training</h3></div>
+        <p class="table-lede">At 160 updates <span class="nw">DN-MOPD</span> remains ahead of Label at every size.</p>
+        <div class="table-wrap" role="region" aria-label="Training-duration comparison" tabindex="0"><table class="dt"><thead><tr><th scope="col">Method</th><th scope="col" class="num">80 updates</th><th scope="col" class="num">160 updates</th><th scope="col" class="num">Δ Total</th></tr></thead><tbody><tr class="grp"><th colspan="4" scope="rowgroup"><span>Qwen3.5-9B</span></th></tr><tr><th scope="row">Single teacher (IF)</th><td class="num">57.3</td><td class="num">57.6</td><td class="num">+0.4</td></tr><tr><th scope="row">Label-routed</th><td class="num">58.4</td><td class="num">59.4</td><td class="num">+1.0</td></tr><tr class="dn-row"><th scope="row"><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span></span></th><td class="num">59.6</td><td class="num">60.7</td><td class="num">+1.2</td></tr><tr class="grp"><th colspan="4" scope="rowgroup"><span>Qwen3.5-4B</span></th></tr><tr><th scope="row">Single teacher (code)</th><td class="num">50.9</td><td class="num">51.2</td><td class="num">+0.4</td></tr><tr><th scope="row">Label-routed</th><td class="num">50.3</td><td class="num">51.6</td><td class="num">+1.3</td></tr><tr class="dn-row"><th scope="row"><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span></span></th><td class="num">52.5</td><td class="num">53.1</td><td class="num">+0.5</td></tr><tr class="grp"><th colspan="4" scope="rowgroup"><span>Qwen3.5-2B</span></th></tr><tr><th scope="row">Single teacher (code)</th><td class="num">28.8</td><td class="num">28.8</td><td class="num">-0.1</td></tr><tr><th scope="row">Label-routed</th><td class="num">26.6</td><td class="num">28.3</td><td class="num">+1.7</td></tr><tr class="dn-row"><th scope="row"><span class="dn-name"><i class="dn-mark" aria-hidden="true"></i><span class="nw">DN-MOPD</span></span></th><td class="num">29.0</td><td class="num">30.0</td><td class="num">+1.1</td></tr></tbody></table></div>
+        <figcaption>Training-duration comparison. Six-task Total at fixed 80- and 160-update endpoints, evaluated at 16K. Changes use unrounded scores.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LIMITATIONS ===================== -->
+<section class="section" id="limitations" aria-labelledby="h-lim">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span>05</span> Limitations</p>
+      <h2 id="h-lim">What the evidence does not show</h2>
+    </header>
+    <div class="lim-grid">
+      <div class="lim rv">
+        <h3>Scope of the claims</h3>
+        <ul>
+          <li><span class="nw">DN-MOPD</span> is not the best integration recipe overall: SeqKD-SFT and task arithmetic (ParamMerge-TA) retain higher Totals under their own training recipes (Tables 1–2).</li>
+          <li>At 9B, code does not improve at 16K. Gains in code and IF are smaller and less consistent.</li>
+          <li>The advantage over the strongest single-teacher student has some intervals that include zero.</li>
+        </ul>
+      </div>
+      <div class="lim rv">
+        <h3>Limitations</h3>
+        <ul>
+          <li>There is one expert pool per size within one model family, and the student seeds do not cover retraining experts.</li>
+          <li><span class="nw">DN-MOPD</span> was selected on an earlier Qwen3 development instrument, where an earlier Qwen3-4B comparison under a different setup found no clear gain, so benefits depend on the teacher–student configuration.</li>
+          <li>The clipping bounds were not tuned per size, and the IF multiplier usually sits at the lower bound.</li>
+          <li>Fixed weights near <span class="nw">DN-MOPD</span>'s multipliers perform comparably at 9B and 4B, so per-batch re-estimation adds to the gain only at 2B.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CITE ===================== -->
+<section class="section section-alt" id="cite" aria-labelledby="h-cite">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span>06</span> Cite</p>
+      <h2 id="h-cite">Citation</h2>
+    </header>
+    <div class="cite-grid">
+      <div class="bib rv">
+        <div class="bib-bar">
+          <span class="bib-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="bib-name">li2026dnmopd.bib</span>
+          <button class="copy-btn" type="button" data-copy="#bibtex">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span class="copy-label">Copy</span>
+          </button>
+        </div>
+<pre id="bibtex" tabindex="0"><code>@misc{li2026dnmopd,
+  title  = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
+  author = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
+  year   = {2026},
+  url    = {https://lixin.ai/DN-MOPD}
+}</code></pre>
+        <p class="copy-status" role="status" aria-live="polite"></p>
+      </div>
+      <a class="paper-card rv" href="static/DN-MOPD.pdf">
+        <picture><source srcset="static/paper_page1_thumb.webp" type="image/webp"><img src="static/paper_page1_thumb.png" width="260" height="368" loading="lazy" decoding="async" alt="Thumbnail of the first page of the DN-MOPD paper."></picture>
+        <span class="paper-meta">
+          <span class="paper-kicker">Paper · PDF</span>
+          <span class="paper-title">Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation</span>
+          <span class="paper-go">Read the paper <span aria-hidden="true">→</span></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p class="foot-brand"><svg class="brand-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="7" fill="#173B5B"/><rect x="7" y="13" width="4.5" height="12" rx="1.5" fill="#C58A24"/><rect x="13.75" y="9" width="4.5" height="16" rx="1.5" fill="#3E83B5"/><rect x="20.5" y="18" width="4.5" height="7" rx="1.5" fill="#9271B4"/></svg> <span class="nw">DN-MOPD</span> <span class="foot-sep" aria-hidden="true">·</span> September 2026</p>
+    <p class="foot-links"><a href="static/DN-MOPD.pdf">Paper (PDF)</a><a href="#cite">BibTeX</a><a href="#top">Back to top ↑</a></p>
+  </div>
+</footer>
+</body>
+</html>

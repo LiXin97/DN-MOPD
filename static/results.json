@@ -1,0 +1,1480 @@
+{
+ "table1_9b": {
+  "caption": "Capability integration at 9B. Qwen3.5-9B scores (%) on six public tasks, 16K evaluation cap. Total averages the six task scores. Bold: best within the multi-teacher OPD block.",
+  "columns": [
+   "Method",
+   "AIME25",
+   "AIME26",
+   "LCB v5",
+   "LCB v6",
+   "IFEval",
+   "IFBench",
+   "Total"
+  ],
+  "column_groups": [
+   [
+    "Math (avg@64)",
+    [
+     "AIME25",
+     "AIME26"
+    ]
+   ],
+   [
+    "Code (avg@6)",
+    [
+     "LCB v5",
+     "LCB v6"
+    ]
+   ],
+   [
+    "IF (avg@16)",
+    [
+     "IFEval",
+     "IFBench"
+    ]
+   ]
+  ],
+  "rows": [
+   {
+    "group": null,
+    "cells": [
+     "Initial student",
+     "57.7",
+     "62.6",
+     "54.9",
+     "51.4",
+     "82.4",
+     "33.8",
+     "57.1"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "RL experts",
+    "cells": [
+     "Math expert",
+     "59.7",
+     "69.4",
+     "53.4",
+     "49.4",
+     "82.3",
+     "34.9",
+     "58.2"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "RL experts",
+    "cells": [
+     "Code expert",
+     "58.5",
+     "65.4",
+     "58.5",
+     "54.3",
+     "82.3",
+     "34.6",
+     "58.9"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "RL experts",
+    "cells": [
+     "IF expert",
+     "54.6",
+     "60.5",
+     "54.0",
+     "51.5",
+     "86.5",
+     "42.1",
+     "58.2"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Offline distillation",
+    "cells": [
+     "SeqKD-SFT",
+     "61.3",
+     "67.6",
+     "62.7",
+     "56.0",
+     "86.0",
+     "42.4",
+     "62.6"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Parameter merging",
+    "cells": [
+     "ParamMerge-Avg",
+     "59.4",
+     "68.3",
+     "54.0",
+     "50.9",
+     "84.1",
+     "36.4",
+     "58.9"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Parameter merging",
+    "cells": [
+     "ParamMerge-TA",
+     "59.1",
+     "68.6",
+     "55.2",
+     "50.9",
+     "86.1",
+     "43.3",
+     "60.5"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Single-teacher OPD",
+    "cells": [
+     "Math teacher",
+     "58.9",
+     "69.5",
+     "53.7",
+     "49.4",
+     "82.4",
+     "34.7",
+     "58.1"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Single-teacher OPD",
+    "cells": [
+     "Code teacher",
+     "58.3",
+     "66.2",
+     "57.0",
+     "52.6",
+     "82.6",
+     "34.2",
+     "58.5"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Single-teacher OPD",
+    "cells": [
+     "IF teacher",
+     "56.8",
+     "61.9",
+     "52.1",
+     "49.2",
+     "84.7",
+     "38.9",
+     "57.3"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Multi-teacher OPD",
+    "cells": [
+     "Uniform pool",
+     "57.1",
+     "65.9",
+     "53.6",
+     "52.3",
+     "83.3",
+     "35.7",
+     "58.0"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Multi-teacher OPD",
+    "cells": [
+     "Dynamic router",
+     "56.4",
+     "63.5",
+     "55.4",
+     "51.5",
+     "84.3",
+     "37.7",
+     "58.1"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Multi-teacher OPD",
+    "cells": [
+     "Label-routed MOPD",
+     "55.3",
+     "63.2",
+     "56.8",
+     "52.6",
+     "84.0",
+     "38.4",
+     "58.4"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     true,
+     true,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Multi-teacher OPD",
+    "cells": [
+     "DN-MOPD (Ours)",
+     "58.9",
+     "67.7",
+     "56.3",
+     "51.4",
+     "84.5",
+     "38.7",
+     "59.6"
+    ],
+    "bold": [
+     true,
+     true,
+     true,
+     false,
+     false,
+     true,
+     true,
+     true
+    ]
+   }
+  ]
+ },
+ "table2_4b_2b": {
+  "caption": "Capability integration at smaller scales. Independently trained Qwen3.5-4B and 2B expert pools, 16K evaluation cap. Each domain averages its two tasks; Total weights the three domains equally. Bold: best within the multi-teacher OPD block at each size.",
+  "columns": [
+   "Method",
+   "4B Math",
+   "4B Code",
+   "4B IF",
+   "4B Total",
+   "2B Math",
+   "2B Code",
+   "2B IF",
+   "2B Total"
+  ],
+  "rows": [
+   {
+    "group": null,
+    "cells": [
+     "Initial student",
+     "52.2",
+     "38.1",
+     "52.8",
+     "47.7",
+     "17.6",
+     "11.3",
+     "43.3",
+     "24.0"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "RL experts",
+    "cells": [
+     "Math expert",
+     "54.2",
+     "39.7",
+     "54.0",
+     "49.3",
+     "22.1",
+     "13.4",
+     "44.7",
+     "26.7"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "RL experts",
+    "cells": [
+     "Code expert",
+     "51.6",
+     "47.4",
+     "53.6",
+     "50.8",
+     "20.7",
+     "21.6",
+     "44.4",
+     "28.9"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "RL experts",
+    "cells": [
+     "IF expert",
+     "50.7",
+     "38.1",
+     "60.6",
+     "49.8",
+     "15.6",
+     "12.5",
+     "52.8",
+     "27.0"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Offline distillation",
+    "cells": [
+     "SeqKD-SFT",
+     "55.6",
+     "52.3",
+     "59.7",
+     "55.9",
+     "23.1",
+     "23.9",
+     "51.6",
+     "32.9"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Parameter merging",
+    "cells": [
+     "ParamMerge-Avg",
+     "54.5",
+     "43.1",
+     "56.2",
+     "51.2",
+     "20.7",
+     "16.3",
+     "47.5",
+     "28.2"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Parameter merging",
+    "cells": [
+     "ParamMerge-TA",
+     "53.8",
+     "44.4",
+     "61.4",
+     "53.2",
+     "24.4",
+     "20.4",
+     "53.3",
+     "32.7"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Single-teacher OPD",
+    "cells": [
+     "Math teacher",
+     "53.9",
+     "39.9",
+     "53.6",
+     "49.1",
+     "22.1",
+     "14.1",
+     "44.2",
+     "26.8"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Single-teacher OPD",
+    "cells": [
+     "Code teacher",
+     "52.2",
+     "46.8",
+     "53.5",
+     "50.9",
+     "20.4",
+     "21.2",
+     "44.9",
+     "28.8"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Single-teacher OPD",
+    "cells": [
+     "IF teacher",
+     "50.3",
+     "39.2",
+     "57.6",
+     "49.0",
+     "16.5",
+     "11.7",
+     "49.2",
+     "25.8"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Multi-teacher OPD",
+    "cells": [
+     "Uniform pool",
+     "52.3",
+     "41.5",
+     "55.0",
+     "49.6",
+     "19.9",
+     "14.6",
+     "46.2",
+     "26.9"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Multi-teacher OPD",
+    "cells": [
+     "Dynamic router",
+     "49.9",
+     "44.7",
+     "57.1",
+     "50.6",
+     "17.3",
+     "13.8",
+     "48.5",
+     "26.5"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Multi-teacher OPD",
+    "cells": [
+     "Label-routed MOPD",
+     "50.2",
+     "43.3",
+     "57.4",
+     "50.3",
+     "17.0",
+     "13.4",
+     "49.5",
+     "26.6"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Multi-teacher OPD",
+    "cells": [
+     "DN-MOPD (Ours)",
+     "54.0",
+     "45.4",
+     "58.2",
+     "52.5",
+     "20.7",
+     "16.3",
+     "49.9",
+     "29.0"
+    ],
+    "bold": [
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true
+    ]
+   }
+  ]
+ },
+ "table3_changes_to_label": {
+  "caption": "Changes to label-routed OPD. Total point differences (pp) relative to Label, evaluated at 16K. Pooling and Dynamic change the teacher assignment; annealed injection and DN-MOPD retain it and change the learning signal. The two fixed-weight rows set one domain's weight (mathematics 2 or IF 0.25, others 1) and were run at 4B and 2B only.",
+  "columns": [
+   "Variant",
+   "Teacher rule",
+   "Signal change",
+   "9B",
+   "4B",
+   "2B"
+  ],
+  "rows": [
+   {
+    "group": null,
+    "cells": [
+     "Uniform pool",
+     "Mixture",
+     "Unchanged",
+     "-0.41",
+     "-0.69",
+     "+0.30"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": null,
+    "cells": [
+     "Dynamic router",
+     "Response",
+     "Unchanged",
+     "-0.25",
+     "+0.28",
+     "-0.07"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": null,
+    "cells": [
+     "Label-routed",
+     "Domain",
+     "Unchanged",
+     "+0.00",
+     "+0.00",
+     "+0.00"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": null,
+    "cells": [
+     "Annealed injection",
+     "Domain",
+     "Early imitation",
+     "-0.24",
+     "+1.11",
+     "+0.30"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": null,
+    "cells": [
+     "Math ×2 only",
+     "Domain",
+     "Math scale",
+     "—",
+     "+1.20",
+     "+0.27"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": null,
+    "cells": [
+     "IF ×0.25 only",
+     "Domain",
+     "IF scale",
+     "—",
+     "+1.79",
+     "+2.19"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": null,
+    "cells": [
+     "DN-MOPD",
+     "Domain",
+     "Domain scale",
+     "+1.17",
+     "+2.24",
+     "+2.36"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   }
+  ]
+ },
+ "table4_lengths": {
+  "caption": "Capability and generated length. Mean response tokens by domain and the share of responses reaching the 16K cap. Scores and lengths come from the same evaluation outputs.",
+  "columns": [
+   "Method",
+   "Total",
+   "Math tokens",
+   "Code tokens",
+   "IF tokens",
+   "At cap (%)"
+  ],
+  "rows": [
+   {
+    "group": "Qwen3.5-9B",
+    "cells": [
+     "SeqKD-SFT",
+     "62.6",
+     "5,547",
+     "5,896",
+     "422",
+     "1.5"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-9B",
+    "cells": [
+     "ParamMerge-TA",
+     "60.5",
+     "5,083",
+     "5,479",
+     "430",
+     "1.7"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-9B",
+    "cells": [
+     "Label-routed",
+     "58.4",
+     "8,637",
+     "6,846",
+     "450",
+     "9.8"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-9B",
+    "cells": [
+     "DN-MOPD",
+     "59.6",
+     "7,032",
+     "6,427",
+     "441",
+     "5.2"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-4B",
+    "cells": [
+     "SeqKD-SFT",
+     "55.9",
+     "5,534",
+     "7,389",
+     "440",
+     "3.2"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-4B",
+    "cells": [
+     "ParamMerge-TA",
+     "53.2",
+     "4,865",
+     "6,332",
+     "494",
+     "2.9"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-4B",
+    "cells": [
+     "Label-routed",
+     "50.3",
+     "8,653",
+     "8,238",
+     "523",
+     "12.4"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-4B",
+    "cells": [
+     "DN-MOPD",
+     "52.5",
+     "6,146",
+     "7,649",
+     "522",
+     "5.3"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-2B",
+    "cells": [
+     "SeqKD-SFT",
+     "32.9",
+     "6,670",
+     "9,419",
+     "822",
+     "8.9"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-2B",
+    "cells": [
+     "ParamMerge-TA",
+     "32.7",
+     "5,383",
+     "8,315",
+     "930",
+     "8.9"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-2B",
+    "cells": [
+     "Label-routed",
+     "26.6",
+     "10,246",
+     "10,047",
+     "744",
+     "20.2"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-2B",
+    "cells": [
+     "DN-MOPD",
+     "29.0",
+     "7,444",
+     "10,054",
+     "706",
+     "13.5"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   }
+  ]
+ },
+ "table5_budget": {
+  "caption": "Training-duration comparison. Six-task Total at fixed 80- and 160-update endpoints, evaluated at 16K. Changes use unrounded scores.",
+  "columns": [
+   "Method",
+   "80",
+   "160",
+   "Δ Total"
+  ],
+  "rows": [
+   {
+    "group": "Qwen3.5-9B",
+    "cells": [
+     "Single teacher (IF)",
+     "57.3",
+     "57.6",
+     "+0.4"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-9B",
+    "cells": [
+     "Label-routed",
+     "58.4",
+     "59.4",
+     "+1.0"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-9B",
+    "cells": [
+     "DN-MOPD",
+     "59.6",
+     "60.7",
+     "+1.2"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-4B",
+    "cells": [
+     "Single teacher (code)",
+     "50.9",
+     "51.2",
+     "+0.4"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-4B",
+    "cells": [
+     "Label-routed",
+     "50.3",
+     "51.6",
+     "+1.3"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-4B",
+    "cells": [
+     "DN-MOPD",
+     "52.5",
+     "53.1",
+     "+0.5"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-2B",
+    "cells": [
+     "Single teacher (code)",
+     "28.8",
+     "28.8",
+     "-0.1"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-2B",
+    "cells": [
+     "Label-routed",
+     "26.6",
+     "28.3",
+     "+1.7"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   },
+   {
+    "group": "Qwen3.5-2B",
+    "cells": [
+     "DN-MOPD",
+     "29.0",
+     "30.0",
+     "+1.1"
+    ],
+    "bold": [
+     false,
+     false,
+     false,
+     false
+    ]
+   }
+  ]
+ },
+ "dn_vs_label_total": {
+  "caption": "Six-task Total gain of DN-MOPD over label-routed MOPD (pp), student seed 42, paired 95% bootstrap intervals (questions resampled within each suite, B = 10,000). Source: supplement data/paper_tables/q35_total_contrasts.csv.",
+  "rows": [
+   {
+    "size": "9B",
+    "eval_cap": 16384,
+    "dn_total": 59.56,
+    "label_total": 58.39,
+    "delta": 1.17,
+    "ci95": [
+     0.28,
+     2.03
+    ]
+   },
+   {
+    "size": "9B",
+    "eval_cap": 8192,
+    "dn_total": 55.31,
+    "label_total": 52.84,
+    "delta": 2.47,
+    "ci95": [
+     1.65,
+     3.27
+    ]
+   },
+   {
+    "size": "4B",
+    "eval_cap": 16384,
+    "dn_total": 52.54,
+    "label_total": 50.3,
+    "delta": 2.24,
+    "ci95": [
+     1.3,
+     3.2
+    ]
+   },
+   {
+    "size": "4B",
+    "eval_cap": 8192,
+    "dn_total": 48.56,
+    "label_total": 45.48,
+    "delta": 3.08,
+    "ci95": [
+     2.12,
+     4.06
+    ]
+   },
+   {
+    "size": "2B",
+    "eval_cap": 16384,
+    "dn_total": 28.96,
+    "label_total": 26.6,
+    "delta": 2.36,
+    "ci95": [
+     1.58,
+     3.17
+    ]
+   },
+   {
+    "size": "2B",
+    "eval_cap": 8192,
+    "dn_total": 27.87,
+    "label_total": 24.96,
+    "delta": 2.92,
+    "ci95": [
+     2.02,
+     3.85
+    ]
+   }
+  ]
+ },
+ "three_seeds": {
+  "caption": "DN-MOPD minus Label, six-task Total (pp), per student seed (42, 43, 44) and the three-seed mean with a two-level bootstrap 95% interval.",
+  "rows": [
+   {
+    "size": "9B",
+    "eval_cap": 16384,
+    "per_seed": {
+     "42": 1.17,
+     "43": 1.08,
+     "44": 1.1
+    },
+    "mean": 1.12,
+    "ci95": [
+     0.62,
+     1.62
+    ]
+   },
+   {
+    "size": "4B",
+    "eval_cap": 16384,
+    "per_seed": {
+     "42": 2.24,
+     "43": 1.85,
+     "44": 1.82
+    },
+    "mean": 1.97,
+    "ci95": [
+     1.39,
+     2.56
+    ]
+   },
+   {
+    "size": "2B",
+    "eval_cap": 16384,
+    "per_seed": {
+     "42": 2.36,
+     "43": 2.24,
+     "44": 2.43
+    },
+    "mean": 2.34,
+    "ci95": [
+     1.86,
+     2.84
+    ]
+   },
+   {
+    "size": "9B",
+    "eval_cap": 8192,
+    "per_seed": {
+     "42": 2.47,
+     "43": 2.62,
+     "44": 3.05
+    },
+    "mean": 2.71,
+    "ci95": [
+     2.16,
+     3.29
+    ]
+   },
+   {
+    "size": "4B",
+    "eval_cap": 8192,
+    "per_seed": {
+     "42": 3.08,
+     "43": 2.74,
+     "44": 3.01
+    },
+    "mean": 2.94,
+    "ci95": [
+     2.37,
+     3.53
+    ]
+   },
+   {
+    "size": "2B",
+    "eval_cap": 8192,
+    "per_seed": {
+     "42": 2.92,
+     "43": 2.88,
+     "44": 2.83
+    },
+    "mean": 2.87,
+    "ci95": [
+     2.36,
+     3.4
+    ]
+   }
+  ]
+ },
+ "math500": {
+  "caption": "MATH-500 (16 answers per question), DN-MOPD minus Label (pp) with paired 95% intervals.",
+  "rows": [
+   {
+    "size": "9B",
+    "eval_cap": 16384,
+    "delta": 0.74,
+    "ci95": [
+     0.31,
+     1.18
+    ]
+   },
+   {
+    "size": "9B",
+    "eval_cap": 8192,
+    "delta": 1.45,
+    "ci95": [
+     0.92,
+     2.0
+    ]
+   },
+   {
+    "size": "4B",
+    "eval_cap": 16384,
+    "delta": 1.25,
+    "ci95": [
+     0.67,
+     1.85
+    ]
+   },
+   {
+    "size": "4B",
+    "eval_cap": 8192,
+    "delta": 1.66,
+    "ci95": [
+     1.05,
+     2.29
+    ]
+   },
+   {
+    "size": "2B",
+    "eval_cap": 16384,
+    "delta": 5.95,
+    "ci95": [
+     4.95,
+     6.96
+    ]
+   },
+   {
+    "size": "2B",
+    "eval_cap": 8192,
+    "delta": 6.85,
+    "ci95": [
+     5.73,
+     7.99
+    ]
+   }
+  ]
+ }
+}
