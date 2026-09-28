@@ -238,7 +238,9 @@ These are the only intentional differences between the files here and the enviro
 2. **cuDNN.** The paper's training environment also had `nvidia-cudnn-cu12==9.16.0.29`, a leftover compatibility pin
    from an earlier torch build. That wheel writes the same `nvidia/cudnn/lib/libcudnn.so.9` as PyTorch's own
    `nvidia-cudnn-cu13==9.19.0.56` and overwrote it. PyTorch then raises a cuDNN version-mismatch error as soon as
-   cuDNN is initialised. The pin is omitted here. <!-- TODO verify: GPU smoke test with the omitted pin -->
+   cuDNN is initialised. The pin is omitted here. Without it, the end-to-end GPU smoke test
+   (`recipes/qwen3.5/smoke_test.sh` and `eval/smoke_test.sh`, run from a fresh clone with environments built from these
+   files on one 8×B200 node) passed: GRPO teacher, teacher servers, Label and DN-MOPD students, HF export and evaluation.
 3. **SGLang extras.** The paper's environment was built with `sglang[all]`, which adds diffusion, tracing and HTTP/2
    extras that the training code does not use. They are not in `requirements-train.txt`; their versions remain in
    the constraints file.

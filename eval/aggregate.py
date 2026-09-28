@@ -41,7 +41,11 @@ def main(argv=None) -> int:
     ap.add_argument('--csv', type=Path, default=None, help='write the rows to this CSV file')
     ap.add_argument('--math500', action='store_true', help='report MATH-500 avg@16 (released layout: math500/)')
     a = ap.parse_args(argv)
-    rec = Records.detect(a.records or released_dir())
+    root = a.records or released_dir()
+    if not root.is_dir():
+        print(f'no such records directory: {root}', file=sys.stderr)
+        return 2
+    rec = Records.detect(root)
     models = [m for m in a.models.split(',') if m] or (
         sorted({p.stem for p in (rec.root / 'math500').glob('cap*/*.jsonl')}) if a.math500 and rec.layout == 'released'
         else rec.models())
