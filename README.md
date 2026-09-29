@@ -10,7 +10,7 @@ feedback counts.**
 [![arXiv](https://img.shields.io/badge/arXiv-2609.35347-b31b1b.svg)](https://arxiv.org/abs/2609.35347)
 
 [Xin Li](https://lixin.ai/)¹, Hao Jiang¹, [Xin Gao](https://gaoxin492.github.io/)², Annan Wang¹, Yuchen Xie¹, Jinghao Guo¹, Xingwei Qu³, Yichi Zhang,
-Chau Yuen¹
+[Chau Yuen](https://blogs.ntu.edu.sg/chau-yuen/)¹
 
 ¹ Nanyang Technological University · ² Yale University · ³ University of Manchester
 
