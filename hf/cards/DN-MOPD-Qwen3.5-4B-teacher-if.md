@@ -21,7 +21,7 @@ tags:
 The Qwen3.5-4B **instruction-following (IF) expert** used as a frozen teacher in the DN-MOPD paper: Qwen3.5-4B trained with GRPO on instruction-following (IF) prompts. It is one of three same-size experts (math, code, IF) that the Qwen3.5-4B students learn from.
 
 **Paper:** *Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation*
-([project page](https://lixin.ai/DN-MOPD), arXiv: coming soon) · **Code:** [github.com/LiXin97/DN-MOPD](https://github.com/LiXin97/DN-MOPD)
+([arXiv:2609.35347](https://arxiv.org/abs/2609.35347), [project page](https://lixin.ai/DN-MOPD)) · **Code:** [github.com/LiXin97/DN-MOPD](https://github.com/LiXin97/DN-MOPD)
 
 ## Model details
 
@@ -108,11 +108,12 @@ Scores (%) from the paper; training seed 42; 16,384-token evaluation cap; non-th
 ## Citation
 
 ```bibtex
-@misc{li2026dnmopd,
-  title  = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
-  author = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
-  year   = {2026},
-  url    = {https://lixin.ai/DN-MOPD}
+@article{li2026dnmopd,
+  title   = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
+  author  = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
+  journal = {arXiv preprint arXiv:2609.35347},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2609.35347}
 }
 ```
 

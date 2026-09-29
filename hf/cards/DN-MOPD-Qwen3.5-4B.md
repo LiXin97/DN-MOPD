@@ -21,7 +21,7 @@ tags:
 A Qwen3.5-4B student trained with **DN-MOPD** (Domain-Normalized Multi-Teacher On-Policy Distillation). Three same-size RL experts (math, code, instruction following) teach one student on its own responses; each prompt is scored by the expert of its domain, and DN-MOPD rescales each domain's token-level feedback by its measured spread, w_d = clip(σ_all / σ_d, 0.25, 4), so that no domain dominates the shared update.
 
 **Paper:** *Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation*
-([project page](https://lixin.ai/DN-MOPD), arXiv: coming soon) · **Code:** [github.com/LiXin97/DN-MOPD](https://github.com/LiXin97/DN-MOPD)
+([arXiv:2609.35347](https://arxiv.org/abs/2609.35347), [project page](https://lixin.ai/DN-MOPD)) · **Code:** [github.com/LiXin97/DN-MOPD](https://github.com/LiXin97/DN-MOPD)
 
 ## Model details
 
@@ -123,11 +123,12 @@ MATH-500 (16 answers per question), DN-MOPD minus Label: 16K +1.25 [+0.67, +1.85
 ## Citation
 
 ```bibtex
-@misc{li2026dnmopd,
-  title  = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
-  author = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
-  year   = {2026},
-  url    = {https://lixin.ai/DN-MOPD}
+@article{li2026dnmopd,
+  title   = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
+  author  = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
+  journal = {arXiv preprint arXiv:2609.35347},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2609.35347}
 }
 ```
 

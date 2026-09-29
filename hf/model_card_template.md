@@ -20,7 +20,7 @@ tags:
 {{summary}}
 
 **Paper:** *Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation*
-([project page]({{project_url}}), arXiv: coming soon) · **Code:** [{{code_url_short}}]({{code_url}})
+([arXiv:2609.35347](https://arxiv.org/abs/2609.35347), [project page]({{project_url}})) · **Code:** [{{code_url_short}}]({{code_url}})
 
 ## Model details
 
@@ -88,11 +88,12 @@ print(tokenizer.decode(output[0, inputs["input_ids"].shape[1]:], skip_special_to
 ## Citation
 
 ```bibtex
-@misc{li2026dnmopd,
-  title  = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
-  author = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
-  year   = {2026},
-  url    = {https://lixin.ai/DN-MOPD}
+@article{li2026dnmopd,
+  title   = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
+  author  = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
+  journal = {arXiv preprint arXiv:2609.35347},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2609.35347}
 }
 ```
 

@@ -21,7 +21,7 @@ tags:
 The **Label** baseline of the DN-MOPD paper at Qwen3.5-9B continued to 160 updates (paper Table 5): multi-teacher on-policy distillation with label routing (each prompt is scored by the expert of its domain, every domain multiplier is 1). Released for comparison with [DN-MOPD-Qwen3.5-9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B); it is not the proposed method.
 
 **Paper:** *Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation*
-([project page](https://lixin.ai/DN-MOPD), arXiv: coming soon) · **Code:** [github.com/LiXin97/DN-MOPD](https://github.com/LiXin97/DN-MOPD)
+([arXiv:2609.35347](https://arxiv.org/abs/2609.35347), [project page](https://lixin.ai/DN-MOPD)) · **Code:** [github.com/LiXin97/DN-MOPD](https://github.com/LiXin97/DN-MOPD)
 
 ## Model details
 
@@ -113,11 +113,12 @@ Scores (%) from the paper; training seed 42; 16,384-token evaluation cap; non-th
 ## Citation
 
 ```bibtex
-@misc{li2026dnmopd,
-  title  = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
-  author = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
-  year   = {2026},
-  url    = {https://lixin.ai/DN-MOPD}
+@article{li2026dnmopd,
+  title   = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
+  author  = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
+  journal = {arXiv preprint arXiv:2609.35347},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2609.35347}
 }
 ```
 

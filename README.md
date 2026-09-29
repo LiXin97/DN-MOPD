@@ -7,9 +7,9 @@ feedback counts.**
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Project page](https://img.shields.io/badge/Project-Page-148F86.svg)](https://lixin.ai/DN-MOPD)
-![arXiv: coming soon](https://img.shields.io/badge/arXiv-coming_soon-b31b1b.svg)
+[![arXiv](https://img.shields.io/badge/arXiv-2609.35347-b31b1b.svg)](https://arxiv.org/abs/2609.35347)
 
-[Xin Li](https://lixin.ai/)¹, Hao Jiang¹, Xin Gao², Annan Wang¹, Yuchen Xie¹, Jinghao Guo¹, Xingwei Qu³, Yichi Zhang,
+[Xin Li](https://lixin.ai/)¹, Hao Jiang¹, [Xin Gao](https://gaoxin492.github.io/)², Annan Wang¹, Yuchen Xie¹, Jinghao Guo¹, Xingwei Qu³, Yichi Zhang,
 Chau Yuen¹
 
 ¹ Nanyang Technological University · ² Yale University · ³ University of Manchester
@@ -46,6 +46,7 @@ with label routing ("Label"). The formulas, and where they live in the code, are
 
 ## News
 
+- **2026-09-28**: Paper on arXiv: [arXiv:2609.35347](https://arxiv.org/abs/2609.35347).
 - **2026-09-28**: Code, training recipes, training prompt sets and per-question evaluation records released. Model
   weights: coming soon.
 
@@ -258,11 +259,12 @@ Coming soon.
 ## Citation
 
 ```bibtex
-@misc{li2026dnmopd,
-  title  = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
-  author = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
-  year   = {2026},
-  url    = {https://lixin.ai/DN-MOPD}
+@article{li2026dnmopd,
+  title   = {Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation},
+  author  = {Li, Xin and Jiang, Hao and Gao, Xin and Wang, Annan and Xie, Yuchen and Guo, Jinghao and Qu, Xingwei and Zhang, Yichi and Yuen, Chau},
+  journal = {arXiv preprint arXiv:2609.35347},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2609.35347}
 }
 ```
 

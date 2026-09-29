@@ -30,11 +30,20 @@ authors:
     family-names: Zhang
   - given-names: Chau
     family-names: Yuen
+identifiers:
+  - type: doi
+    value: "10.48550/arXiv.2609.35347"
+    description: "arXiv preprint (DOI registered by arXiv)"
+  - type: url
+    value: "https://arxiv.org/abs/2609.35347"
+    description: "arXiv abstract page"
 preferred-citation:
   type: article
   title: "Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation"
+  journal: "arXiv preprint arXiv:2609.35347"
   year: 2026
-  url: "https://lixin.ai/DN-MOPD"
+  doi: "10.48550/arXiv.2609.35347"
+  url: "https://arxiv.org/abs/2609.35347"
   authors:
     - given-names: Xin
       family-names: Li
@@ -54,8 +63,3 @@ preferred-citation:
       family-names: Zhang
     - given-names: Chau
       family-names: Yuen
-  # TODO: add the arXiv identifier once available, e.g.
-  # identifiers:
-  #   - type: other
-  #     value: "arXiv:XXXX.XXXXX"
-  #     description: "arXiv preprint"
