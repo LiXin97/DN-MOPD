@@ -1,5 +1,5 @@
 {
-  "_comment": "Models proposed for release on the Hugging Face Hub (PROPOSAL, see hf/README.md). Paper-row names refer to hf/paper_results.json (a verbatim copy of the paper's tables). Nothing here is uploaded automatically.",
+  "_comment": "Models released on the Hugging Face Hub (all public, see hf/README.md and the DN-MOPD collection). Paper-row names refer to hf/paper_results.json (a verbatim copy of the paper's tables). Nothing here is uploaded automatically.",
   "hf_namespace": "XINLI1997",
   "code_url": "https://github.com/LiXin97/DN-MOPD",
   "project_url": "https://lixin.ai/DN-MOPD",

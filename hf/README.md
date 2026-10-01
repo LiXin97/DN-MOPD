@@ -1,39 +1,37 @@
 # Hugging Face release tooling
 
-Model cards and an upload script for the DN-MOPD checkpoints. **Nothing has been uploaded yet.** The weights are
-listed as "coming soon" in the main README until the authors publish them.
+Model cards and upload tooling for the DN-MOPD checkpoints. **All 21 models are released** (2026-10-01) as public
+repositories under the Hugging Face account `XINLI1997`, grouped in the [DN-MOPD collection](https://huggingface.co/collections/XINLI1997/dn-mopd-6aba5f0df7bd8732d7205ed4).
+The README of each repository is the card in `cards/`, byte for byte.
 
 | File | Purpose |
 |---|---|
-| `models.json` | The models proposed for release: name, size, role, update count and paper row. |
+| `models.json` | The released models: name, size, role, update count and paper row. |
 | `paper_results.json` | Verbatim copy of the paper's tables. It is the only source of the numbers in the cards. |
 | `model_card_template.md` | The card template. `{{...}}` fields are filled by `make_cards.py`. |
 | `make_cards.py` | Renders `cards/<name>.md` for every model; `--check` fails if a card is out of date. |
 | `cards/` | The generated cards, one per model. |
 | `upload.py` | Uploads one export directory and its card. A dry run unless `--yes` is given. |
-| `MANIFEST.md` | The candidate list, with sizes and the model-identity hashes of the evaluation records. |
+| `MANIFEST.md` | The released models, with sizes and the model-identity hashes of the evaluation records. |
 
-## Naming: PROPOSAL (to be confirmed by the authors)
+## Released repositories
 
-All repositories go under the Hugging Face account **`XINLI1997`**. One shared prefix makes them easy to find and to
-group in one Hub collection ("DN-MOPD"):
-
-| Model | Proposed repo id |
+| Model | Repositories |
 |---|---|
-| DN-MOPD student, 80 updates (the paper's main model) | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}` |
-| Label baseline student (MOPD with label routing), 80 updates | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-baseline-label` |
-| GRPO experts (frozen teachers) | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-teacher-{math,code,if}` |
-| *Optional:* DN-MOPD continued to 160 updates | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-160updates` |
-| *Optional:* Label continued to 160 updates | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-baseline-label-160updates` |
+| DN-MOPD student, 80 updates (the paper's main model) | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}`: [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B) · [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B) · [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B) |
+| Label baseline student (MOPD with label routing), 80 updates | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-baseline-label`: [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-baseline-label) · [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-baseline-label) · [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-baseline-label) |
+| GRPO experts (frozen teachers), math | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-teacher-math`: [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-math) · [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-math) · [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-math) |
+| GRPO experts (frozen teachers), code | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-teacher-code`: [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-code) · [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-code) · [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-code) |
+| GRPO experts (frozen teachers), IF | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-teacher-if`: [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-if) · [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-if) · [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-if) |
+| DN-MOPD continued to 160 updates | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-160updates`: [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-160updates) · [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-160updates) · [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-160updates) |
+| Label continued to 160 updates | `XINLI1997/DN-MOPD-Qwen3.5-{9B,4B,2B}-baseline-label-160updates`: [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-baseline-label-160updates) · [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-baseline-label-160updates) · [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-baseline-label-160updates) |
 
-That is 15 core repositories (about 162 GB) plus 6 optional ones (about 65 GB). The authors should decide:
+That is 15 core repositories (about 162 GB) and 6 160-update continuations (about 65 GB). Every uploaded file was
+checked against the sha256 of the export it came from. [MANIFEST.md](MANIFEST.md) lists each model with its
+evaluation-record identity hash.
 
-1. the account or organisation, and whether to use a Hub collection;
-2. the suffixes (`-baseline-label`, `-teacher-if`, `-160updates`);
-3. whether to publish the teachers and the 160-update continuations;
-4. whether the repositories start as private (the default of `upload.py`) and are made public later.
-
-To use another namespace, run `python hf/make_cards.py --namespace <name>` and pass matching `--repo-id` values.
+To render the cards for another namespace, run `python hf/make_cards.py --namespace <name>` and pass matching
+`--repo-id` values.
 
 ## Workflow
 
@@ -47,6 +45,7 @@ python hf/upload.py --export-dir /path/to/export/DN-MOPD-Qwen3.5-9B \
     --repo-id XINLI1997/DN-MOPD-Qwen3.5-9B --card hf/cards/DN-MOPD-Qwen3.5-9B.md
 
 # 3) Real upload (private by default); needs HF_TOKEN or `huggingface-cli login`
+#    (only needed to re-upload; the 21 released repositories already hold these files)
 python hf/upload.py ... --yes
 ```
 
