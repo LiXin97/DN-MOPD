@@ -767,6 +767,7 @@ section[id], figure[id], #abstract { scroll-margin-top: calc(var(--nav-h) + 16px
 .lim li::before { background: var(--axis); }
 
 /* ------------------------------------------------------------------ cite */
+.cite-cta { margin-top: 20px; justify-content: flex-start; }
 .cite-grid { margin-top: 36px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: stretch; }
 .bib { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); min-width: 0; }
 .bib-bar { display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 16px; border-bottom: 1px solid rgba(255, 255, 255, .08); }

@@ -52,8 +52,8 @@
   .hx-copy .lede { margin-top: 20px; max-width: 36em; font-size: clamp(1.04rem, .9rem + .3vw, 1.2rem); text-wrap: pretty; }
   .hx-copy .authors { margin-top: 24px; justify-content: flex-start; gap: 2px 16px; font-size: 1rem; }
   .hx-copy .affils { justify-content: flex-start; gap: 0 18px; }
-  .hx-copy .cta { margin-top: 26px; justify-content: flex-start; gap: 8px; }
-  .hx-copy .btn { padding: 0 13px; gap: 7px; font-size: 14.5px; }
+  .hx-copy .cta { margin-top: 26px; justify-content: flex-start; gap: 6px; }
+  .hx-copy .btn { padding: 0 11px; gap: 7px; font-size: 14.5px; }
   .hx-copy .soon { font-size: 10.5px; padding: 2px 6px; }
   /* the art may bleed a little into the right page margin, like the reference */
   .hx-art { margin: 40px calc(-1 * clamp(0px, (100vw - 1248px) / 2 - 8px, 92px)) 0 0; }
