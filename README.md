@@ -5,10 +5,11 @@
 **Label routing decides which teacher supervises a prompt; DN-MOPD also controls how strongly each teacher's
 feedback counts.**
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Project page](https://img.shields.io/badge/Project-Page-148F86.svg)](https://lixin.ai/DN-MOPD)
-[![arXiv](https://img.shields.io/badge/arXiv-2609.35347-b31b1b.svg)](https://arxiv.org/abs/2609.35347)
-[![Models](https://img.shields.io/badge/Models-21_checkpoints-FFD21E.svg?logo=huggingface&logoColor=FFD21E)](https://huggingface.co/collections/XINLI1997/dn-mopd-6aba5f0df7bd8732d7205ed4)
+[![arXiv](https://img.shields.io/badge/arXiv_2609.35347-b31b1b?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2609.35347)
+[![Project page](https://img.shields.io/badge/Project_Page-148F86?style=for-the-badge&logo=googlechrome&logoColor=white)](https://lixin.ai/DN-MOPD)
+[![Models](https://img.shields.io/badge/Models-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/collections/XINLI1997/dn-mopd-6aba5f0df7bd8732d7205ed4)
+[![Data](https://img.shields.io/badge/Data-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/datasets/XINLI1997/DN-MOPD-Data)
+[![License](https://img.shields.io/badge/License_Apache_2.0-2F6DB5?style=for-the-badge&logo=apache&logoColor=white)](LICENSE)
 
 [Xin Li](https://lixin.ai/)¹, Hao Jiang¹, [Xin Gao](https://gaoxin492.github.io/)², Annan Wang¹, Yuchen Xie¹, Jinghao Guo¹, Xingwei Qu³, Yichi Zhang,
 [Chau Yuen](https://blogs.ntu.edu.sg/chau-yuen/)¹
@@ -257,22 +258,35 @@ Six-task Total gain of DN-MOPD over Label, student seed 42, with paired 95% boot
 ## Model weights
 
 All 21 checkpoints are on Hugging Face under `XINLI1997/DN-MOPD-Qwen3.5-<size>[-<suffix>]` and grouped in the
-[DN-MOPD collection](https://huggingface.co/collections/XINLI1997/dn-mopd-6aba5f0df7bd8732d7205ed4). They are the exact exports that produced the paper's scores.
+[DN-MOPD collection](https://huggingface.co/collections/XINLI1997/dn-mopd-6aba5f0df7bd8732d7205ed4). They are the exact exports that produced the paper's scores. The training
+prompts are in [XINLI1997/DN-MOPD-Data](https://huggingface.co/datasets/XINLI1997/DN-MOPD-Data).
 
-| Model | 9B | 4B | 2B |
+| Model | [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) base | [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) base | [Qwen3.5-2B](https://huggingface.co/Qwen/Qwen3.5-2B) base |
 |---|:---:|:---:|:---:|
-| DN-MOPD student, 80 updates (Tables 1–2) | [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B) | [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B) | [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B) |
-| Label baseline (label-routed MOPD), 80 updates | [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-baseline-label) | [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-baseline-label) | [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-baseline-label) |
-| Math expert (GRPO teacher) | [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-math) | [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-math) | [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-math) |
-| Code expert (GRPO teacher) | [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-code) | [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-code) | [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-code) |
-| IF expert (GRPO teacher) | [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-if) | [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-if) | [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-if) |
-| DN-MOPD, 160 updates (Table 5) | [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-160updates) | [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-160updates) | [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-160updates) |
-| Label, 160 updates (Table 5) | [9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-baseline-label-160updates) | [4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-baseline-label-160updates) | [2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-baseline-label-160updates) |
+| DN-MOPD student, 80 updates (Tables 1–2) | [🤗 9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B) | [🤗 4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B) | [🤗 2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B) |
+| Label baseline (label-routed MOPD), 80 updates | [🤗 9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-baseline-label) | [🤗 4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-baseline-label) | [🤗 2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-baseline-label) |
+| Math expert (GRPO teacher) | [🤗 9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-math) | [🤗 4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-math) | [🤗 2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-math) |
+| Code expert (GRPO teacher) | [🤗 9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-code) | [🤗 4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-code) | [🤗 2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-code) |
+| IF expert (GRPO teacher) | [🤗 9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-teacher-if) | [🤗 4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-teacher-if) | [🤗 2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-teacher-if) |
+| DN-MOPD, 160 updates (Table 5) | [🤗 9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-160updates) | [🤗 4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-160updates) | [🤗 2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-160updates) |
+| Label, 160 updates (Table 5) | [🤗 9B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-9B-baseline-label-160updates) | [🤗 4B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-4B-baseline-label-160updates) | [🤗 2B](https://huggingface.co/XINLI1997/DN-MOPD-Qwen3.5-2B-baseline-label-160updates) |
+
+Quick start with vLLM. Use the **non-thinking** chat format, as in training and evaluation:
+
+```python
+from vllm import LLM, SamplingParams
+
+llm = LLM(model="XINLI1997/DN-MOPD-Qwen3.5-9B", max_model_len=32768)
+params = SamplingParams(temperature=1.0, top_p=1.0, max_tokens=16384)
+messages = [{"role": "user", "content": "Find the sum of all positive divisors of 36. Put the final answer in \\boxed{}."}]
+outputs = llm.chat(messages, params, chat_template_kwargs={"enable_thinking": False})
+print(outputs[0].outputs[0].text)
+```
 
 - Weights are bfloat16 Hugging Face exports (`Qwen3_5ForConditionalGeneration`). The tokenizer, chat template and
   `config.json` are the base model's.
-- Use the **non-thinking** chat format (`enable_thinking=False`). The paper evaluated at temperature 1.0 and
-  top-p 1.0. Each model card has vLLM and Transformers examples, the model's paper scores and its training recipe.
+- The paper evaluated at temperature 1.0 and top-p 1.0 with 16K-token (main) and 8K-token caps. Each model card adds a
+  Transformers example, the model's paper scores and its training recipe. Transformers needs version 5 or later.
 - The exports omit the base model's 15 `mtp.*` tensors, so MTP speculative decoding is unavailable. Ordinary
   decoding is unaffected.
 - Only the seed-42 students are released. [hf/MANIFEST.md](hf/MANIFEST.md) ties every checkpoint to its evaluation
