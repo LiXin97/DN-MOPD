@@ -8,7 +8,7 @@ feedback counts.**
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Project page](https://img.shields.io/badge/Project-Page-148F86.svg)](https://lixin.ai/DN-MOPD)
 [![arXiv](https://img.shields.io/badge/arXiv-2609.35347-b31b1b.svg)](https://arxiv.org/abs/2609.35347)
-[![Models](https://img.shields.io/badge/%F0%9F%A4%97%20Models-21%20checkpoints-FFD21E.svg)](https://huggingface.co/collections/XINLI1997/dn-mopd-6aba5f0df7bd8732d7205ed4)
+[![Models](https://img.shields.io/badge/Models-21_checkpoints-FFD21E.svg?logo=huggingface&logoColor=FFD21E)](https://huggingface.co/collections/XINLI1997/dn-mopd-6aba5f0df7bd8732d7205ed4)
 
 [Xin Li](https://lixin.ai/)¹, Hao Jiang¹, [Xin Gao](https://gaoxin492.github.io/)², Annan Wang¹, Yuchen Xie¹, Jinghao Guo¹, Xingwei Qu³, Yichi Zhang,
 [Chau Yuen](https://blogs.ntu.edu.sg/chau-yuen/)¹
