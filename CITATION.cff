@@ -31,6 +31,9 @@ authors:
   - given-names: Chau
     family-names: Yuen
 identifiers:
+  - type: doi
+    value: "10.48550/arXiv.2609.35347"
+    description: "arXiv preprint"
   - type: url
     value: "https://arxiv.org/abs/2609.35347"
     description: "arXiv abstract page"
@@ -39,6 +42,7 @@ preferred-citation:
   title: "Beyond Teacher Assignment: Domain-Normalized Multi-Teacher On-Policy Distillation"
   journal: "arXiv preprint arXiv:2609.35347"
   year: 2026
+  doi: "10.48550/arXiv.2609.35347"
   url: "https://arxiv.org/abs/2609.35347"
   authors:
     - given-names: Xin
