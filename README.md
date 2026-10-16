@@ -66,18 +66,20 @@ Six-benchmark average (%), 16K-token answer limit, student seed 42.
 
 ### 1. Install
 
+This is the paper's evaluation environment (Python 3.10, vLLM 0.18.0, PyTorch 2.10, pinned versions):
+
 ```bash
-conda create -y -n dnmopd python=3.10 && conda activate dnmopd
-pip install vllm==0.18.0           # to run the released models (GPU); also installs PyTorch
 git clone https://github.com/LiXin97/DN-MOPD.git && cd DN-MOPD
-pip install -e .                   # the dn_mopd package; it needs only PyTorch
+conda create -y -n dnmopd-eval python=3.10 && conda activate dnmopd-eval
+pip install -r env/requirements-eval.txt -c env/constraints-eval.txt
+pip install --no-deps -e .    # the dn_mopd package (it needs only PyTorch)
 ```
 
 ### 2. Download a model
 
 ```bash
-# the 2B DN-MOPD student, about 4.4 GB
-hf download XINLI1997/DN-MOPD-Qwen3.5-2B --local-dir models/DN-MOPD-Qwen3.5-2B
+# the 2B DN-MOPD student, about 4.4 GB, into the Hugging Face cache
+hf download XINLI1997/DN-MOPD-Qwen3.5-2B
 ```
 
 <details>
@@ -109,7 +111,7 @@ hf download XINLI1997/DN-MOPD-Qwen3.5-2B --local-dir models/DN-MOPD-Qwen3.5-2B
 ```python
 from vllm import LLM, SamplingParams
 
-llm = LLM(model="models/DN-MOPD-Qwen3.5-2B", max_model_len=32768)
+llm = LLM(model="XINLI1997/DN-MOPD-Qwen3.5-2B", max_model_len=32768)
 params = SamplingParams(temperature=1.0, top_p=1.0, max_tokens=16384)
 question = "Find the sum of all positive divisors of 36. Put the final answer in \\boxed{}."
 outputs = llm.chat([{"role": "user", "content": question}], params,
@@ -175,7 +177,8 @@ python -m eval.compare q35_2b_s_mdnorm q35_2b_s_route --cap 16384
 
 ### Set up the full environments
 
-Training and evaluation need different `transformers` versions, so they use two environments:
+Training and evaluation need different `transformers` versions, so they use two environments. The evaluation
+environment is the one from [Quick start](#1-install).
 
 | Environment | Python | Key packages |
 |---|---|---|
@@ -191,11 +194,9 @@ pip install -r env/requirements-train.txt -c env/constraints-train.txt
 pip install --no-deps -e ./miles -e .
 python env/check_env.py --env train
 
-# evaluation environment
-conda create -y -n dnmopd-eval python=3.10 && conda activate dnmopd-eval
-pip install -r env/requirements-eval.txt -c env/constraints-eval.txt
-pip install --no-deps -e .
-python -m eval.external.fetch       # official LiveCodeBench / IFEval / IFBench checkers
+# evaluation environment: from Quick start, plus the official checkers
+conda activate dnmopd-eval
+python -m eval.external.fetch       # LiveCodeBench / IFEval / IFBench checkers
 python env/check_env.py --env eval
 ```
 
@@ -209,7 +210,7 @@ In the evaluation environment:
 python -m eval.data.prepare    # download and verify the six benchmarks (once)
 
 for s in aime25 aime26 lcb_v5 lcb_v6 ifeval ifbench; do
-  python -m eval.generate --model models/DN-MOPD-Qwen3.5-2B --name my_model \
+  python -m eval.generate --model XINLI1997/DN-MOPD-Qwen3.5-2B --name my_model \
       --suite $s --max-tokens 16384                              # generate answers (GPU)
   python -m eval.grade --gen outputs/eval/my_model/$s/cap16384   # grade them (CPU)
 done
